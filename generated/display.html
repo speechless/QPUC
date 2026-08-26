@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>QPUC — Affichage</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#060e1d;--navy2:#0c1a33;--navy3:#142848;
+  --gold:#c8a84b;--gold2:#e8c96a;--gold3:#f5e5b0;
+  --red:#c0392b;--green:#1a7a4a;
+}
+html,body{width:100vw;height:100vh;overflow:hidden;background:var(--navy);color:#f0eade;font-family:'Barlow Condensed',sans-serif}
+body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 80% 50% at 50% -10%,rgba(200,168,75,.12),transparent 70%);pointer-events:none;z-index:0}
+.stage{position:relative;z-index:1;width:100vw;height:100vh;display:flex;flex-direction:column}
+
+/* HEADER */
+.hdr{height:10vh;flex-shrink:0;display:flex;align-items:center;justify-content:center;border-bottom:2px solid var(--gold);background:linear-gradient(180deg,rgba(200,168,75,.1) 0%,transparent 100%);position:relative}
+.hdr-title{font-size:clamp(20px,3.8vw,52px);font-weight:900;letter-spacing:4px;color:var(--gold2);text-transform:uppercase;text-shadow:0 2px 24px rgba(200,168,75,.35)}
+.hdr-right{position:absolute;right:3vw;font-size:clamp(11px,1.3vw,18px);color:rgba(200,168,75,.5);letter-spacing:2px;text-transform:uppercase}
+
+/* VUES */
+.view{display:none;flex:1;overflow:hidden}
+.view.active{display:flex}
+
+/* ATTENTE */
+#vsetup{align-items:center;justify-content:center;flex-direction:column}
+.wait-title{font-size:clamp(28px,5vw,72px);font-weight:900;color:var(--gold);letter-spacing:4px;text-transform:uppercase}
+.wait-sub{font-size:clamp(13px,1.8vw,26px);color:rgba(200,168,75,.45);letter-spacing:2px;margin-top:2vh}
+
+/* 9 POINTS */
+#v9pts{flex-direction:column;padding:2.5vh 4vw}
+.nine-title{font-size:clamp(16px,2.8vw,40px);font-weight:700;color:var(--gold);letter-spacing:3px;text-align:center;margin-bottom:2.5vh;text-transform:uppercase;text-shadow:0 0 28px rgba(200,168,75,.3)}
+.nine-list{display:flex;flex-direction:column;gap:1.8%;flex:1}
+.pcard{flex:1;display:flex;align-items:center;gap:3%;padding:0 3.5%;background:linear-gradient(135deg,rgba(255,255,255,.05),rgba(255,255,255,.02));border:1.5px solid rgba(200,168,75,.18);border-radius:1.2vw;position:relative;overflow:hidden;transition:all .35s}
+.pcard::before{content:'';position:absolute;left:0;top:0;bottom:0;width:.5vw;background:var(--gold);opacity:.35;transition:opacity .3s}
+.pcard.winner{border-color:var(--gold);background:linear-gradient(135deg,rgba(200,168,75,.12),rgba(200,168,75,.04))}.pcard.winner::before{opacity:1;box-shadow:0 0 12px var(--gold)}
+.pcard.qualified{border-color:#27ae60;background:linear-gradient(135deg,rgba(27,122,74,.14),rgba(27,122,74,.04))}.pcard.qualified::before{background:#27ae60;opacity:1}
+.pcard.elim{opacity:.28}
+.pc-name{font-size:clamp(15px,3.2vw,46px);font-weight:900;letter-spacing:.5px;min-width:22%}
+.pc-bars{flex:1;display:flex;gap:.6%;align-items:center;height:30%}
+.pc-bar{flex:1;border-radius:.3vw;background:rgba(255,255,255,.1);height:100%;transition:background .5s}
+.pc-bar.on{background:var(--gold);box-shadow:0 0 6px rgba(200,168,75,.45)}
+.pc-bar.on.qon{background:#27ae60;box-shadow:0 0 6px rgba(39,174,96,.45)}
+.pc-pts{font-size:clamp(22px,5vw,74px);font-weight:900;color:var(--gold2);min-width:10%;text-align:right;text-shadow:0 0 18px rgba(200,168,75,.4)}
+.pc-badge{font-size:clamp(10px,1.2vw,18px);padding:.3em .8em;border-radius:.5vw;font-weight:700;min-width:9vw;text-align:center;letter-spacing:1px}
+.bq{background:#1a7a4a;color:#a8f0c0}.bbuzz{background:var(--gold);color:var(--navy);animation:pb .8s ease-in-out infinite}.bwrong{background:#5a1010;color:#f09090}
+@keyframes pb{0%,100%{transform:scale(1)}50%{transform:scale(1.07)}}
+
+/* ══════════════════════════════════════════════
+   4 À LA SUITE — deux écrans (thème / chrono)
+══════════════════════════════════════════════ */
+#v4suite{position:relative;overflow:hidden}
+
+/* Écran thème */
+.four-theme-screen{
+  position:absolute;inset:0;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5vh;
+  transition:transform .7s cubic-bezier(.77,0,.175,1),opacity .7s;
+}
+.four-theme-screen.hidden{transform:translateX(-100%);opacity:0;pointer-events:none}
+
+.four-theme-player{font-size:clamp(20px,4.5vw,64px);font-weight:900;letter-spacing:2px}
+.four-themes-grid{display:grid;grid-template-columns:1fr 1fr;gap:3vh 4vw;width:70vw;max-width:900px}
+.four-theme-tile{
+  padding:3.5vh 3vw;border-radius:1.5vw;
+  border:2px solid rgba(200,168,75,.25);
+  background:rgba(255,255,255,.05);
+  font-size:clamp(16px,2.5vw,36px);font-weight:700;text-align:center;
+  transition:all .4s;
+}
+.four-theme-tile.taken{opacity:.25;border-style:dashed;background:rgba(0,0,0,.3)}
+.four-theme-tile.mystery{color:var(--gold);font-style:italic;border-color:rgba(200,168,75,.4)}
+.four-theme-tile.chosen{border-color:var(--gold2);background:rgba(200,168,75,.18);color:var(--gold2);box-shadow:0 0 30px rgba(200,168,75,.2);transform:scale(1.04)}
+
+/* Écran chrono */
+.four-chrono-screen{
+  position:absolute;inset:0;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3vh;
+  transition:transform .7s cubic-bezier(.77,0,.175,1),opacity .7s;
+  transform:translateX(100%);opacity:0;
+}
+.four-chrono-screen.visible{transform:translateX(0);opacity:1}
+
+.four-c-player{font-size:clamp(18px,4vw,56px);font-weight:900;letter-spacing:2px}
+.four-c-theme{font-size:clamp(13px,2vw,28px);color:var(--gold);letter-spacing:3px;text-transform:uppercase}
+.four-arc-wrap{position:relative;width:min(24vw,280px);height:min(24vw,280px)}
+.arc-svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.arc-track{fill:none;stroke:rgba(255,255,255,.08);stroke-width:8}
+.arc-fill{fill:none;stroke:var(--gold);stroke-width:8;stroke-linecap:round;stroke-dasharray:339.3;stroke-dashoffset:0;transform:rotate(-90deg);transform-origin:60px 60px;transition:stroke-dashoffset .4s,stroke .4s}
+/* Arc record (fond légèrement différent) */
+.arc-best{fill:none;stroke:rgba(200,168,75,.2);stroke-width:8;stroke-linecap:round;stroke-dasharray:339.3;stroke-dashoffset:339.3;transform:rotate(-90deg);transform-origin:60px 60px;transition:stroke-dashoffset .5s}
+.arc-num{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:clamp(34px,7vw,100px);font-weight:900}
+.arc-num.ok{color:#f0eade}.arc-num.warn{color:#e67e22}.arc-num.danger{color:var(--red);animation:blink .5s step-end infinite}
+@keyframes blink{50%{opacity:.15}}
+.four-dots{display:flex;gap:3%;justify-content:center}
+.fdot{width:min(6.5vw,82px);height:min(6.5vw,82px);border-radius:50%;border:2.5px solid rgba(200,168,75,.3);background:rgba(255,255,255,.05);display:flex;align-items:center;justify-content:center;font-size:clamp(18px,3vw,42px);color:transparent;transition:all .4s}
+.fdot.on{background:var(--gold);border-color:var(--gold);color:var(--navy);box-shadow:0 0 18px rgba(200,168,75,.6)}
+.fdot.best{background:rgba(200,168,75,.2);border-color:rgba(200,168,75,.45)}
+
+/* FACE À FACE */
+#vff{flex-direction:column;padding:2.5vh 3vw}
+.ff-label{font-size:clamp(14px,2vw,28px);color:var(--gold);letter-spacing:2px;text-transform:uppercase;text-align:center;margin-bottom:1.5vh}
+.ff-arena{flex:1;display:grid;grid-template-columns:1fr auto 1fr;gap:2.5%;align-items:stretch}
+.ff-side{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4%;border:1.5px solid rgba(200,168,75,.2);border-radius:1.2vw;background:linear-gradient(135deg,rgba(255,255,255,.05),rgba(255,255,255,.02));padding:4% 3%;transition:all .4s}
+.ff-side.fa{border-color:var(--gold);background:linear-gradient(135deg,rgba(200,168,75,.1),rgba(200,168,75,.03));box-shadow:inset 0 0 30px rgba(200,168,75,.07)}
+.ff-side.fb{border-color:var(--gold2);background:rgba(200,168,75,.14);animation:ffbuzz .4s ease-in-out}
+@keyframes ffbuzz{0%,100%{transform:scale(1)}50%{transform:scale(1.015)}}
+.ff-sname{font-size:clamp(16px,3.8vw,56px);font-weight:900;text-align:center;letter-spacing:.5px}
+.ff-score{font-size:clamp(30px,7vw,104px);font-weight:900;color:var(--gold);line-height:1}
+.ff-target-bar{font-size:clamp(11px,1.4vw,18px);color:rgba(200,168,75,.5);margin-top:1%}
+.ff-center{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3%}
+.ff-vs{font-size:clamp(14px,2.5vw,36px);font-weight:900;color:rgba(200,168,75,.35);letter-spacing:2px}
+.ff-arc-wrap{position:relative;width:min(14vw,180px);height:min(14vw,180px)}
+
+/* Zone bar FF */
+.ff-zones{display:flex;width:100%;height:clamp(28px,3.5vh,50px);border-radius:.8vw;overflow:hidden;margin-bottom:2%}
+.ff-zone{flex:1;display:flex;align-items:center;justify-content:center;font-size:clamp(12px,1.4vw,20px);font-weight:700;transition:all .3s;color:rgba(255,255,255,.5)}
+.ff-zone.z4{background:rgba(200,168,75,.45)}.ff-zone.z3{background:rgba(200,168,75,.3)}.ff-zone.z2{background:rgba(200,168,75,.18)}.ff-zone.z1{background:rgba(200,168,75,.09)}
+.ff-zone.active{box-shadow:inset 0 0 0 2.5px var(--gold2);color:var(--gold2);font-size:clamp(14px,1.8vw,24px)}
+
+/* ÉGALITÉ / FIN */
+#vegalite{align-items:center;justify-content:center;flex-direction:column;gap:4vh}
+.eq-label{font-size:clamp(22px,4vw,58px);font-weight:900;color:var(--gold);letter-spacing:3px;text-transform:uppercase}
+.eq-list{display:flex;gap:6vw;align-items:flex-start}
+.eq-item{text-align:center}
+.eq-name{font-size:clamp(16px,4vw,54px);font-weight:900}.eq-name.buzz{color:var(--gold)}
+.eq-sc{font-size:clamp(30px,6vw,84px);font-weight:900;color:var(--gold)}
+.eq-bzz{font-size:clamp(12px,1.8vw,24px);color:var(--gold);margin-top:.5vh;letter-spacing:1px}
+#vfin{align-items:center;justify-content:center;flex-direction:column;gap:4vh}
+.fin-title{font-size:clamp(28px,5.5vw,80px);font-weight:900;color:var(--gold);letter-spacing:4px;text-transform:uppercase}
+.fin-list{display:flex;gap:6vw}
+.fin-item{text-align:center}
+.fin-name{font-size:clamp(20px,4.5vw,64px);font-weight:900;color:var(--gold)}
+.fin-qual{font-size:clamp(11px,1.5vw,22px);color:#27ae60;letter-spacing:2px;margin-top:.5vh}
+
+/* DÉCO */
+.corner{position:absolute;width:min(5vw,50px);height:min(5vw,50px);border-color:var(--gold);border-style:solid;opacity:.2}
+.tl{top:8px;left:8px;border-width:2px 0 0 2px}.tr{top:8px;right:8px;border-width:2px 2px 0 0}
+.bl{bottom:8px;left:8px;border-width:0 0 2px 2px}.br{bottom:8px;right:8px;border-width:0 2px 2px 0}
+</style>
+</head>
+<body>
+<div class="stage">
+  <div class="corner tl"></div><div class="corner tr"></div>
+  <div class="corner bl"></div><div class="corner br"></div>
+
+  <div class="hdr">
+    <div class="hdr-title">Question pour un Champion</div>
+    <div class="hdr-right" id="hdr-phase">—</div>
+  </div>
+
+  <!-- ATTENTE -->
+  <div class="view" id="vsetup">
+    <div class="wait-title">Prêt à jouer</div>
+    <div class="wait-sub">En attente du maître du jeu…</div>
+  </div>
+
+  <!-- 9 POINTS -->
+  <div class="view" id="v9pts">
+    <div class="nine-title">9 Points Gagnants</div>
+    <div class="nine-list" id="nine-list"></div>
+  </div>
+
+  <!-- 4 À LA SUITE -->
+  <div class="view" id="v4suite">
+    <!-- Écran thème -->
+    <div class="four-theme-screen" id="four-theme-screen">
+      <div class="four-theme-player" id="four-theme-player">—</div>
+      <div class="four-themes-grid" id="four-themes-grid"></div>
+    </div>
+    <!-- Écran chrono -->
+    <div class="four-chrono-screen" id="four-chrono-screen">
+      <div class="four-c-player" id="four-c-player">—</div>
+      <div class="four-c-theme" id="four-c-theme"></div>
+      <div class="four-arc-wrap">
+        <svg class="arc-svg" viewBox="0 0 120 120">
+          <circle class="arc-track" cx="60" cy="60" r="54"/>
+          <!-- Arc record (grisé) -->
+          <circle class="arc-best" id="four-arc-best" cx="60" cy="60" r="54"/>
+          <!-- Arc courant -->
+          <circle class="arc-fill" id="four-arc" cx="60" cy="60" r="54"/>
+        </svg>
+        <div class="arc-num ok" id="four-num">40</div>
+      </div>
+      <div class="four-dots" id="four-dots">
+        <div class="fdot" id="d0">✓</div><div class="fdot" id="d1">✓</div>
+        <div class="fdot" id="d2">✓</div><div class="fdot" id="d3">✓</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FACE À FACE -->
+  <div class="view" id="vff">
+    <div class="ff-label">Face à Face</div>
+    <div class="ff-arena">
+      <div class="ff-side" id="ffs-a">
+        <div class="ff-sname" id="ff-na">—</div>
+        <div class="ff-score" id="ff-sa">0</div>
+        <div class="ff-target-bar" id="ff-tbar-a"></div>
+      </div>
+      <div class="ff-center">
+        <div class="ff-vs">VS</div>
+        <div class="ff-zones" id="ff-zones">
+          <div class="ff-zone z4" id="ffz4">4</div>
+          <div class="ff-zone z3" id="ffz3">3</div>
+          <div class="ff-zone z2" id="ffz2">2</div>
+          <div class="ff-zone z1" id="ffz1">1</div>
+        </div>
+        <div class="ff-arc-wrap">
+          <svg class="arc-svg" viewBox="0 0 120 120">
+            <circle class="arc-track" cx="60" cy="60" r="54"/>
+            <circle class="arc-fill" id="ff-arc" cx="60" cy="60" r="54"/>
+          </svg>
+          <div class="arc-num ok" id="ff-num">20</div>
+        </div>
+      </div>
+      <div class="ff-side" id="ffs-b">
+        <div class="ff-sname" id="ff-nb">—</div>
+        <div class="ff-score" id="ff-sb">0</div>
+        <div class="ff-target-bar" id="ff-tbar-b"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ÉGALITÉ -->
+  <div class="view" id="vegalite">
+    <div class="eq-label">Départage</div>
+    <div class="eq-list" id="eq-list"></div>
+  </div>
+
+  <!-- FIN -->
+  <div class="view" id="vfin">
+    <div class="fin-title">Félicitations !</div>
+    <div class="fin-list" id="fin-list"></div>
+  </div>
+</div>
+
+<script>
+const FOUR_DUR = 40, FF_DUR = 20;
+const CIRC = 339.3;
+const PH_LABELS = {setup:'Préparation','9pts':'9 Points Gagnants','4suite':'4 à la Suite',facaface:'Face à Face',egalite:'Départage',fin:'Fin de partie'};
+const VMAP = {setup:'vsetup','9pts':'v9pts','4suite':'v4suite',facaface:'vff',egalite:'vegalite',fin:'vfin'};
+
+let G = null, ws = null, srvOff = 0;
+let fourTick = null, ffTick = null;
+let fourShowingChrono = false;
+
+function srvNow() { return Date.now()/1000 + srvOff; }
+
+function connect() {
+  ws = new WebSocket(`ws://${location.hostname}:8765/web`);
+  ws.onclose = () => setTimeout(connect, 3000);
+  ws.onmessage = e => {
+    const d = JSON.parse(e.data);
+    if (d.type === 'state') {
+      if (d.server_now) srvOff = d.server_now - Date.now()/1000;
+      G = d.game; render();
+    }
+  };
+}
+connect();
+
+function render() {
+  if (!G) return;
+  document.getElementById('hdr-phase').textContent = PH_LABELS[G.phase] || G.phase;
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.getElementById(VMAP[G.phase]||'vsetup')?.classList.add('active');
+
+  clearInterval(fourTick); clearInterval(ffTick);
+
+  if (G.phase === '9pts')     render9pts();
+  if (G.phase === '4suite')   render4suite();
+  if (G.phase === 'facaface') renderFF();
+  if (G.phase === 'egalite')  renderEq();
+  if (G.phase === 'fin')      renderFin();
+}
+
+// ── 9 POINTS ──
+function render9pts() {
+  const wrong = G.buzzed_wrong||[], wid = G.winner_pid;
+  document.getElementById('nine-list').innerHTML = G.players.map(p => {
+    const pts  = Math.min(p.points, 9);
+    const isW  = wid===p.id, isWr = wrong.includes(p.id);
+    const bars = Array.from({length:9},(_,i)=>`<div class="pc-bar ${i<pts?(p.qualified?'on qon':'on'):''}"></div>`).join('');
+    const badge = p.qualified ? '<span class="pc-badge bq">QUALIFIÉ</span>'
+      : isW  ? '<span class="pc-badge bbuzz">🔔 BUZZÉ</span>'
+      : isWr ? '<span class="pc-badge bwrong">✗</span>' : '';
+    const cls = p.qualified?'qualified':isW?'winner':p.eliminated?'elim':'';
+    return `<div class="pcard ${cls}">
+      <div class="pc-name">${q(p.name)}</div>
+      <div class="pc-bars">${bars}</div>${badge}
+      <div class="pc-pts">${pts}</div>
+    </div>`;
+  }).join('');
+}
+
+// ── 4 À LA SUITE ──
+function render4suite() {
+  const active  = G.four_current_pid;
+  const chosen  = G.four_theme_chosen;   // null = pas encore choisi
+  const pending = !active && chosen === null; // en attente de choix thème (ou de candidat)
+  const showChrono = !!active;
+  const showTheme  = !active; // montre thèmes même si pas encore choisi
+
+  const tScreen = document.getElementById('four-theme-screen');
+  const cScreen = document.getElementById('four-chrono-screen');
+
+  if (showChrono && !fourShowingChrono) {
+    // Transition thème → chrono
+    tScreen.classList.add('hidden');
+    cScreen.classList.add('visible');
+    fourShowingChrono = true;
+  } else if (!showChrono && fourShowingChrono) {
+    tScreen.classList.remove('hidden');
+    cScreen.classList.remove('visible');
+    fourShowingChrono = false;
+  } else if (!fourShowingChrono) {
+    tScreen.classList.remove('hidden');
+    cScreen.classList.remove('visible');
+  }
+
+  // Écran thème
+  if (!showChrono) {
+    // Trouver le candidat en attente (le plus récent non encore fait)
+    const done = G.four_done_pids||[];
+    const next = G.players.filter(p=>!p.eliminated).find(p=>!done.includes(p.id));
+    document.getElementById('four-theme-player').textContent = next ? next.name : '—';
+    const taken = G.four_themes_taken||[];
+    const chosenIdx = G.four_theme_chosen;
+    document.getElementById('four-themes-grid').innerHTML = G.themes.map((t,i) => {
+      const isTaken   = taken.includes(i);
+      const isMystery = i === 3;
+      const isChosen  = chosenIdx === i;
+      return `<div class="four-theme-tile ${isTaken?'taken':''} ${isMystery?'mystery':''} ${isChosen?'chosen':''}">
+        ${isMystery?'Thème Mystère':q(t||'Thème '+(i+1))}
+      </div>`;
+    }).join('');
+  }
+
+  // Écran chrono
+  if (showChrono) {
+    const p = G.players.find(pl=>pl.id===active);
+    document.getElementById('four-c-player').textContent = p?p.name:'—';
+    const ti = G.four_theme_chosen;
+    const thm = ti===3?'Thème Mystère':(G.themes[ti]||'');
+    document.getElementById('four-c-theme').textContent = thm;
+
+    // Dots : on = courant, best = record
+    const cur  = G.four_score||0;
+    const best = G.four_best||0;
+    for (let i=0;i<4;i++) {
+      const el = document.getElementById(`d${i}`);
+      if (!el) continue;
+      el.className = 'fdot' + (i<cur?' on':i<best?' best':'');
+    }
+
+    // Arc record (en grisé) — représente le meilleur score du tour
+    const arcBest = document.getElementById('four-arc-best');
+    if (arcBest) {
+      // best en proportion de 40s de chrono = hors sujet ici, on l'utilise pour les dots
+      // À la place on affiche l'arc best en proportion de 4 (4 bonnes réponses)
+      arcBest.style.strokeDashoffset = CIRC * (1 - best/4);
+    }
+
+    tickFour();
+    if (G.four_timer_running) fourTick = setInterval(tickFour, 200);
+  }
+}
+function tickFour() {
+  if (!G) return;
+  const rem = Math.max(0, G.four_timer_end - srvNow());
+  const pct = rem/FOUR_DUR;
+  const arc = document.getElementById('four-arc');
+  const num = document.getElementById('four-num');
+  if (!arc||!num) return;
+  arc.style.strokeDashoffset = CIRC*(1-pct);
+  arc.style.stroke = rem<=5?'var(--red)':rem<=15?'#e67e22':'var(--gold)';
+  num.textContent  = Math.ceil(rem);
+  num.className    = 'arc-num '+(rem<=5?'danger':rem<=15?'warn':'ok');
+}
+
+// ── FACE À FACE ──
+function renderFF() {
+  const pa = G.players.find(p=>p.id===G.ff_player_a);
+  const pb = G.players.find(p=>p.id===G.ff_player_b);
+  const sa = (G.ff_scores||{})[G.ff_player_a]||0;
+  const sb = (G.ff_scores||{})[G.ff_player_b]||0;
+  const tgt = G.ff_total_target||12;
+
+  document.getElementById('ff-na').textContent = pa?pa.name:'—';
+  document.getElementById('ff-nb').textContent = pb?pb.name:'—';
+  document.getElementById('ff-sa').textContent = sa;
+  document.getElementById('ff-sb').textContent = sb;
+  document.getElementById('ff-tbar-a').textContent = `${sa} / ${tgt} pts`;
+  document.getElementById('ff-tbar-b').textContent = `${sb} / ${tgt} pts`;
+
+  const buzzed = G.ff_buzzed_pid, active = G.ff_active_pid;
+  document.getElementById('ffs-a').className = 'ff-side'+(buzzed===G.ff_player_a?' fb':active===G.ff_player_a?' fa':'');
+  document.getElementById('ffs-b').className = 'ff-side'+(buzzed===G.ff_player_b?' fb':active===G.ff_player_b?' fa':'');
+
+  // Zones
+  const zonePts = G.ff_zone_pts||4;
+  [4,3,2,1].forEach(z => document.getElementById(`ffz${z}`)?.classList.toggle('active', z===zonePts));
+
+  tickFF();
+  if (G.ff_timer_running) ffTick = setInterval(tickFF, 150);
+}
+function tickFF() {
+  if (!G) return;
+  const rem = Math.max(0, G.ff_timer_end - srvNow());
+  const pct = rem/FF_DUR;
+  const arc = document.getElementById('ff-arc');
+  const num = document.getElementById('ff-num');
+  if (!arc||!num) return;
+  arc.style.strokeDashoffset = CIRC*(1-pct);
+  arc.style.stroke = rem<=4?'var(--red)':rem<=8?'#e67e22':'var(--gold)';
+  num.textContent  = Math.ceil(rem);
+  num.className    = 'arc-num '+(rem<=4?'danger':rem<=8?'warn':'ok');
+}
+
+// ── ÉGALITÉ ──
+function renderEq() {
+  const pids=G.eq_pids||[], sc=G.eq_scores||{}, wid=G.winner_pid;
+  document.getElementById('eq-list').innerHTML = pids.map(pid => {
+    const p=G.players.find(pl=>pl.id===pid), isW=wid===pid;
+    return `<div class="eq-item">
+      <div class="eq-name ${isW?'buzz':''}">${q(p?p.name:pid)}</div>
+      <div class="eq-sc">${(sc[pid]||0)}/2</div>
+      ${isW?'<div class="eq-bzz">🔔 BUZZÉ</div>':''}
+    </div>`;
+  }).join('');
+}
+
+// ── FIN ──
+function renderFin() {
+  document.getElementById('fin-list').innerHTML = G.players.filter(p=>p.qualified).map(p =>
+    `<div class="fin-item"><div class="fin-name">${q(p.name)}</div><div class="fin-qual">QUALIFIÉ ✓</div></div>`).join('');
+}
+
+function q(s){return String(s||'').replace(/[<>&"]/g,c=>({'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;'}[c]))}
+</script>
+</body>
+</html>

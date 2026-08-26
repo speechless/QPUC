@@ -1,0 +1,465 @@
+[
+  {
+    "game_id": "ed3cba0d",
+    "created_at": "2026-05-10 10:14",
+    "phase": "4suite",
+    "players": [],
+    "themes": [
+      "",
+      "",
+      "",
+      ""
+    ],
+    "finished": false,
+    "history": [
+      {
+        "t": "10:14:02",
+        "msg": "📡 ESP connecté : Joueur 2 (buzzer2)"
+      },
+      {
+        "t": "10:14:03",
+        "msg": "📡 ESP connecté : Joueur 1 (buzzer1)"
+      },
+      {
+        "t": "10:18:38",
+        "msg": "📂 Partie chargée"
+      },
+      {
+        "t": "10:18:46",
+        "msg": "📌 Phase → 4suite"
+      }
+    ],
+    "nine_mode": "auto",
+    "q_value": 1,
+    "q_count": 0,
+    "round_active": false,
+    "buzzer_order": [],
+    "buzzed_wrong": [],
+    "winner_pid": null,
+    "four_current_pid": null,
+    "four_score": 0,
+    "four_timer_end": 0.0,
+    "four_timer_running": false,
+    "four_done_pids": [],
+    "four_theme_index": 0,
+    "ff_player_a": null,
+    "ff_player_b": null,
+    "ff_scores": {},
+    "ff_timer_end": 0.0,
+    "ff_timer_running": false,
+    "ff_active_pid": null,
+    "ff_buzzed_pid": null,
+    "ff_wrong_pid": null,
+    "eq_pids": [],
+    "eq_scores": {},
+    "eq_buzzed_wrong": []
+  },
+  {
+    "game_id": "111ea790",
+    "created_at": "2026-05-10 10:16",
+    "phase": "4suite",
+    "players": [
+      {
+        "id": "p1",
+        "name": "Alfred",
+        "buzzer_id": "buzzer1",
+        "points": 9,
+        "qualified": true,
+        "eliminated": false
+      },
+      {
+        "id": "p2",
+        "name": "Bertrand",
+        "buzzer_id": "buzzer2",
+        "points": 3,
+        "qualified": false,
+        "eliminated": true
+      }
+    ],
+    "themes": [
+      "On fait quoi ?",
+      "Feur je pense",
+      "A la belle étoile",
+      "L'étoile du Nord"
+    ],
+    "finished": false,
+    "history": [
+      {
+        "t": "10:16:14",
+        "msg": "🎮 Nouvelle partie démarrée"
+      },
+      {
+        "t": "10:16:23",
+        "msg": "Mode : manual"
+      },
+      {
+        "t": "10:16:25",
+        "msg": "Mode : auto"
+      },
+      {
+        "t": "10:16:28",
+        "msg": "▶ Question — 3 pt(s)"
+      },
+      {
+        "t": "10:16:35",
+        "msg": "🔔 Bertrand buzzé en premier !"
+      },
+      {
+        "t": "10:16:43",
+        "msg": "❌ Bertrand — faux"
+      },
+      {
+        "t": "10:17:30",
+        "msg": "🔔 Alfred buzzé en premier !"
+      },
+      {
+        "t": "10:17:37",
+        "msg": "✅ Alfred +3pt → 3pt"
+      },
+      {
+        "t": "10:17:41",
+        "msg": "🔔 Alfred buzzé en premier !"
+      },
+      {
+        "t": "10:17:45",
+        "msg": "Valeur question → 1 pt(s)"
+      },
+      {
+        "t": "10:17:48",
+        "msg": "❌ Alfred — faux"
+      },
+      {
+        "t": "10:17:58",
+        "msg": "Mode : manual"
+      },
+      {
+        "t": "10:18:02",
+        "msg": "✏️ Bertrand +3pt → 3pt"
+      },
+      {
+        "t": "10:18:17",
+        "msg": "✏️ Alfred +3pt → 6pt"
+      },
+      {
+        "t": "10:18:21",
+        "msg": "🏆 Alfred QUALIFIÉ ! (manuel)"
+      },
+      {
+        "t": "10:18:21",
+        "msg": "🏁 Manche 9 points terminée !"
+      },
+      {
+        "t": "10:18:53",
+        "msg": "📂 Partie chargée"
+      },
+      {
+        "t": "10:18:55",
+        "msg": "📌 Phase → facaface"
+      },
+      {
+        "t": "10:19:05",
+        "msg": "📌 Phase → 4suite"
+      },
+      {
+        "t": "10:19:06",
+        "msg": "⏱ Tour de Alfred — 4 à la suite"
+      },
+      {
+        "t": "10:19:10",
+        "msg": "✅ Alfred : 1/4"
+      },
+      {
+        "t": "10:19:12",
+        "msg": "✅ Alfred : 2/4"
+      },
+      {
+        "t": "10:19:14",
+        "msg": "❌ Alfred — fin du tour (2/4)"
+      },
+      {
+        "t": "10:19:14",
+        "msg": "🔚 Mauvaise réponse"
+      },
+      {
+        "t": "10:19:32",
+        "msg": "📌 Phase → 4suite"
+      },
+      {
+        "t": "10:19:38",
+        "msg": "📌 Phase → 4suite"
+      }
+    ],
+    "nine_mode": "manual",
+    "q_value": 1,
+    "q_count": 3,
+    "round_active": false,
+    "buzzer_order": [],
+    "buzzed_wrong": [],
+    "winner_pid": null,
+    "four_current_pid": null,
+    "four_score": 0,
+    "four_timer_end": 1778401186.6411715,
+    "four_timer_running": false,
+    "four_done_pids": [
+      "p1"
+    ],
+    "four_theme_index": 1,
+    "ff_player_a": null,
+    "ff_player_b": null,
+    "ff_scores": {},
+    "ff_timer_end": 0.0,
+    "ff_timer_running": false,
+    "ff_active_pid": null,
+    "ff_buzzed_pid": null,
+    "ff_wrong_pid": null,
+    "eq_pids": [],
+    "eq_scores": {},
+    "eq_buzzed_wrong": []
+  },
+  {
+    "game_id": "91b48af4",
+    "created_at": "2026-05-10 10:23",
+    "phase": "fin",
+    "players": [
+      {
+        "id": "p1",
+        "name": "A",
+        "buzzer_id": "buzzer1",
+        "points": 0,
+        "qualified": false,
+        "eliminated": false
+      },
+      {
+        "id": "p2",
+        "name": "B",
+        "buzzer_id": "buzzer2",
+        "points": 0,
+        "qualified": false,
+        "eliminated": false
+      },
+      {
+        "id": "p3",
+        "name": "C",
+        "buzzer_id": "buzzer3",
+        "points": 0,
+        "qualified": false,
+        "eliminated": false
+      }
+    ],
+    "themes": [
+      "1",
+      "2",
+      "3",
+      "5"
+    ],
+    "finished": false,
+    "history": [
+      {
+        "t": "10:23:26",
+        "msg": "🎮 Nouvelle partie démarrée"
+      },
+      {
+        "t": "10:23:48",
+        "msg": "▶ Question — 2 pt(s)"
+      },
+      {
+        "t": "10:23:50",
+        "msg": "▶ Question — 2 pt(s)"
+      },
+      {
+        "t": "10:23:53",
+        "msg": "▶ Question — 2 pt(s)"
+      },
+      {
+        "t": "10:24:02",
+        "msg": "Mode : manual"
+      },
+      {
+        "t": "10:24:04",
+        "msg": "Mode : auto"
+      },
+      {
+        "t": "10:24:05",
+        "msg": "Valeur question → 1 pt(s)"
+      },
+      {
+        "t": "10:24:06",
+        "msg": "▶ Question — 2 pt(s)"
+      },
+      {
+        "t": "10:24:08",
+        "msg": "▶ Question — 2 pt(s)"
+      },
+      {
+        "t": "10:24:16",
+        "msg": "📌 Phase → 4suite"
+      },
+      {
+        "t": "10:24:19",
+        "msg": "⏱ Tour de A — 4 à la suite"
+      },
+      {
+        "t": "10:24:23",
+        "msg": "❌ A — fin du tour (0/4)"
+      },
+      {
+        "t": "10:24:23",
+        "msg": "🔚 Mauvaise réponse"
+      },
+      {
+        "t": "10:26:11",
+        "msg": "⏱ Tour de B — 4 à la suite"
+      },
+      {
+        "t": "10:26:14",
+        "msg": "🔚 Arrêt manuel"
+      },
+      {
+        "t": "10:27:29",
+        "msg": "📌 Phase → facaface"
+      },
+      {
+        "t": "10:27:33",
+        "msg": "⚔️ Face à face : A vs B"
+      },
+      {
+        "t": "10:27:43",
+        "msg": "🔔 B buzze !"
+      },
+      {
+        "t": "10:27:47",
+        "msg": "✅ B marque (0–1)"
+      },
+      {
+        "t": "10:27:51",
+        "msg": "🔔 B buzze !"
+      },
+      {
+        "t": "10:27:53",
+        "msg": "❌ B rate — main à l'adversaire"
+      },
+      {
+        "t": "10:27:57",
+        "msg": "🔔 A buzze !"
+      },
+      {
+        "t": "10:28:00",
+        "msg": "✅ A marque (1–1)"
+      },
+      {
+        "t": "10:28:03",
+        "msg": "🤝 Égalité face à face (1–1)"
+      },
+      {
+        "t": "10:28:16",
+        "msg": "📌 Phase → egalite"
+      },
+      {
+        "t": "10:28:22",
+        "msg": "📌 Phase → fin"
+      },
+      {
+        "t": "10:45:02",
+        "msg": "📡 ESP déconnecté : buzzer2"
+      },
+      {
+        "t": "10:45:03",
+        "msg": "📡 ESP déconnecté : buzzer1"
+      }
+    ],
+    "nine_mode": "auto",
+    "q_value": 2,
+    "q_count": 0,
+    "round_active": false,
+    "buzzer_order": [],
+    "buzzed_wrong": [],
+    "winner_pid": null,
+    "four_current_pid": null,
+    "four_score": 0,
+    "four_timer_end": 1778401611.7984612,
+    "four_timer_running": false,
+    "four_done_pids": [
+      "p1",
+      "p2"
+    ],
+    "four_theme_index": 2,
+    "ff_player_a": "p1",
+    "ff_player_b": "p2",
+    "ff_scores": {
+      "p1": 1,
+      "p2": 1
+    },
+    "ff_timer_end": 1778401713.6215284,
+    "ff_timer_running": false,
+    "ff_active_pid": null,
+    "ff_buzzed_pid": null,
+    "ff_wrong_pid": null,
+    "eq_pids": [],
+    "eq_scores": {},
+    "eq_buzzed_wrong": []
+  },
+  {
+    "game_id": "d7caece8",
+    "created_at": "2026-05-10 10:45",
+    "phase": "9pts",
+    "players": [
+      {
+        "id": "p1",
+        "name": "A",
+        "buzzer_id": "",
+        "points": 0,
+        "qualified": false,
+        "eliminated": false
+      },
+      {
+        "id": "p2",
+        "name": "B",
+        "buzzer_id": "",
+        "points": 0,
+        "qualified": false,
+        "eliminated": false
+      }
+    ],
+    "themes": [
+      "123",
+      "4",
+      "7",
+      "89"
+    ],
+    "finished": false,
+    "history": [
+      {
+        "t": "10:45:35",
+        "msg": "🎮 Nouvelle partie démarrée"
+      },
+      {
+        "t": "10:46:28",
+        "msg": "Mode : manual"
+      }
+    ],
+    "nine_mode": "manual",
+    "q_value": 1,
+    "q_count": 0,
+    "round_active": false,
+    "buzzer_order": [],
+    "buzzed_wrong": [],
+    "winner_pid": null,
+    "four_current_pid": null,
+    "four_score": 0,
+    "four_timer_end": 0.0,
+    "four_timer_running": false,
+    "four_done_pids": [],
+    "four_theme_index": 0,
+    "ff_player_a": null,
+    "ff_player_b": null,
+    "ff_scores": {},
+    "ff_timer_end": 0.0,
+    "ff_timer_running": false,
+    "ff_active_pid": null,
+    "ff_buzzed_pid": null,
+    "ff_wrong_pid": null,
+    "eq_pids": [],
+    "eq_scores": {},
+    "eq_buzzed_wrong": []
+  }
+]

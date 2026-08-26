@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<title>QPUC — Admin</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;900&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="admin.css">
+</head>
+<body>
+<div class="app">
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <span class="logo">QPUC</span>
+  <span class="tp-info">Phase : <b id="tp-phase">—</b></span>
+  <span class="tp-info">Mode : <b id="tp-mode">—</b></span>
+  <div class="ws-dot" id="wsdot"></div>
+</div>
+
+<div class="body">
+
+<!-- ═══ SIDEBAR ═══ -->
+<div class="sidebar">
+  <div class="card">
+    <div class="ctitle">Joueurs</div>
+    <div id="sb-players"></div>
+  </div>
+  <div class="card">
+    <div class="ctitle">Buzzers connectés</div>
+    <div id="sb-esp"><span style="color:var(--muted);font-size:12px">Aucun</span></div>
+  </div>
+  <div class="card">
+    <div class="ctitle">Thèmes</div>
+    <div id="sb-themes" style="font-size:12px;line-height:1.9"></div>
+  </div>
+  <div style="margin-top:auto;display:flex;flex-direction:column;gap:5px">
+    <button class="btn btn-ghost btn-full" onclick="openModal('m-new')">➕ Nouvelle partie</button>
+    <button class="btn btn-ghost btn-full" onclick="openModal('m-saves')">📂 Sauvegardes</button>
+  </div>
+</div>
+
+<!-- ═══ CENTRE ═══ -->
+<div class="center">
+
+  <!-- SETUP -->
+  <div class="view" id="v-setup">
+    <div style="text-align:center;padding:60px 20px">
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:40px;font-weight:900;color:var(--gold);margin-bottom:16px">Bienvenue</div>
+      <div style="color:var(--muted);margin-bottom:24px">Créez une nouvelle partie pour commencer.</div>
+      <button class="btn btn-gold" style="font-size:18px;padding:16px 32px" onclick="openModal('m-new')">➕ Nouvelle partie</button>
+    </div>
+  </div>
+
+  <!-- 9 POINTS -->
+  <div class="view" id="v-9pts">
+    <div class="sh">
+      <h2>9 Points Gagnants</h2>
+      <span class="qvbadge" id="nine-qvbadge">1 pt</span>
+      <div class="toggle-wrap" style="margin-left:auto">
+        <span style="font-size:13px;color:var(--muted)">Auto</span>
+        <label class="toggle"><input type="checkbox" id="tog-mode" onchange="toggleMode(this)"><span class="tslider"></span></label>
+        <span style="font-size:13px;color:var(--muted)">Manuel</span>
+      </div>
+    </div>
+
+    <div id="nine-score-list" style="margin-bottom:14px"></div>
+
+    <div class="card" style="margin-bottom:10px">
+      <div class="ctitle">Question en cours</div>
+      <div class="buzz-status" id="nine-buzz-status">En attente…</div>
+      <div id="nine-validate-area"></div>
+      <div id="nine-all-wrong-area"></div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px">
+        <button class="btn btn-gold" onclick="s({cmd:'nine_start_round'})">▶ Nouvelle question</button>
+        <button class="btn btn-ghost" onclick="s({cmd:'reset_round'})">↺ Reset buzzers</button>
+      </div>
+    </div>
+
+    <div class="card" style="margin-bottom:10px">
+      <div class="ctitle">Valeur de la question</div>
+      <div style="display:flex;gap:8px">
+        <button class="btn btn-ghost" onclick="s({cmd:'nine_set_value',value:1})">1 pt</button>
+        <button class="btn btn-ghost" onclick="s({cmd:'nine_set_value',value:2})">2 pts</button>
+        <button class="btn btn-ghost" onclick="s({cmd:'nine_set_value',value:3})">3 pts</button>
+      </div>
+    </div>
+
+    <div class="card" id="manual-card" style="display:none">
+      <div class="ctitle">Ajout / retrait manuel</div>
+      <button class="btn btn-blue btn-full" onclick="openModal('m-pts')">✏️ Modifier les points d'un joueur</button>
+    </div>
+  </div>
+
+  <!-- 4 À LA SUITE -->
+  <div class="view" id="v-4suite">
+    <div class="sh"><h2>4 à la Suite</h2></div>
+
+    <!-- Choix candidat -->
+    <div class="card" id="four-pick-card" style="margin-bottom:12px">
+      <div class="ctitle">Choisir le candidat</div>
+      <div id="four-pick-list" style="display:flex;flex-wrap:wrap;gap:8px"></div>
+    </div>
+
+    <!-- Choix thème -->
+    <div class="card" id="four-theme-card" style="display:none;margin-bottom:12px">
+      <div class="ctitle" id="four-theme-label">Choisir un thème</div>
+      <div class="theme-grid" id="four-theme-grid"></div>
+      <button class="btn btn-gold" id="btn-start-after-theme" style="display:none" onclick="confirmThemeAndStart()">▶ Lancer le chrono</button>
+    </div>
+
+    <!-- Tour actif -->
+    <div class="card" id="four-turn-card" style="display:none;margin-bottom:12px">
+      <div class="ctitle" id="four-turn-label">Tour de —</div>
+      <div class="chrono-big ok" id="four-chrono">40</div>
+      <div class="four-dots-wrap" id="four-dots-main"></div>
+      <div style="text-align:center;margin-bottom:12px">
+        <span style="color:var(--muted);font-size:14px">Consécutives : </span>
+        <span class="score-mini" id="four-score-cur">0</span>
+        <span style="color:var(--muted);font-size:14px;margin-left:12px">Record : </span>
+        <span style="font-family:'Barlow Condensed',sans-serif;font-size:28px;font-weight:900;color:var(--gold2)" id="four-score-best">0</span>
+      </div>
+      <div class="answer-grid">
+        <button class="btn btn-correct" onclick="s({cmd:'four_answer',correct:true})">✓<span style="font-size:14px;font-weight:400;display:block;margin-top:2px">Bonne réponse</span></button>
+        <button class="btn btn-wrong"   onclick="s({cmd:'four_answer',correct:false})">✗<span style="font-size:14px;font-weight:400;display:block;margin-top:2px">Faux / Passe</span></button>
+      </div>
+      <button class="btn btn-ghost" style="width:100%;margin-top:6px" onclick="s({cmd:'four_end_turn'})">⏹ Arrêter le tour</button>
+    </div>
+  </div>
+
+  <!-- FACE À FACE -->
+  <div class="view" id="v-facaface">
+    <div class="sh"><h2>Face à Face</h2>
+      <span style="font-size:12px;color:var(--muted);margin-left:auto">Objectif : <b id="ff-target" style="color:var(--gold2)">12</b> pts</span>
+    </div>
+
+    <!-- Setup -->
+    <div class="card" id="ff-setup-card" style="margin-bottom:12px">
+      <div class="ctitle">Candidats finalistes</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:10px">
+        <div><div class="lbl">Joueur A</div><div id="ff-pick-a"></div></div>
+        <div><div class="lbl">Joueur B</div><div id="ff-pick-b"></div></div>
+      </div>
+      <button class="btn btn-gold" onclick="setupFF()">⚔️ Préparer le duel</button>
+    </div>
+
+    <!-- Duel -->
+    <div class="card" id="ff-duel-card" style="display:none;margin-bottom:12px">
+      <div class="ff-arena">
+        <div class="ff-pane" id="ff-pane-a"><div class="ff-pname" id="ff-na">—</div><div class="ff-psc" id="ff-sa">0</div></div>
+        <div class="ff-vs">VS</div>
+        <div class="ff-pane" id="ff-pane-b"><div class="ff-pname" id="ff-nb">—</div><div class="ff-psc" id="ff-sb">0</div></div>
+      </div>
+      <!-- Zone bar -->
+      <div class="ff-zone-bar" id="ff-zone-bar">
+        <div class="ff-zone-seg z4" id="fz4">4 pts</div>
+        <div class="ff-zone-seg z3" id="fz3">3 pts</div>
+        <div class="ff-zone-seg z2" id="fz2">2 pts</div>
+        <div class="ff-zone-seg z1" id="fz1">1 pt</div>
+      </div>
+      <div class="ff-pts-badge" id="ff-pts-badge">— pts si réponse maintenant</div>
+      <div class="chrono-big ok" id="ff-chrono">20</div>
+      <div class="buzz-status" id="ff-buzz-status">Appuyez sur ▶ pour lancer une question</div>
+      <div class="answer-grid" id="ff-answer-grid" style="display:none">
+        <button class="btn btn-correct" onclick="s({cmd:'ff_answer',correct:true})">✓<span style="font-size:14px;font-weight:400;display:block;margin-top:2px">Bonne réponse</span></button>
+        <button class="btn btn-wrong"   onclick="s({cmd:'ff_answer',correct:false})">✗<span style="font-size:14px;font-weight:400;display:block;margin-top:2px">Mauvaise réponse</span></button>
+      </div>
+      <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap">
+        <button class="btn btn-gold" onclick="s({cmd:'ff_start_question'})">▶ Lancer la question</button>
+        <button class="btn btn-ghost" onclick="s({cmd:'ff_answer',correct:false})" id="btn-ff-passMain">↔ Passer la main</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ÉGALITÉ -->
+  <div class="view" id="v-egalite">
+    <div class="sh"><h2>Départage</h2></div>
+    <div class="card" style="margin-bottom:12px">
+      <div class="ctitle">Candidats</div>
+      <div id="eq-list" style="margin-bottom:10px"></div>
+      <div class="buzz-status" id="eq-buzz-status">En attente…</div>
+      <div id="eq-validate-area"></div>
+      <button class="btn btn-gold" style="margin-top:10px" onclick="s({cmd:'nine_start_round'})">▶ Nouvelle question</button>
+    </div>
+  </div>
+
+  <!-- FIN -->
+  <div class="view" id="v-fin">
+    <div style="text-align:center;padding:50px 20px">
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:52px;font-weight:900;color:var(--gold);margin-bottom:20px">Partie terminée !</div>
+      <div id="fin-content" style="margin-bottom:28px;font-size:18px"></div>
+      <button class="btn btn-gold" style="font-size:18px;padding:16px 32px" onclick="openModal('m-new')">🔄 Nouvelle partie</button>
+    </div>
+  </div>
+
+</div><!-- /center -->
+
+<!-- ═══ RIGHT ═══ -->
+<div class="right">
+  <div class="card">
+    <div class="ctitle">Navigation</div>
+    <button class="nav-btn" id="nav-9pts"     onclick="goPhase('9pts')">9 Points Gagnants</button>
+    <button class="nav-btn" id="nav-4suite"   onclick="goPhase('4suite')">4 à la Suite</button>
+    <button class="nav-btn" id="nav-facaface" onclick="goPhase('facaface')">Face à Face</button>
+    <button class="nav-btn" id="nav-egalite"  onclick="goPhase('egalite')">Départage</button>
+    <button class="nav-btn" id="nav-fin"      onclick="goPhase('fin')">Fin de partie</button>
+  </div>
+  <div class="card" style="flex:1;min-height:0;display:flex;flex-direction:column">
+    <div class="ctitle">Journal</div>
+    <div class="log-wrap" id="log-wrap" style="flex:1"></div>
+  </div>
+</div>
+
+</div>
+</div>
+
+<!-- ═══ MODALS ═══ -->
+
+<!-- Nouvelle partie -->
+<div class="modal-bg hidden" id="m-new">
+<div class="modal">
+  <h2>➕ Nouvelle partie</h2>
+  <div class="lbl" style="margin-bottom:6px">Joueurs (2 à 4) — Nom + Buzzer associé</div>
+  <div id="ng-players"></div>
+  <button class="btn btn-ghost" style="font-size:12px;margin-bottom:14px" onclick="ngAdd()">+ Joueur</button>
+  <div class="lbl" style="margin-bottom:6px">Thèmes du 4 à la suite</div>
+  <div id="ng-themes"></div>
+  <div style="font-size:11px;color:var(--muted);margin-bottom:8px">Le 4ème thème sera affiché comme "Thème Mystère" côté public.</div>
+  <div class="modal-footer">
+    <button class="btn btn-ghost" onclick="closeModal('m-new')">Annuler</button>
+    <button class="btn btn-gold" onclick="ngSubmit()">🚀 Démarrer</button>
+  </div>
+</div>
+</div>
+
+<!-- Sauvegardes -->
+<div class="modal-bg hidden" id="m-saves">
+<div class="modal" style="width:460px">
+  <h2>📂 Parties sauvegardées</h2>
+  <div id="saves-list" style="max-height:340px;overflow-y:auto;margin-bottom:8px"></div>
+  <div class="modal-footer"><button class="btn btn-ghost" onclick="closeModal('m-saves')">Fermer</button></div>
+</div>
+</div>
+
+<!-- Ajout/retrait manuel de points -->
+<div class="modal-bg hidden" id="m-pts">
+<div class="modal">
+  <h2>✏️ Modifier les points</h2>
+  <div class="lbl">Ajout (+) ou retrait (−)</div>
+  <div class="pts-row">
+    <div class="pts-tile" id="pt--3" onclick="selDelta(-3)">−3</div>
+    <div class="pts-tile" id="pt--2" onclick="selDelta(-2)">−2</div>
+    <div class="pts-tile" id="pt--1" onclick="selDelta(-1)">−1</div>
+    <div class="pts-tile" id="pt-1"  onclick="selDelta(1)">+1</div>
+    <div class="pts-tile" id="pt-2"  onclick="selDelta(2)">+2</div>
+    <div class="pts-tile" id="pt-3"  onclick="selDelta(3)">+3</div>
+  </div>
+  <div class="lbl" style="margin-top:10px">Joueur</div>
+  <div id="m-pts-players"></div>
+  <div class="modal-footer">
+    <button class="btn btn-ghost" onclick="closeModal('m-pts')">Annuler</button>
+    <button class="btn btn-gold" onclick="confirmPts()">Valider</button>
+  </div>
+</div>
+</div>
+
+<script src="admin.js"></script>
+</body>
+</html>

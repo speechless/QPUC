@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>QPUC — Admin</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;0,900;1,700&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#07101f;--navy2:#0e1d38;--navy3:#162d52;--navy4:#1d3c6a;
+  --gold:#c8a84b;--gold2:#e8c96a;--gold3:#f5e5b0;
+  --red:#c0392b;--red2:#e74c3c;
+  --green:#1a7a4a;--green2:#22a060;
+  --blue:#1a5fa5;--blue2:#2575c4;
+  --white:#f0eade;--muted:#7a8fa8;
+  --border:rgba(200,168,75,.2);
+  --card:rgba(255,255,255,.04);
+  --r:10px;
+}
+html,body{height:100%;background:var(--navy);color:var(--white);font-family:'Barlow',sans-serif;font-size:14px;overflow:hidden}
+
+/* ═══ LAYOUT ═══ */
+.app{display:grid;grid-template-rows:52px 1fr;height:100vh}
+.topbar{background:var(--navy2);border-bottom:2px solid var(--gold);display:flex;align-items:center;padding:0 18px;gap:14px;flex-shrink:0}
+.logo{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:20px;color:var(--gold);letter-spacing:3px}
+.topbar-phase{font-size:12px;color:var(--muted)}
+.topbar-phase b{color:var(--gold2);margin-left:4px}
+.ws-indicator{width:8px;height:8px;border-radius:50%;background:var(--red);margin-left:auto;transition:background .3s;flex-shrink:0}
+.ws-indicator.ok{background:#27ae60}
+
+.body{display:grid;grid-template-columns:240px 1fr 260px;overflow:hidden;height:100%}
+.sidebar{background:var(--navy2);border-right:1px solid var(--border);display:flex;flex-direction:column;gap:10px;padding:12px 10px;overflow-y:auto}
+.center{overflow-y:auto;padding:18px}
+.right{background:var(--navy2);border-left:1px solid var(--border);display:flex;flex-direction:column;gap:10px;padding:12px 10px;overflow-y:auto}
+
+/* ═══ CARDS ═══ */
+.card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:12px}
+.ctitle{font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;color:var(--gold);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px}
+
+/* ═══ BUTTONS ═══ */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:5px;padding:8px 15px;border-radius:7px;border:none;cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;letter-spacing:.3px;text-transform:uppercase;transition:all .12s;white-space:nowrap;line-height:1.2}
+.btn:disabled{opacity:.3;cursor:not-allowed;transform:none!important}
+.btn:active:not(:disabled){transform:scale(.96)}
+.btn-gold{background:var(--gold);color:var(--navy)}.btn-gold:hover:not(:disabled){background:var(--gold2)}
+.btn-green{background:var(--green);color:#fff}.btn-green:hover:not(:disabled){background:var(--green2)}
+.btn-red{background:var(--red);color:#fff}.btn-red:hover:not(:disabled){background:var(--red2)}
+.btn-blue{background:var(--blue);color:#fff}.btn-blue:hover:not(:disabled){background:var(--blue2)}
+.btn-ghost{background:transparent;color:var(--muted);border:1px solid var(--border)}
+.btn-ghost:hover:not(:disabled){color:var(--white);border-color:rgba(200,168,75,.5)}
+.btn-full{width:100%;margin-bottom:5px}
+.btn-xl{font-size:22px;padding:22px;border-radius:12px;flex-direction:column;gap:4px;line-height:1.1}
+.btn-correct{background:#0d4a28;color:#7fffc4;border:2px solid var(--green);font-size:20px;padding:20px;border-radius:12px;flex-direction:column;gap:3px}
+.btn-correct:hover:not(:disabled){background:var(--green);color:#fff;border-color:var(--green2)}
+.btn-wrong{background:#4a0d0d;color:#ffb3b3;border:2px solid var(--red);font-size:20px;padding:20px;border-radius:12px;flex-direction:column;gap:3px}
+.btn-wrong:hover:not(:disabled){background:var(--red);color:#fff;border-color:var(--red2)}
+
+/* ═══ VUES ═══ */
+.view{display:none}.view.active{display:block}
+
+/* ═══ SIDEBAR SCORES ═══ */
+.sb-player{display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:8px;background:rgba(255,255,255,.04);border:1px solid transparent;margin-bottom:5px;transition:border-color .2s}
+.sb-player.winner-row{border-color:var(--gold);background:rgba(200,168,75,.08)}
+.sb-player.qualified-row{border-color:#27ae60;background:rgba(39,174,96,.08)}
+.sb-player.elim-row{opacity:.35}
+.sb-pname{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:15px;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sb-pts{font-family:'Barlow Condensed',sans-serif;font-size:24px;font-weight:900;color:var(--gold)}
+.sb-badge{font-size:10px;padding:1px 5px;border-radius:3px;font-weight:700;white-space:nowrap}
+.bq{background:#1a7a4a;color:#a0f0c0}.bbuzz{background:var(--gold);color:var(--navy)}.bwrong{background:#5a1010;color:#ffaaaa}
+
+/* ═══ 9 POINTS ═══ */
+.nine-player{display:flex;align-items:center;gap:10px;padding:10px 14px;background:rgba(255,255,255,.04);border-radius:9px;border:1px solid transparent;margin-bottom:7px;transition:all .2s}
+.nine-player.winner-row{border-color:var(--gold);background:rgba(200,168,75,.09)}
+.nine-player.qualified-row{border-color:#27ae60;background:rgba(39,174,96,.09)}
+.nine-player.elim-row{opacity:.35}
+.np-name{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:18px;min-width:120px}
+.np-bars{display:flex;gap:2px;flex:1;height:10px}
+.np-bar{flex:1;border-radius:2px;background:rgba(255,255,255,.09);transition:background .4s}
+.np-bar.on{background:var(--gold)}.np-bar.on.qbar{background:#27ae60}
+.np-pts{font-family:'Barlow Condensed',sans-serif;font-size:30px;font-weight:900;color:var(--gold);min-width:36px;text-align:right}
+.np-badge{font-size:11px;padding:2px 8px;border-radius:5px;font-weight:700;min-width:90px;text-align:center}
+.nbq{background:#1a7a4a;color:#a0f0c0}.nbbuzz{background:var(--gold);color:var(--navy);animation:pulsebadge .8s infinite}.nbwrong{background:#5a1010;color:#ffaaaa}
+@keyframes pulsebadge{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
+
+/* ═══ TOGGLE ═══ */
+.toggle-wrap{display:flex;align-items:center;gap:8px;font-size:13px}
+.toggle{position:relative;width:40px;height:22px;flex-shrink:0}
+.toggle input{opacity:0;width:0;height:0}
+.tslider{position:absolute;inset:0;background:#333;border-radius:11px;cursor:pointer;transition:.25s}
+.tslider::before{content:'';position:absolute;width:16px;height:16px;left:3px;bottom:3px;background:#fff;border-radius:50%;transition:.25s}
+.toggle input:checked+.tslider{background:var(--gold)}
+.toggle input:checked+.tslider::before{transform:translateX(18px)}
+
+/* ═══ INPUTS ═══ */
+.inp{width:100%;padding:7px 10px;background:rgba(255,255,255,.07);border:1px solid var(--border);border-radius:7px;color:var(--white);font-family:'Barlow',sans-serif;font-size:13px;outline:none;transition:border-color .15s}
+.inp:focus{border-color:var(--gold)}.inp::placeholder{color:var(--muted)}
+.fl{display:flex;gap:7px;align-items:center;margin-bottom:7px}
+.lbl{font-size:11px;color:var(--muted);display:block;margin-bottom:3px}
+
+/* ═══ ANSWER GRID ═══ */
+.answer-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:14px 0}
+
+/* ═══ CHRONO ═══ */
+.chrono-big{font-family:'Barlow Condensed',sans-serif;font-size:80px;font-weight:900;text-align:center;line-height:1;padding:8px 0;transition:color .3s}
+.chrono-big.ok{color:var(--gold)}
+.chrono-big.warn{color:#e67e22}
+.chrono-big.danger{color:var(--red);animation:blink .5s step-end infinite}
+@keyframes blink{50%{opacity:.25}}
+
+/* ═══ SCORE MINI ═══ */
+.score-mini{font-family:'Barlow Condensed',sans-serif;font-size:32px;font-weight:900;color:var(--gold);text-align:center}
+
+/* ═══ FF ═══ */
+.ff-grid{display:grid;grid-template-columns:1fr auto 1fr;gap:12px;align-items:start;margin-bottom:12px}
+.ff-pane{background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:9px;padding:12px;text-align:center}
+.ff-pane.ff-active{border-color:var(--gold);background:rgba(200,168,75,.08)}
+.ff-pane.ff-buzzed{border-color:var(--gold2);background:rgba(200,168,75,.15)}
+.ff-name{font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:700;margin-bottom:6px}
+.ff-sc{font-family:'Barlow Condensed',sans-serif;font-size:36px;font-weight:900;color:var(--gold)}
+.ff-vs{font-family:'Barlow Condensed',sans-serif;font-size:20px;color:var(--muted);padding-top:20px;text-align:center}
+.ff-sel-btn{width:100%;padding:8px;background:var(--navy3);border:1px solid var(--border);border-radius:7px;color:var(--white);cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;margin-bottom:5px;transition:.15s;text-align:left}
+.ff-sel-btn:hover{border-color:var(--gold);color:var(--gold)}
+.ff-sel-btn.sel{border-color:var(--gold);background:rgba(200,168,75,.15);color:var(--gold)}
+
+/* ═══ EQ ═══ */
+.eq-player{display:flex;align-items:center;gap:10px;padding:10px 14px;background:rgba(255,255,255,.04);border:1px solid transparent;border-radius:8px;margin-bottom:6px}
+.eq-player.winner-row{border-color:var(--gold)}
+
+/* ═══ MODAL ═══ */
+.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:200;display:flex;align-items:center;justify-content:center}
+.modal-bg.hidden{display:none}
+.modal{background:var(--navy2);border:1px solid var(--gold);border-radius:14px;padding:24px;width:420px;max-width:95vw;max-height:90vh;overflow-y:auto}
+.modal h2{font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:900;color:var(--gold);margin-bottom:16px}
+.modal-footer{display:flex;gap:8px;justify-content:flex-end;margin-top:16px}
+.pts-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:10px 0}
+.pts-tile{padding:14px;border:2px solid var(--border);border-radius:8px;background:var(--navy3);color:var(--gold);font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:900;text-align:center;cursor:pointer;transition:.15s}
+.pts-tile.sel{border-color:var(--gold);background:rgba(200,168,75,.18)}
+.player-pick{padding:10px 12px;background:var(--navy3);border:1px solid var(--border);border-radius:7px;margin-bottom:6px;cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:700;transition:.15s}
+.player-pick:hover{border-color:var(--gold);color:var(--gold)}
+.player-pick.sel{border-color:var(--gold);background:rgba(200,168,75,.15);color:var(--gold)}
+
+/* ═══ NAV ═══ */
+.nav-btn{width:100%;padding:8px 12px;border-radius:7px;background:transparent;border:1px solid var(--border);color:var(--muted);cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;text-align:left;transition:.15s;margin-bottom:4px}
+.nav-btn:hover{color:var(--white);border-color:rgba(200,168,75,.4)}
+.nav-btn.active{background:rgba(200,168,75,.15);color:var(--gold);border-color:var(--gold)}
+
+/* ═══ LOG ═══ */
+.log-entry{font-size:11px;color:var(--muted);padding:4px 0;border-bottom:1px solid rgba(255,255,255,.04);line-height:1.4}
+.log-entry .lt{color:rgba(200,168,75,.45);margin-right:5px}
+.log-wrap{max-height:300px;overflow-y:auto}
+
+/* ═══ SAVE ITEM ═══ */
+.save-item{padding:10px;background:var(--navy3);border-radius:8px;border:1px solid var(--border);cursor:pointer;margin-bottom:7px;transition:.15s}
+.save-item:hover{border-color:var(--gold)}
+.save-name{font-weight:600;font-size:13px}
+.save-meta{font-size:11px;color:var(--muted);margin-top:2px}
+
+/* ═══ SECTION HEADER ═══ */
+.sh{display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap}
+.sh h2{font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:900}
+.qvbadge{padding:3px 12px;background:var(--gold);color:var(--navy);border-radius:6px;font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:17px}
+
+/* ═══ BUZZER STATUS IN CTRL ═══ */
+.buzz-status{font-size:14px;color:var(--muted);padding:10px;background:rgba(255,255,255,.03);border-radius:7px;margin-bottom:10px;min-height:42px;line-height:1.5}
+.buzz-status b{color:var(--gold2)}
+
+/* ═══ SCROLL ═══ */
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-thumb{background:rgba(200,168,75,.2);border-radius:2px}
+
+/* ═══ HINT ═══ */
+.hint{font-size:11px;color:var(--muted);margin-top:6px}
+</style>
+</head>
+<body>
+<div class="app">
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <span class="logo">QPUC</span>
+  <span class="topbar-phase">Phase : <b id="tp-phase">—</b></span>
+  <span class="topbar-phase" style="margin-left:8px">Round : <b id="tp-round">—</b></span>
+  <span class="topbar-phase" style="margin-left:8px">Mode : <b id="tp-mode">—</b></span>
+  <div class="ws-indicator" id="wsind" title="WebSocket"></div>
+</div>
+
+<div class="body">
+
+<!-- ═══ SIDEBAR ═══ -->
+<div class="sidebar">
+  <div class="card">
+    <div class="ctitle">Joueurs</div>
+    <div id="sb-players"></div>
+  </div>
+  <div class="card">
+    <div class="ctitle">Thèmes 4 à la suite</div>
+    <div id="sb-themes" style="font-size:12px;line-height:1.8"></div>
+  </div>
+  <div class="card">
+    <div class="ctitle">Buzzers ESP</div>
+    <div id="sb-esp" style="font-size:12px;color:var(--muted)">Aucun connecté</div>
+  </div>
+  <div style="margin-top:auto;display:flex;flex-direction:column;gap:5px">
+    <button class="btn btn-ghost btn-full" onclick="openModal('m-new')">➕ Nouvelle partie</button>
+    <button class="btn btn-ghost btn-full" onclick="openModal('m-saves')">📂 Sauvegardes</button>
+  </div>
+</div>
+
+<!-- ═══ CENTRE ═══ -->
+<div class="center">
+
+  <!-- 9 POINTS -->
+  <div class="view" id="v-9pts">
+    <div class="sh">
+      <h2>9 Points Gagnants</h2>
+      <span class="qvbadge" id="nine-qvbadge">1 pt</span>
+      <div class="toggle-wrap" style="margin-left:auto">
+        <span style="font-size:12px;color:var(--muted)">Auto</span>
+        <label class="toggle"><input type="checkbox" id="tog-mode" onchange="toggleMode(this)"><span class="tslider"></span></label>
+        <span style="font-size:12px;color:var(--muted)">Manuel</span>
+      </div>
+    </div>
+
+    <div id="nine-score-list" style="margin-bottom:14px"></div>
+
+    <div class="card" style="margin-bottom:10px">
+      <div class="ctitle">Question en cours</div>
+      <div class="buzz-status" id="nine-buzz-status">En attente…</div>
+      <div id="nine-validate-area"></div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px">
+        <button class="btn btn-gold" id="btn-newq" onclick="s({cmd:'nine_start_round'})">▶ Nouvelle question</button>
+        <button class="btn btn-ghost" onclick="s({cmd:'reset_round'})">↺ Reset buzzers</button>
+        <button class="btn btn-ghost" onclick="s({cmd:'enable_buzzers'})">📡 Activer buzzers</button>
+      </div>
+    </div>
+
+    <!-- Valeur manuelle -->
+    <div class="card" style="margin-bottom:10px">
+      <div class="ctitle">Valeur de la question</div>
+      <div style="display:flex;gap:7px">
+        <button class="btn btn-ghost" onclick="s({cmd:'nine_set_value',value:1})">1 pt</button>
+        <button class="btn btn-ghost" onclick="s({cmd:'nine_set_value',value:2})">2 pts</button>
+        <button class="btn btn-ghost" onclick="s({cmd:'nine_set_value',value:3})">3 pts</button>
+      </div>
+    </div>
+
+    <!-- Mode manuel -->
+    <div class="card" id="manual-card" style="display:none">
+      <div class="ctitle">Ajout manuel</div>
+      <button class="btn btn-blue btn-full" onclick="openModal('m-pts')">✏️ Ajouter des points à un joueur</button>
+    </div>
+  </div>
+
+  <!-- 4 À LA SUITE -->
+  <div class="view" id="v-4suite">
+    <div class="sh"><h2>4 à la Suite</h2></div>
+
+    <!-- Sélection joueur -->
+    <div class="card" id="four-pick-card" style="margin-bottom:12px">
+      <div class="ctitle">Choisir le candidat</div>
+      <div id="four-pick-list" style="display:flex;flex-wrap:wrap;gap:8px"></div>
+    </div>
+
+    <!-- Tour actif -->
+    <div class="card" id="four-turn-card" style="display:none;margin-bottom:12px">
+      <div class="ctitle" id="four-turn-label">Tour de —</div>
+      <div class="chrono-big ok" id="four-chrono">40</div>
+      <div style="text-align:center;margin-bottom:10px">
+        <span style="color:var(--muted)">Bonnes réponses : </span>
+        <span class="score-mini" id="four-score-display">0 / 4</span>
+      </div>
+      <div class="answer-grid">
+        <button class="btn btn-correct" onclick="s({cmd:'four_answer',correct:true})">✓<span style="font-size:13px;font-weight:400">Bonne réponse</span></button>
+        <button class="btn btn-wrong"   onclick="s({cmd:'four_answer',correct:false})">✗<span style="font-size:13px;font-weight:400">Mauvaise / Passe</span></button>
+      </div>
+      <button class="btn btn-ghost" style="width:100%;margin-top:4px" onclick="s({cmd:'four_end_turn'})">⏹ Arrêter le tour</button>
+    </div>
+  </div>
+
+  <!-- FACE À FACE -->
+  <div class="view" id="v-facaface">
+    <div class="sh"><h2>Face à Face</h2></div>
+
+    <!-- Sélection -->
+    <div class="card" id="ff-pick-card" style="margin-bottom:12px">
+      <div class="ctitle">Choisir les 2 candidats</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:10px">
+        <div>
+          <div class="lbl">Joueur A</div>
+          <div id="ff-pick-a"></div>
+        </div>
+        <div>
+          <div class="lbl">Joueur B</div>
+          <div id="ff-pick-b"></div>
+        </div>
+      </div>
+      <button class="btn btn-gold" onclick="startFF()">⚔️ Lancer le duel</button>
+    </div>
+
+    <!-- Duel actif -->
+    <div class="card" id="ff-duel-card" style="display:none;margin-bottom:12px">
+      <div class="ff-grid" id="ff-arena">
+        <div class="ff-pane" id="ff-pane-a">
+          <div class="ff-name" id="ff-na">—</div>
+          <div class="ff-sc" id="ff-sa">0</div>
+        </div>
+        <div class="ff-vs">VS</div>
+        <div class="ff-pane" id="ff-pane-b">
+          <div class="ff-name" id="ff-nb">—</div>
+          <div class="ff-sc" id="ff-sb">0</div>
+        </div>
+      </div>
+      <div class="chrono-big ok" id="ff-chrono">60</div>
+      <div class="buzz-status" id="ff-buzz-status">En attente d'un buzzer…</div>
+      <div class="answer-grid" id="ff-answer-grid" style="display:none">
+        <button class="btn btn-correct" onclick="s({cmd:'ff_answer',correct:true})">✓<span style="font-size:13px;font-weight:400">Bonne réponse</span></button>
+        <button class="btn btn-wrong"   onclick="s({cmd:'ff_answer',correct:false})">✗<span style="font-size:13px;font-weight:400">Mauvaise réponse</span></button>
+      </div>
+      <button class="btn btn-ghost" style="width:100%;margin-top:8px" onclick="s({cmd:'ff_end'})">⏹ Terminer le face à face</button>
+    </div>
+  </div>
+
+  <!-- ÉGALITÉ -->
+  <div class="view" id="v-egalite">
+    <div class="sh"><h2>Départage — Égalité</h2></div>
+    <div class="card" style="margin-bottom:12px">
+      <div class="ctitle">Candidats</div>
+      <div id="eq-list" style="margin-bottom:10px"></div>
+      <div class="buzz-status" id="eq-buzz-status">En attente…</div>
+      <div id="eq-validate-area"></div>
+      <button class="btn btn-gold" style="margin-top:10px" onclick="s({cmd:'nine_start_round'})">▶ Nouvelle question</button>
+    </div>
+    <div class="card">
+      <div class="ctitle">Lancer un départage</div>
+      <div class="hint" style="margin-bottom:8px">Sélectionne les joueurs à départager</div>
+      <div id="eq-pick-list" style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px"></div>
+      <button class="btn btn-blue" onclick="launchEq()">⚖️ Démarrer le départage</button>
+    </div>
+  </div>
+
+  <!-- FIN -->
+  <div class="view" id="v-fin">
+    <div style="text-align:center;padding:50px 20px">
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:52px;font-weight:900;color:var(--gold);margin-bottom:20px">Partie terminée !</div>
+      <div id="fin-content" style="margin-bottom:28px;font-size:18px"></div>
+      <button class="btn btn-gold" style="font-size:18px;padding:14px 32px" onclick="openModal('m-new')">🔄 Nouvelle partie</button>
+    </div>
+  </div>
+
+  <!-- SETUP (première ouverture) -->
+  <div class="view" id="v-setup">
+    <div style="text-align:center;padding:60px 20px">
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:40px;font-weight:900;color:var(--gold);margin-bottom:16px">Bienvenue</div>
+      <div style="color:var(--muted);margin-bottom:24px">Créez une nouvelle partie pour commencer.</div>
+      <button class="btn btn-gold" style="font-size:18px;padding:14px 30px" onclick="openModal('m-new')">➕ Nouvelle partie</button>
+    </div>
+  </div>
+
+</div><!-- /center -->
+
+<!-- ═══ RIGHT ═══ -->
+<div class="right">
+  <div class="card">
+    <div class="ctitle">Navigation</div>
+    <button class="nav-btn" id="nav-9pts"     onclick="goPhase('9pts')">9 Points Gagnants</button>
+    <button class="nav-btn" id="nav-4suite"   onclick="goPhase('4suite')">4 à la Suite</button>
+    <button class="nav-btn" id="nav-facaface" onclick="goPhase('facaface')">Face à Face</button>
+    <button class="nav-btn" id="nav-egalite"  onclick="goPhase('egalite')">Départage</button>
+    <button class="nav-btn" id="nav-fin"      onclick="goPhase('fin')">Fin de partie</button>
+  </div>
+  <div class="card" style="flex:1;min-height:0;display:flex;flex-direction:column">
+    <div class="ctitle">Journal</div>
+    <div class="log-wrap" id="log-wrap" style="flex:1"></div>
+  </div>
+</div>
+
+</div><!-- /body -->
+</div><!-- /app -->
+
+<!-- ═══════════ MODALS ═══════════ -->
+
+<!-- Nouvelle partie -->
+<div class="modal-bg hidden" id="m-new">
+<div class="modal">
+  <h2>➕ Nouvelle partie</h2>
+  <div class="lbl" style="margin-bottom:6px">Joueurs (2 à 4)</div>
+  <div id="ng-players"></div>
+  <button class="btn btn-ghost" style="font-size:12px;margin-bottom:14px" onclick="ngAdd()">+ Joueur</button>
+  <div class="lbl" style="margin-bottom:6px">Thèmes du 4 à la suite</div>
+  <div id="ng-themes"></div>
+  <div class="hint">Le 4ème thème sera affiché comme "Thème Mystère" côté public.</div>
+  <div class="modal-footer">
+    <button class="btn btn-ghost" onclick="closeModal('m-new')">Annuler</button>
+    <button class="btn btn-gold" onclick="ngSubmit()">🚀 Démarrer</button>
+  </div>
+</div>
+</div>
+
+<!-- Sauvegardes -->
+<div class="modal-bg hidden" id="m-saves">
+<div class="modal" style="width:460px">
+  <h2>📂 Parties sauvegardées</h2>
+  <div id="saves-list" style="max-height:340px;overflow-y:auto;margin-bottom:8px"></div>
+  <div class="modal-footer">
+    <button class="btn btn-ghost" onclick="closeModal('m-saves')">Fermer</button>
+  </div>
+</div>
+</div>
+
+<!-- Ajout manuel de points -->
+<div class="modal-bg hidden" id="m-pts">
+<div class="modal">
+  <h2>✏️ Ajouter des points</h2>
+  <div class="lbl">Nombre de points</div>
+  <div class="pts-row">
+    <div class="pts-tile" id="ptile-1" onclick="selPts(1)">1</div>
+    <div class="pts-tile" id="ptile-2" onclick="selPts(2)">2</div>
+    <div class="pts-tile" id="ptile-3" onclick="selPts(3)">3</div>
+  </div>
+  <div class="lbl" style="margin-top:10px">Joueur</div>
+  <div id="m-pts-players"></div>
+  <div class="modal-footer">
+    <button class="btn btn-ghost" onclick="closeModal('m-pts')">Annuler</button>
+    <button class="btn btn-gold" onclick="confirmPts()">Valider</button>
+  </div>
+</div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════════
+//  STATE
+// ═══════════════════════════════════════════════════════
+let G = null, SM = [], WS = null;
+let manPts = 1, manPid = null;
+let ffPidA = null, ffPidB = null;
+let eqSelected = [];
+let ngPlayers = [];
+let fourInterval = null, ffInterval = null;
+// Décalage horloge serveur-client
+let serverOffset = 0; // client_now = server_now + serverOffset
+
+// ═══════════════════════════════════════════════════════
+//  WEBSOCKET
+// ═══════════════════════════════════════════════════════
+function connect() {
+  WS = new WebSocket(`ws://${location.hostname}:8765/web`);
+  WS.onopen  = () => document.getElementById('wsind').classList.add('ok');
+  WS.onclose = () => { document.getElementById('wsind').classList.remove('ok'); setTimeout(connect, 3000); };
+  WS.onmessage = e => {
+    const d = JSON.parse(e.data);
+    if (d.type === 'state') {
+      // Synchronisation horloge : server_now est le timestamp Python time.time()
+      if (d.server_now) serverOffset = d.server_now - Date.now() / 1000;
+      G = d.game; SM = d.saves_meta || [];
+      render();
+    }
+  };
+}
+function s(obj) { if (WS && WS.readyState === 1) WS.send(JSON.stringify(obj)); }
+connect();
+
+function serverNow() { return Date.now() / 1000 + serverOffset; }
+
+// ═══════════════════════════════════════════════════════
+//  RENDER
+// ═══════════════════════════════════════════════════════
+function render() {
+  if (!G) return;
+  const phaseLabels = { setup:'Setup', '9pts':'9 Points', '4suite':'4 à la Suite',
+    facaface:'Face à Face', egalite:'Égalité', fin:'Fin' };
+  document.getElementById('tp-phase').textContent = phaseLabels[G.phase] || G.phase;
+  document.getElementById('tp-round').textContent = G.q_count ?? 0;
+  document.getElementById('tp-mode').textContent  = G.nine_mode === 'auto' ? 'Auto' : 'Manuel';
+
+  // Nav active
+  ['9pts','4suite','facaface','egalite','fin'].forEach(ph => {
+    document.getElementById(`nav-${ph}`)?.classList.toggle('active', G.phase === ph);
+  });
+
+  // Vue active
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  const vmap = { setup:'v-setup', '9pts':'v-9pts', '4suite':'v-4suite',
+    facaface:'v-facaface', egalite:'v-egalite', fin:'v-fin' };
+  document.getElementById(vmap[G.phase] || 'v-setup')?.classList.add('active');
+
+  renderSidebar();
+  if (G.phase === '9pts')     render9pts();
+  if (G.phase === '4suite')   render4suite();
+  if (G.phase === 'facaface') renderFF();
+  if (G.phase === 'egalite')  renderEq();
+  if (G.phase === 'fin')      renderFin();
+  renderLog();
+}
+
+// ─── Sidebar ────────────────────────────────────────────
+function renderSidebar() {
+  if (!G) return;
+  // Joueurs
+  document.getElementById('sb-players').innerHTML = G.players.map(p => {
+    const pts = Math.min(p.points, 9);
+    const isW = G.winner_pid === p.id;
+    const isWr = (G.buzzed_wrong || []).includes(p.id);
+    const badge = p.qualified ? '<span class="sb-badge bq">✓</span>'
+      : isW ? '<span class="sb-badge bbuzz">🔔</span>'
+      : isWr ? '<span class="sb-badge bwrong">✗</span>' : '';
+    const cls = p.qualified ? 'qualified-row' : isW ? 'winner-row' : p.eliminated ? 'elim-row' : '';
+    return `<div class="sb-player ${cls}"><div class="sb-pname">${x(p.name)}</div>${badge}<div class="sb-pts">${pts}</div></div>`;
+  }).join('');
+
+  // Thèmes
+  document.getElementById('sb-themes').innerHTML = G.themes.map((t, i) =>
+    `<div><span style="color:var(--muted)">${i+1}. </span>${i===3?`<span style="color:var(--gold);font-style:italic">Thème Mystère</span>`:x(t||'—')}</div>`
+  ).join('');
+
+  // ESP
+  // On n'a pas de liste d'ESP dans l'état serveur simplifié, on l'indique
+  document.getElementById('sb-esp').textContent = 'Connectés via /esp';
+}
+
+// ─── 9 POINTS ───────────────────────────────────────────
+function render9pts() {
+  if (!G) return;
+  const isManual = G.nine_mode === 'manual';
+  document.getElementById('tog-mode').checked = isManual;
+  document.getElementById('nine-qvbadge').textContent = G.q_value + ' pt' + (G.q_value > 1 ? 's' : '');
+  document.getElementById('manual-card').style.display = isManual ? 'block' : 'none';
+
+  // Score list
+  document.getElementById('nine-score-list').innerHTML = G.players.map(p => {
+    const pts = Math.min(p.points, 9);
+    const isW  = G.winner_pid === p.id;
+    const isWr = (G.buzzed_wrong || []).includes(p.id);
+    const bars = Array.from({length:9}, (_, i) => `<div class="np-bar ${i<pts?(p.qualified?'on qbar':'on'):''}"></div>`).join('');
+    const badge = p.qualified ? '<span class="np-badge nbq">✓ QUALIFIÉ</span>'
+      : isW  ? '<span class="np-badge nbbuzz">🔔 BUZZÉ</span>'
+      : isWr ? '<span class="np-badge nbwrong">✗ FAUX</span>' : '';
+    const cls = p.qualified ? 'qualified-row' : isW ? 'winner-row' : p.eliminated ? 'elim-row' : '';
+    return `<div class="nine-player ${cls}">
+      <div class="np-name">${x(p.name)}</div>
+      <div class="np-bars">${bars}</div>
+      ${badge}
+      <div class="np-pts">${pts}</div>
+    </div>`;
+  }).join('');
+
+  // Buzzer status & validation
+  const winner = G.winner_pid ? G.players.find(p => p.id === G.winner_pid) : null;
+  const bs = document.getElementById('nine-buzz-status');
+  const va = document.getElementById('nine-validate-area');
+  if (winner) {
+    bs.innerHTML = `🔔 <b>${x(winner.name)}</b> a buzzé — valider sa réponse ?`;
+    va.innerHTML = `<div style="display:flex;gap:8px">
+      <button class="btn btn-green" onclick="s({cmd:'nine_validate',pid:'${winner.id}',correct:true})">✓ Correct (+${G.q_value}pt)</button>
+      <button class="btn btn-red"   onclick="s({cmd:'nine_validate',pid:'${winner.id}',correct:false})">✗ Faux</button>
+    </div>`;
+  } else if (G.round_active) {
+    bs.innerHTML = `⏳ <b>Question ouverte</b> — en attente d'un buzzer…`;
+    va.innerHTML = '';
+  } else {
+    bs.textContent = 'Prêt pour une nouvelle question.';
+    va.innerHTML = '';
+  }
+}
+
+// ─── 4 À LA SUITE ──────────────────────────────────────
+function render4suite() {
+  if (!G) return;
+  const done    = G.four_done_pids || [];
+  const players = G.players.filter(p => !p.eliminated);
+  document.getElementById('four-pick-list').innerHTML = players.map(p => {
+    const isDone = done.includes(p.id);
+    return `<button class="btn ${isDone?'btn-ghost':'btn-blue'}" ${isDone?'disabled':''} onclick="s({cmd:'four_start',pid:'${p.id}'})">${x(p.name)}${isDone?' ✓':''}</button>`;
+  }).join('');
+
+  const active = G.four_current_pid;
+  document.getElementById('four-pick-card').style.display = active ? 'none' : 'block';
+  document.getElementById('four-turn-card').style.display = active ? 'block' : 'none';
+
+  if (active) {
+    const p = G.players.find(pl => pl.id === active);
+    document.getElementById('four-turn-label').textContent = `Tour de ${p ? p.name : '—'}`;
+    document.getElementById('four-score-display').textContent = `${G.four_score} / 4`;
+    clearInterval(fourInterval);
+    tickFourChrono();
+    if (G.four_timer_running) fourInterval = setInterval(tickFourChrono, 300);
+  }
+}
+function tickFourChrono() {
+  if (!G) return;
+  const rem = Math.max(0, G.four_timer_end - serverNow());
+  const el  = document.getElementById('four-chrono');
+  if (!el) return;
+  el.textContent = Math.ceil(rem);
+  el.className = 'chrono-big ' + (rem <= 5 ? 'danger' : rem <= 15 ? 'warn' : 'ok');
+}
+
+// ─── FACE À FACE ────────────────────────────────────────
+function renderFF() {
+  if (!G) return;
+  const running = G.ff_timer_running || G.ff_player_a;
+  document.getElementById('ff-pick-card').style.display = running ? 'none' : 'block';
+  document.getElementById('ff-duel-card').style.display = running ? 'block' : 'none';
+
+  if (!running) {
+    // Sélecteurs
+    const players = G.players.filter(p => !p.eliminated);
+    ['a','b'].forEach(side => {
+      document.getElementById(`ff-pick-${side}`).innerHTML = players.map(p =>
+        `<div class="ff-sel-btn ${(side==='a'?ffPidA:ffPidB)===p.id?'sel':''}" onclick="ffSel('${side}','${p.id}')">${x(p.name)}</div>`
+      ).join('');
+    });
+  } else {
+    const pa = G.players.find(p => p.id === G.ff_player_a);
+    const pb = G.players.find(p => p.id === G.ff_player_b);
+    const sa = (G.ff_scores || {})[G.ff_player_a] || 0;
+    const sb = (G.ff_scores || {})[G.ff_player_b] || 0;
+    document.getElementById('ff-na').textContent = pa ? pa.name : '—';
+    document.getElementById('ff-nb').textContent = pb ? pb.name : '—';
+    document.getElementById('ff-sa').textContent = sa;
+    document.getElementById('ff-sb').textContent = sb;
+
+    // Panneaux actif / buzzé
+    const buzzed = G.ff_buzzed_pid;
+    const actv   = G.ff_active_pid;
+    document.getElementById('ff-pane-a').className = 'ff-pane' +
+      (buzzed === G.ff_player_a ? ' ff-buzzed' : actv === G.ff_player_a ? ' ff-active' : '');
+    document.getElementById('ff-pane-b').className = 'ff-pane' +
+      (buzzed === G.ff_player_b ? ' ff-buzzed' : actv === G.ff_player_b ? ' ff-active' : '');
+
+    // Status
+    const bs  = document.getElementById('ff-buzz-status');
+    const ffg = document.getElementById('ff-answer-grid');
+    if (buzzed) {
+      const bp = G.players.find(p => p.id === buzzed);
+      bs.innerHTML = `🔔 <b>${x(bp ? bp.name : buzzed)}</b> a buzzé !`;
+      ffg.style.display = 'grid';
+    } else {
+      bs.textContent = 'En attente d\'un buzzer…';
+      ffg.style.display = 'none';
+    }
+
+    clearInterval(ffInterval);
+    tickFFChrono();
+    if (G.ff_timer_running) ffInterval = setInterval(tickFFChrono, 300);
+  }
+}
+function ffSel(side, pid) { if (side==='a') ffPidA=pid; else ffPidB=pid; renderFF(); }
+function startFF() {
+  if (!ffPidA || !ffPidB || ffPidA === ffPidB) { alert('Sélectionne 2 joueurs différents'); return; }
+  s({ cmd:'ff_start', pid_a:ffPidA, pid_b:ffPidB });
+}
+function tickFFChrono() {
+  if (!G) return;
+  const rem = Math.max(0, G.ff_timer_end - serverNow());
+  const el  = document.getElementById('ff-chrono');
+  if (!el) return;
+  el.textContent = Math.ceil(rem);
+  el.className = 'chrono-big ' + (rem <= 5 ? 'danger' : rem <= 15 ? 'warn' : 'ok');
+}
+
+// ─── ÉGALITÉ ────────────────────────────────────────────
+function renderEq() {
+  if (!G) return;
+  const eqPids   = G.eq_pids || [];
+  const eqScores = G.eq_scores || {};
+  document.getElementById('eq-list').innerHTML = eqPids.map(pid => {
+    const p   = G.players.find(pl => pl.id === pid);
+    const sc  = eqScores[pid] || 0;
+    const isW = G.winner_pid === pid;
+    return `<div class="eq-player ${isW?'winner-row':''}">
+      <div class="np-name">${x(p?p.name:pid)}</div>
+      ${isW?'<span class="np-badge nbbuzz">🔔</span>':''}
+      <div class="np-pts" style="margin-left:auto">${sc}/2</div>
+    </div>`;
+  }).join('');
+
+  const winner = G.winner_pid ? G.players.find(p => p.id === G.winner_pid) : null;
+  const bs = document.getElementById('eq-buzz-status');
+  const va = document.getElementById('eq-validate-area');
+  if (winner) {
+    bs.innerHTML = `🔔 <b>${x(winner.name)}</b> — valider ?`;
+    va.innerHTML = `<div style="display:flex;gap:8px">
+      <button class="btn btn-green" onclick="s({cmd:'eq_answer',correct:true})">✓ Correct</button>
+      <button class="btn btn-red"   onclick="s({cmd:'eq_answer',correct:false})">✗ Faux</button>
+    </div>`;
+  } else {
+    bs.textContent = 'En attente d\'un buzzer…';
+    va.innerHTML   = '';
+  }
+
+  // Pick list pour lancer un départage
+  document.getElementById('eq-pick-list').innerHTML = G.players
+    .filter(p => !p.qualified && !p.eliminated)
+    .map(p => `<button class="btn ${eqSelected.includes(p.id)?'btn-gold':'btn-ghost'}" onclick="toggleEqSel('${p.id}')">${x(p.name)}</button>`).join('');
+}
+function toggleEqSel(pid) {
+  const i = eqSelected.indexOf(pid);
+  if (i >= 0) eqSelected.splice(i, 1); else eqSelected.push(pid);
+  renderEq();
+}
+function launchEq() {
+  if (eqSelected.length < 2) { alert('Sélectionne au moins 2 joueurs'); return; }
+  s({ cmd:'eq_start', pids:eqSelected });
+  eqSelected = [];
+}
+
+// ─── FIN ────────────────────────────────────────────────
+function renderFin() {
+  if (!G) return;
+  const qs = G.players.filter(p => p.qualified);
+  document.getElementById('fin-content').innerHTML = qs.length
+    ? `<span style="color:var(--muted)">Qualifié(s) : </span>` + qs.map(p => `<b style="color:var(--gold)">${x(p.name)}</b>`).join(', ')
+    : '<span style="color:var(--muted)">Aucun qualifié</span>';
+}
+
+// ─── LOG ─────────────────────────────────────────────────
+function renderLog() {
+  if (!G) return;
+  document.getElementById('log-wrap').innerHTML = [...(G.history||[])].reverse().slice(0,40).map(e =>
+    `<div class="log-entry"><span class="lt">${e.t}</span>${x(e.msg)}</div>`
+  ).join('');
+}
+
+// ═══════════════════════════════════════════════════════
+//  NAVIGATION
+// ═══════════════════════════════════════════════════════
+function goPhase(ph) {
+  if (!confirm(`Passer en phase "${ph}" ?`)) return;
+  s({ cmd:'set_phase', phase:ph });
+}
+function toggleMode(el) { s({ cmd:'nine_set_mode', mode: el.checked ? 'manual' : 'auto' }); }
+
+// ═══════════════════════════════════════════════════════
+//  MODALS
+// ═══════════════════════════════════════════════════════
+function openModal(id) {
+  document.getElementById(id).classList.remove('hidden');
+  if (id === 'm-new')    initNG();
+  if (id === 'm-saves')  renderSaves();
+  if (id === 'm-pts')    initPtsModal();
+}
+function closeModal(id) { document.getElementById(id).classList.add('hidden'); }
+document.querySelectorAll('.modal-bg').forEach(m =>
+  m.addEventListener('click', e => { if (e.target === m) m.classList.add('hidden'); })
+);
+
+// ─── Nouvelle partie ────────────────────────────────────
+function initNG() {
+  ngPlayers = [{ name:'', bid:'' },{ name:'', bid:'' }];
+  renderNG();
+  // Thèmes
+  document.getElementById('ng-themes').innerHTML = Array.from({length:4}, (_, i) => `
+    <div class="fl">
+      <span style="font-size:12px;color:var(--muted);width:90px;flex-shrink:0">${i===3?'Mystère':'Thème '+(i+1)}</span>
+      <input class="inp" id="ngt-${i}" placeholder="${i===3?'(caché côté public)':'Thème '+(i+1)}">
+    </div>`).join('');
+}
+function renderNG() {
+  document.getElementById('ng-players').innerHTML = ngPlayers.map((p, i) => `
+    <div class="fl">
+      <input class="inp" placeholder="Nom ${i+1}" value="${x(p.name)}" oninput="ngPlayers[${i}].name=this.value" style="flex:1">
+      <input class="inp" placeholder="buzzer1…" value="${x(p.bid)}" oninput="ngPlayers[${i}].bid=this.value" style="width:90px">
+      ${i >= 2 ? `<button class="btn btn-red" style="padding:6px 9px" onclick="ngRem(${i})">✕</button>` : ''}
+    </div>`).join('');
+}
+function ngAdd() { if (ngPlayers.length >= 4) return alert('4 joueurs max'); ngPlayers.push({name:'',bid:''}); renderNG(); }
+function ngRem(i) { ngPlayers.splice(i,1); renderNG(); }
+function ngSubmit() {
+  const players = ngPlayers.filter(p => p.name.trim()).map(p => ({ name:p.name.trim(), buzzer_id:p.bid.trim() }));
+  if (players.length < 2) return alert('Au moins 2 joueurs requis');
+  const themes = Array.from({length:4}, (_, i) => document.getElementById(`ngt-${i}`)?.value.trim() || '');
+  s({ cmd:'setup_game', players, themes });
+  closeModal('m-new');
+}
+
+// ─── Sauvegardes ────────────────────────────────────────
+function renderSaves() {
+  const el = document.getElementById('saves-list');
+  if (!SM.length) { el.innerHTML = '<div style="color:var(--muted);font-size:13px">Aucune partie sauvegardée.</div>'; return; }
+  el.innerHTML = [...SM].reverse().map(s =>
+    `<div class="save-item" onclick="loadSave('${s.game_id}')">
+      <div class="save-name">${x((s.players||[]).join(', '))} ${s.finished?'✓':''}</div>
+      <div class="save-meta">${s.created_at} · Phase : ${s.phase} · ID : ${s.game_id}</div>
+    </div>`
+  ).join('');
+}
+function loadSave(gid) {
+  if (!confirm('Charger cette partie ?')) return;
+  s({ cmd:'load_game', game_id:gid });
+  closeModal('m-saves');
+}
+
+// ─── Points manuels ─────────────────────────────────────
+function initPtsModal() {
+  manPts = 1; manPid = null;
+  renderPtsModal();
+}
+function renderPtsModal() {
+  [1,2,3].forEach(n => document.getElementById(`ptile-${n}`)?.classList.toggle('sel', manPts===n));
+  if (!G) return;
+  document.getElementById('m-pts-players').innerHTML = G.players
+    .filter(p => !p.qualified && !p.eliminated)
+    .map(p => `<div class="player-pick ${manPid===p.id?'sel':''}" onclick="selPid('${p.id}')">${x(p.name)} (${Math.min(p.points,9)}/9)</div>`).join('');
+}
+function selPts(n)  { manPts = n; renderPtsModal(); }
+function selPid(id) { manPid = id; renderPtsModal(); }
+function confirmPts() {
+  if (!manPid) return alert('Choisis un joueur');
+  s({ cmd:'nine_manual_add', pid:manPid, pts:manPts });
+  closeModal('m-pts');
+}
+
+// ═══════════════════════════════════════════════════════
+//  HELPERS
+// ═══════════════════════════════════════════════════════
+function x(s) {
+  return String(s||'').replace(/[<>&"]/g, c => ({'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;'}[c]));
+}
+</script>
+</body>
+</html>

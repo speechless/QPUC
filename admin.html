@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>QPUC — Admin</title>
+
+<h1>Admin</h1>
+
+<div class="INIT" id="initView" style="display: none;">
+    <h2>Init</h2>
+    <div class="step1_INIT">
+        <!-- Ajout des joueurs, de leurs noms et association à un buzzer -->
+        <!-- Pop-up réutilisable lors du jeu dans les paramètres pour modifier le nom ou un buzzer -->
+        <span class="playersInitPanel">
+            <p>Nombre de joueurs : <span id="playerCount">Z</span></p>
+            
+            <!-- Template pour un joueur -->
+            <div class="playerInitTemplate">
+                <span>
+                    <h4 class="playerInitTemplate_name" id="playerInitTemplate_name_1">Joueur 1</h4>
+                    <input class="playerInitTemplate_nameInput" type= "text" placeholder="Nom du joueur 1" id="playerInitTemplate_nameInput_1">
+                </span> 
+                
+                <span>
+                    <select class="playerInitTemplate_buzzerSelect" id="playerInitTemplate_buzzerSelect_1">
+                        <option value="NotSelected" selected disabled>Choix du buzzer</option>
+                        <option value="buzzer2">Buzzer X</option>
+                        <option value="buzzer3">Buzzer Y</option>
+                    </select>
+                </span>
+
+                <span>
+                    <button class="playerInitTemplate_removePlayer_1">Retirer ce joueur</button>
+                </span>
+            </div>
+            <!-- <div> 
+                <button class="playerInitTemplate_validatePlayers">Valider</button>
+            </div> -->
+        </span>
+
+
+        <span class="step2_INIT">
+            <h3>Choix des thèmes du 4 à la suite</h3>
+            <div>
+                <p>Thème 1</p>
+                <input type="text" placeholder="Thème 1" id="theme1">
+                <p>Thème 2</p>
+                <input type="text" placeholder="Thème 2" id="theme2">
+                <p>Thème 3</p>
+                <input type="text" placeholder="Thème 3" id="theme3">
+                <p>Thème mystère <br>Ce thème ne sera révélé que lors de sa sélection par un joueur</p>
+                <input type="text" placeholder="Thème 4" id="theme4">
+            </div>
+
+            <!-- <div> 
+                <button class="playerInitTemplate_validatePlayers">Valider</button>
+            </div> -->
+        </span>
+
+        <div>
+            <h3>Commencer la partie</h3>
+            <button class="endInitButton" onclick="sendCloseInit()">Commencer</button>
+        </div>
+        
+    </div>
+</div>
+
+
+</head>
+</html>
+
+<script>
+    const CLIENT_ID_KEY = 'qpucClientId';
+    let clientId = localStorage.getItem(CLIENT_ID_KEY);
+    let ws = null;
+    let G = null;
+
+    function connect() {
+        ws = new WebSocket(`ws://${location.hostname}:8765/web`);
+        ws.onopen = () => {
+            ws.send(JSON.stringify({ type: 'hello', clientId }));
+        };
+        ws.onclose = () => setTimeout(connect, 3000);
+        ws.onmessage = e => {
+            console.log('ws.onmessage', e.data);
+            const d = JSON.parse(e.data);
+            if (d.type === 'hello_ack' && d.clientId) {
+                clientId = d.clientId;
+                localStorage.setItem(CLIENT_ID_KEY, clientId);
+                return;
+            }
+            if (d.type === 'state' && d.phase) {
+                G = d;
+                render();
+            }
+        };
+    }
+
+    function s(obj) {
+        if (ws && ws.readyState === 1) {
+            ws.send(JSON.stringify(obj));
+        }
+    }
+
+    connect();
+
+    function render() {
+        if (!G) return;
+
+        const initView = document.getElementById('initView');
+        if (initView) {
+            initView.style.display = (G.phase === 'PHASE_SETUP') ? 'block' : 'none';
+        }
+
+        if (G.phase === 'PHASE_SETUP')    renderInit();
+        if (G.phase === 'PHASE_NPG')     render9pts();
+        if (G.phase === 'PHASE_QALS')   render4suite();
+        if (G.phase === 'PHASE_FAF') renderFF();
+        if (G.phase === 'PHASE_TIEBREAK')  renderEq();
+        if (G.phase === 'PHASE_FIN')      renderFin();
+    }
+
+    function renderInit(){
+        const initView = document.getElementById('initView');
+        if (initView) {
+            initView.style.display = 'block';
+        }
+    }
+
+    
+    function getPlayersFromForm() {
+        return Array.from(document.querySelectorAll('.playerInitTemplate'))
+            .map((row, index) => {
+                const nameInput = row.querySelector('.playerInitTemplate_nameInput');
+                const buzzerSelect = row.querySelector('.playerInitTemplate_buzzerSelect');
+                const name = nameInput?.value?.trim() || `Joueur ${index + 1}`;
+                const buzzerId = buzzerSelect?.value || '';
+
+                return {
+                    name,
+                    buzzer_id: buzzerId
+                };
+            })
+            .filter(player => player.name || player.buzzer_id);
+    }
+
+    function getThemesFromForm() {
+        return Array.from({ length: 4 }, (_, index) => ({
+            index,
+            theme: document.getElementById(`theme${index + 1}`)?.value?.trim() || ''
+        }));
+    }
+
+    function sendCloseInit() {
+        const players = getPlayersFromForm();
+        const themes = getThemesFromForm();
+
+        document.getElementById('playerCount').textContent = players.length;
+
+        command = {
+            typeCmd: "PHASE_SETUP",
+            players,
+            themes
+        }
+
+        console.log("setNewPhase", command);
+
+        s(command);
+    }
+</script>

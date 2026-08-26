@@ -1,0 +1,4896 @@
+[
+  {
+    "game_id": "fd2dd0e0",
+    "created_at": "2026-05-10 15:13",
+    "phase": "setup",
+    "players": [],
+    "themes": [
+      "",
+      "",
+      "",
+      ""
+    ],
+    "finished": false,
+    "history": [
+      {
+        "t": "15:14:06",
+        "msg": "📡 Buzzer connecté : Joueur 2 (buzzer2)"
+      },
+      {
+        "t": "15:14:06",
+        "msg": "📡 Buzzer connecté : Joueur 1 (buzzer1)"
+      }
+    ],
+    "nine_mode": "auto",
+    "q_value": 1,
+    "q_count": 0,
+    "round_active": false,
+    "buzzer_order": [],
+    "buzzed_wrong": [],
+    "winner_pid": null,
+    "four_current_pid": null,
+    "four_score": 0,
+    "four_best": 0,
+    "four_timer_end": 0.0,
+    "four_timer_running": false,
+    "four_done_pids": [],
+    "four_best_scores": {},
+    "four_theme_index": 0,
+    "four_theme_chosen": null,
+    "four_themes_taken": [],
+    "ff_player_a": null,
+    "ff_player_b": null,
+    "ff_scores": {},
+    "ff_timer_end": 0.0,
+    "ff_timer_running": false,
+    "ff_active_pid": null,
+    "ff_buzzed_pid": null,
+    "ff_current_pts": 4,
+    "ff_total_target": 12,
+    "eq_pids": [],
+    "eq_scores": {},
+    "eq_buzzed_wrong": [],
+    "ff_zone_pts": 4,
+    "ff_zone_dur": 5.0,
+    "ff_total_dur": 20
+  },
+  {
+    "game_id": "c0a58767",
+    "created_at": "2026-05-10 15:14",
+    "phase": "9pts",
+    "players": [
+      {
+        "id": "p1",
+        "name": "A",
+        "buzzer_id": "buzzer1",
+        "points": 0,
+        "qualified": true,
+        "eliminated": false
+      },
+      {
+        "id": "p2",
+        "name": "B",
+        "buzzer_id": "buzzer2",
+        "points": 15,
+        "qualified": true,
+        "eliminated": false
+      }
+    ],
+    "themes": [
+      "1",
+      "2",
+      "3",
+      "4"
+    ],
+    "finished": false,
+    "history": [
+      {
+        "t": "15:14:25",
+        "msg": "🎮 Nouvelle partie démarrée"
+      },
+      {
+        "t": "15:14:36",
+        "msg": "Mode : manual"
+      },
+      {
+        "t": "15:15:02",
+        "msg": "Mode : auto"
+      },
+      {
+        "t": "15:15:56",
+        "msg": "🔔 B buzzé en premier !"
+      },
+      {
+        "t": "15:15:58",
+        "msg": "❌ B — faux"
+      },
+      {
+        "t": "15:15:58",
+        "msg": "⚠️ Tous ont répondu faux"
+      },
+      {
+        "t": "15:16:47",
+        "msg": "🔔 A buzzé en premier !"
+      },
+      {
+        "t": "15:16:53",
+        "msg": "❌ A — faux"
+      },
+      {
+        "t": "15:16:53",
+        "msg": "⚠️ Tous ont répondu faux"
+      },
+      {
+        "t": "15:20:00",
+        "msg": "Mode : manual"
+      },
+      {
+        "t": "15:20:01",
+        "msg": "Mode : auto"
+      },
+      {
+        "t": "15:20:03",
+        "msg": "▶ Question — 3 pt(s)"
+      },
+      {
+        "t": "15:20:06",
+        "msg": "🔔 A buzzé en premier !"
+      },
+      {
+        "t": "15:20:09",
+        "msg": "❌ A — faux"
+      },
+      {
+        "t": "15:20:09",
+        "msg": "⚠️ Tous ont répondu faux"
+      },
+      {
+        "t": "15:20:31",
+        "msg": "🔔 B buzzé en premier !"
+      },
+      {
+        "t": "15:20:33",
+        "msg": "✅ B +3pt → 3pt"
+      },
+      {
+        "t": "15:20:47",
+        "msg": "📌 Phase → 4suite"
+      },
+      {
+        "t": "15:21:00",
+        "msg": "🎯 A choisit le thème 4"
+      },
+      {
+        "t": "15:21:00",
+        "msg": "⏱ Tour de A — 4 à la suite"
+      },
+      {
+        "t": "15:21:04",
+        "msg": "✅ A : 1 consécutives (record: 1)"
+      },
+      {
+        "t": "15:21:06",
+        "msg": "✅ A : 2 consécutives (record: 2)"
+      },
+      {
+        "t": "15:21:08",
+        "msg": "❌ A — repart de 0 (record: 2)"
+      },
+      {
+        "t": "15:21:10",
+        "msg": "✅ A : 1 consécutives (record: 2)"
+      },
+      {
+        "t": "15:21:12",
+        "msg": "✅ A : 2 consécutives (record: 2)"
+      },
+      {
+        "t": "15:21:14",
+        "msg": "✅ A : 3 consécutives (record: 3)"
+      },
+      {
+        "t": "15:21:15",
+        "msg": "❌ A — repart de 0 (record: 3)"
+      },
+      {
+        "t": "15:21:16",
+        "msg": "✅ A : 1 consécutives (record: 3)"
+      },
+      {
+        "t": "15:21:17",
+        "msg": "❌ A — repart de 0 (record: 3)"
+      },
+      {
+        "t": "15:21:17",
+        "msg": "✅ A : 1 consécutives (record: 3)"
+      },
+      {
+        "t": "15:21:18",
+        "msg": "❌ A — repart de 0 (record: 3)"
+      },
+      {
+        "t": "15:21:18",
+        "msg": "✅ A : 1 consécutives (record: 3)"
+      },
+      {
+        "t": "15:21:18",
+        "msg": "❌ A — repart de 0 (record: 3)"
+      },
+      {
+        "t": "15:21:19",
+        "msg": "✅ A : 1 consécutives (record: 3)"
+      },
+      {
+        "t": "15:21:19",
+        "msg": "❌ A — repart de 0 (record: 3)"
+      },
+      {
+        "t": "15:21:19",
+        "msg": "✅ A : 1 consécutives (record: 3)"
+      },
+      {
+        "t": "15:21:19",
+        "msg": "❌ A — repart de 0 (record: 3)"
+      },
+      {
+        "t": "15:21:20",
+        "msg": "❌ A — repart de 0 (record: 3)"
+      },
+      {
+        "t": "15:21:21",
+        "msg": "❌ A — repart de 0 (record: 3)"
+      },
+      {
+        "t": "15:21:21",
+        "msg": "✅ A : 1 consécutives (record: 3)"
+      },
+      {
+        "t": "15:21:21",
+        "msg": "✅ A : 2 consécutives (record: 3)"
+      },
+      {
+        "t": "15:21:22",
+        "msg": "❌ A — repart de 0 (record: 3)"
+      },
+      {
+        "t": "15:21:26",
+        "msg": "🔚 Arrêt manuel"
+      },
+      {
+        "t": "15:21:35",
+        "msg": "🎯 B choisit le thème 4"
+      },
+      {
+        "t": "15:21:35",
+        "msg": "⏱ Tour de B — 4 à la suite"
+      },
+      {
+        "t": "15:21:36",
+        "msg": "✅ B : 1 consécutives (record: 1)"
+      },
+      {
+        "t": "15:21:36",
+        "msg": "✅ B : 2 consécutives (record: 2)"
+      },
+      {
+        "t": "15:21:37",
+        "msg": "✅ B : 3 consécutives (record: 3)"
+      },
+      {
+        "t": "15:21:37",
+        "msg": "✅ B : 4 consécutives (record: 4)"
+      },
+      {
+        "t": "15:21:37",
+        "msg": "🌟 B réussit le 4 à la suite !"
+      },
+      {
+        "t": "15:21:37",
+        "msg": "🔚 4/4 réussi !"
+      },
+      {
+        "t": "15:21:37",
+        "msg": "🏁 4 à la suite terminé pour tous — calcul des qualifiés"
+      },
+      {
+        "t": "15:21:37",
+        "msg": "✅ B qualifié (score 4)"
+      },
+      {
+        "t": "15:21:37",
+        "msg": "✅ A qualifié (score 3)"
+      },
+      {
+        "t": "15:21:37",
+        "msg": "🏁 Les 2 qualifiés pour le face à face sont déterminés"
+      },
+      {
+        "t": "15:21:49",
+        "msg": "⚔️ Face à face : A vs B — objectif 12 pts"
+      },
+      {
+        "t": "15:21:55",
+        "msg": "▶ Nouvelle question face à face"
+      },
+      {
+        "t": "15:22:02",
+        "msg": "🔔 B buzze ! (3 pts si correct)"
+      },
+      {
+        "t": "15:22:06",
+        "msg": "❌ B — main à l'adversaire (chrono continue)"
+      },
+      {
+        "t": "15:22:09",
+        "msg": "🔔 A buzze ! (2 pts si correct)"
+      },
+      {
+        "t": "15:22:11",
+        "msg": "❌ A — main à l'adversaire (chrono continue)"
+      },
+      {
+        "t": "15:22:12",
+        "msg": "🔔 A buzze ! (1 pts si correct)"
+      },
+      {
+        "t": "15:22:16",
+        "msg": "❌ A — main à l'adversaire (chrono continue)"
+      },
+      {
+        "t": "15:22:16",
+        "msg": "⏰ Temps écoulé sur la question"
+      },
+      {
+        "t": "15:22:21",
+        "msg": "▶ Nouvelle question face à face"
+      },
+      {
+        "t": "15:22:24",
+        "msg": "🔔 B buzze ! (4 pts si correct)"
+      },
+      {
+        "t": "15:22:28",
+        "msg": "❌ B — main à l'adversaire (chrono continue)"
+      },
+      {
+        "t": "15:22:30",
+        "msg": "🔔 B buzze ! (3 pts si correct)"
+      },
+      {
+        "t": "15:22:32",
+        "msg": "❌ B — main à l'adversaire (chrono continue)"
+      },
+      {
+        "t": "15:22:41",
+        "msg": "⏰ Temps écoulé sur la question"
+      },
+      {
+        "t": "15:22:48",
+        "msg": "📌 Phase → egalite"
+      },
+      {
+        "t": "15:22:50",
+        "msg": "📌 Phase → fin"
+      },
+      {
+        "t": "15:22:58",
+        "msg": "📌 Phase → facaface"
+      },
+      {
+        "t": "15:23:00",
+        "msg": "▶ Nouvelle question face à face"
+      },
+      {
+        "t": "15:23:04",
+        "msg": "🔔 B buzze ! (4 pts si correct)"
+      },
+      {
+        "t": "15:23:06",
+        "msg": "✅ B +4pts → (0–4)"
+      },
+      {
+        "t": "15:23:06",
+        "msg": "▶ Nouvelle question face à face"
+      },
+      {
+        "t": "15:23:08",
+        "msg": "🔔 B buzze ! (4 pts si correct)"
+      },
+      {
+        "t": "15:23:08",
+        "msg": "✅ B +4pts → (0–8)"
+      },
+      {
+        "t": "15:23:08",
+        "msg": "▶ Nouvelle question face à face"
+      },
+      {
+        "t": "15:23:08",
+        "msg": "🔔 B buzze ! (4 pts si correct)"
+      },
+      {
+        "t": "15:23:09",
+        "msg": "✅ B +4pts → (0–12)"
+      },
+      {
+        "t": "15:23:09",
+        "msg": "🏆 B remporte le face à face !"
+      },
+      {
+        "t": "15:23:32",
+        "msg": "📌 Phase → 9pts"
+      },
+      {
+        "t": "15:23:58",
+        "msg": "Valeur → 2pt"
+      },
+      {
+        "t": "15:23:58",
+        "msg": "Valeur → 1pt"
+      },
+      {
+        "t": "15:24:00",
+        "msg": "Valeur → 2pt"
+      },
+      {
+        "t": "15:24:00",
+        "msg": "Valeur → 3pt"
+      },
+      {
+        "t": "15:24:01",
+        "msg": "Valeur → 1pt"
+      },
+      {
+        "t": "15:32:32",
+        "msg": "📡 Buzzer déconnecté : buzzer1"
+      },
+      {
+        "t": "15:32:32",
+        "msg": "📡 Buzzer déconnecté : buzzer2"
+      }
+    ],
+    "nine_mode": "auto",
+    "q_value": 1,
+    "q_count": 1,
+    "round_active": false,
+    "buzzer_order": [],
+    "buzzed_wrong": [],
+    "winner_pid": null,
+    "four_current_pid": null,
+    "four_score": 0,
+    "four_best": 0,
+    "four_timer_end": 1778419335.1694455,
+    "four_timer_running": false,
+    "four_done_pids": [
+      "p1",
+      "p2"
+    ],
+    "four_best_scores": {
+      "p1": 3,
+      "p2": 4
+    },
+    "four_theme_index": 2,
+    "four_theme_chosen": null,
+    "four_themes_taken": [],
+    "ff_player_a": "p1",
+    "ff_player_b": "p2",
+    "ff_scores": {
+      "p1": 0,
+      "p2": 12
+    },
+    "ff_timer_end": 1778419408.7740536,
+    "ff_timer_running": false,
+    "ff_active_pid": "p2",
+    "ff_buzzed_pid": null,
+    "ff_current_pts": 4,
+    "ff_total_target": 12,
+    "eq_pids": [],
+    "eq_scores": {},
+    "eq_buzzed_wrong": [],
+    "ff_zone_pts": 4,
+    "ff_zone_dur": 5.0,
+    "ff_total_dur": 20
+  },
+  {
+    "game_id": "b480fc8b",
+    "created_at": "2026-05-10 15:55",
+    "phase": "setup",
+    "players": [],
+    "themes": [
+      "",
+      "",
+      "",
+      ""
+    ],
+    "finished": false,
+    "history": [
+      {
+        "t": "15:55:26",
+        "msg": "📡 Buzzer connecté : Joueur 2 (buzzer2)"
+      },
+      {
+        "t": "15:55:26",
+        "msg": "📡 Buzzer connecté : Joueur 1 (buzzer1)"
+      }
+    ],
+    "nine_mode": "auto",
+    "q_value": 1,
+    "q_count": 0,
+    "round_active": false,
+    "buzzer_order": [],
+    "buzzed_wrong": [],
+    "winner_pid": null,
+    "four_current_pid": null,
+    "four_score": 0,
+    "four_best": 0,
+    "four_timer_end": 0.0,
+    "four_timer_running": false,
+    "four_done_pids": [],
+    "four_best_scores": {},
+    "four_theme_index": 0,
+    "four_theme_chosen": null,
+    "four_themes_taken": [],
+    "ff_player_a": null,
+    "ff_player_b": null,
+    "ff_scores": {},
+    "ff_timer_end": 0.0,
+    "ff_timer_running": false,
+    "ff_active_pid": null,
+    "ff_buzzed_pid": null,
+    "ff_current_pts": 4,
+    "ff_total_target": 12,
+    "eq_pids": [],
+    "eq_scores": {},
+    "eq_buzzed_wrong": [],
+    "ff_zone_pts": 4,
+    "ff_zone_dur": 5.0,
+    "ff_total_dur": 20
+  },
+  {
+    "game_id": "65c2fdb6",
+    "created_at": "2026-05-10 15:55",
+    "phase": "setup",
+    "players": [],
+    "themes": [
+      "",
+      "",
+      "",
+      ""
+    ],
+    "finished": false,
+    "history": [
+      {
+        "t": "15:55:45",
+        "msg": "📡 Buzzer connecté : Joueur 1 (buzzer1)"
+      },
+      {
+        "t": "15:55:45",
+        "msg": "📡 Buzzer connecté : Joueur 2 (buzzer2)"
+      },
+      {
+        "t": "15:56:26",
+        "msg": "📡 Buzzer déconnecté : buzzer1"
+      },
+      {
+        "t": "15:56:26",
+        "msg": "📡 Buzzer déconnecté : buzzer2"
+      }
+    ],
+    "nine_mode": "auto",
+    "q_value": 1,
+    "q_count": 0,
+    "round_active": false,
+    "buzzer_order": [],
+    "buzzed_wrong": [],
+    "winner_pid": null,
+    "four_current_pid": null,
+    "four_score": 0,
+    "four_best": 0,
+    "four_timer_end": 0.0,
+    "four_timer_running": false,
+    "four_done_pids": [],
+    "four_best_scores": {},
+    "four_theme_index": 0,
+    "four_theme_chosen": null,
+    "four_themes_taken": [],
+    "ff_player_a": null,
+    "ff_player_b": null,
+    "ff_scores": {},
+    "ff_timer_end": 0.0,
+    "ff_timer_running": false,
+    "ff_active_pid": null,
+    "ff_buzzed_pid": null,
+    "ff_current_pts": 4,
+    "ff_total_target": 12,
+    "eq_pids": [],
+    "eq_scores": {},
+    "eq_buzzed_wrong": [],
+    "ff_zone_pts": 4,
+    "ff_zone_dur": 5.0,
+    "ff_total_dur": 20
+  },
+  {
+    "game_id": "9a92e3e4",
+    "created_at": "2026-05-11 19:40",
+    "phase": "setup",
+    "players": [],
+    "themes": [
+      "",
+      "",
+      "",
+      ""
+    ],
+    "finished": false,
+    "history": [
+      {
+        "t": "19:42:13",
+        "msg": "📡 Buzzer connecté : Joueur 1 (buzzer1)"
+      },
+      {
+        "t": "19:42:16",
+        "msg": "📡 Buzzer connecté : Joueur 2 (buzzer2)"
+      },
+      {
+        "t": "19:43:35",
+        "msg": "📡 Buzzer déconnecté : buzzer1"
+      },
+      {
+        "t": "19:43:35",
+        "msg": "📡 Buzzer déconnecté : buzzer2"
+      }
+    ],
+    "nine_mode": "auto",
+    "q_value": 1,
+    "q_count": 0,
+    "round_active": false,
+    "buzzer_order": [],
+    "buzzed_wrong": [],
+    "winner_pid": null,
+    "four_current_pid": null,
+    "four_score": 0,
+    "four_best": 0,
+    "four_timer_end": 0.0,
+    "four_timer_running": false,
+    "four_done_pids": [],
+    "four_best_scores": {},
+    "four_theme_index": 0,
+    "four_theme_chosen": null,
+    "four_themes_taken": [],
+    "ff_player_a": null,
+    "ff_player_b": null,
+    "ff_scores": {},
+    "ff_timer_end": 0.0,
+    "ff_timer_running": false,
+    "ff_active_pid": null,
+    "ff_buzzed_pid": null,
+    "ff_current_pts": 4,
+    "ff_total_target": 12,
+    "eq_pids": [],
+    "eq_scores": {},
+    "eq_buzzed_wrong": [],
+    "ff_zone_pts": 4,
+    "ff_zone_dur": 5.0,
+    "ff_total_dur": 20
+  },
+  {
+    "game_id": "8b8c48e7",
+    "created_at": "2026-05-11 19:43",
+    "phase": "setup",
+    "players": [],
+    "themes": [
+      "",
+      "",
+      "",
+      ""
+    ],
+    "finished": false,
+    "history": [
+      {
+        "t": "19:43:38",
+        "msg": "📡 Buzzer connecté : Joueur 2 (buzzer2)"
+      },
+      {
+        "t": "19:43:38",
+        "msg": "📡 Buzzer connecté : Joueur 1 (buzzer1)"
+      },
+      {
+        "t": "19:49:47",
+        "msg": "📡 Buzzer déconnecté : buzzer1"
+      },
+      {
+        "t": "19:49:47",
+        "msg": "📡 Buzzer déconnecté : buzzer2"
+      }
+    ],
+    "nine_mode": "auto",
+    "q_value": 1,
+    "q_count": 0,
+    "round_active": false,
+    "buzzer_order": [],
+    "buzzed_wrong": [],
+    "winner_pid": null,
+    "four_current_pid": null,
+    "four_score": 0,
+    "four_best": 0,
+    "four_timer_end": 0.0,
+    "four_timer_running": false,
+    "four_done_pids": [],
+    "four_best_scores": {},
+    "four_theme_index": 0,
+    "four_theme_chosen": null,
+    "four_themes_taken": [],
+    "ff_player_a": null,
+    "ff_player_b": null,
+    "ff_scores": {},
+    "ff_timer_end": 0.0,
+    "ff_timer_running": false,
+    "ff_active_pid": null,
+    "ff_buzzed_pid": null,
+    "ff_current_pts": 4,
+    "ff_total_target": 12,
+    "eq_pids": [],
+    "eq_scores": {},
+    "eq_buzzed_wrong": [],
+    "ff_zone_pts": 4,
+    "ff_zone_dur": 5.0,
+    "ff_total_dur": 20
+  },
+  {
+    "game_id": "006f88d2",
+    "created_at": "2026-05-11 19:49",
+    "phase": "setup",
+    "players": [],
+    "themes": [
+      "",
+      "",
+      "",
+      ""
+    ],
+    "finished": false,
+    "history": [
+      {
+        "t": "19:49:50",
+        "msg": "📡 Buzzer connecté : Joueur 1 (buzzer1)"
+      },
+      {
+        "t": "19:49:50",
+        "msg": "📡 Buzzer connecté : Joueur 2 (buzzer2)"
+      },
+      {
+        "t": "19:50:03",
+        "msg": "📡 Buzzer déconnecté : buzzer2"
+      },
+      {
+        "t": "19:50:03",
+        "msg": "📡 Buzzer déconnecté : buzzer1"
+      }
+    ],
+    "nine_mode": "auto",
+    "q_value": 1,
+    "q_count": 0,
+    "round_active": false,
+    "buzzer_order": [],
+    "buzzed_wrong": [],
+    "winner_pid": null,
+    "four_current_pid": null,
+    "four_score": 0,
+    "four_best": 0,
+    "four_timer_end": 0.0,
+    "four_timer_running": false,
+    "four_done_pids": [],
+    "four_best_scores": {},
+    "four_theme_index": 0,
+    "four_theme_chosen": null,
+    "four_themes_taken": [],
+    "ff_player_a": null,
+    "ff_player_b": null,
+    "ff_scores": {},
+    "ff_timer_end": 0.0,
+    "ff_timer_running": false,
+    "ff_active_pid": null,
+    "ff_buzzed_pid": null,
+    "ff_current_pts": 4,
+    "ff_total_target": 12,
+    "eq_pids": [],
+    "eq_scores": {},
+    "eq_buzzed_wrong": [],
+    "ff_zone_pts": 4,
+    "ff_zone_dur": 5.0,
+    "ff_total_dur": 20
+  },
+  {
+    "game_id": "257ba69f",
+    "created_at": "2026-05-11 19:50",
+    "phase": "setup",
+    "players": [],
+    "themes": [
+      "",
+      "",
+      "",
+      ""
+    ],
+    "finished": false,
+    "history": [
+      {
+        "t": "19:50:06",
+        "msg": "📡 Buzzer connecté : Joueur 2 (buzzer2)"
+      },
+      {
+        "t": "19:50:06",
+        "msg": "📡 Buzzer connecté : Joueur 1 (buzzer1)"
+      },
+      {
+        "t": "19:58:46",
+        "msg": "📡 Buzzer déconnecté : buzzer2"
+      },
+      {
+        "t": "19:58:46",
+        "msg": "📡 Buzzer déconnecté : buzzer1"
+      },
+      {
+        "t": "20:04:37",
+        "msg": "📡 Buzzer connecté : Joueur 3 (buzzer3)"
+      },
+      {
+        "t": "20:07:16",
+        "msg": "📡 Buzzer déconnecté : buzzer3"
+      },
+      {
+        "t": "20:10:57",
+        "msg": "📡 Buzzer connecté : Joueur 2 (buzzer2)"
+      },
+      {
+        "t": "20:10:57",
+        "msg": "📡 Buzzer connecté : Joueur 1 (buzzer1)"
+      },
+      {
+        "t": "20:11:38",
+        "msg": "📡 Buzzer connecté : Joueur 3 (buzzer3)"
+      },
+      {
+        "t": "20:11:39",
+        "msg": "📡 Buzzer connecté : Joueur 2 (buzzer2)"
+      },
+      {
+        "t": "20:11:39",
+        "msg": "📡 Buzzer déconnecté : buzzer2"
+      },
+      {
+        "t": "20:13:04",
+        "msg": "📡 Buzzer connecté : Joueur 2 (buzzer2)"
+      },
+      {
+        "t": "20:13:08",
+        "msg": "📡 Buzzer déconnecté : buzzer2"
+      },
+      {
+        "t": "20:13:53",
+        "msg": "📡 Buzzer connecté : Joueur 3 (buzzer3)"
+      },
+      {
+        "t": "20:13:58",
+        "msg": "📡 Buzzer déconnecté : buzzer3"
+      },
+      {
+        "t": "20:14:03",
+        "msg": "📡 Buzzer déconnecté : buzzer2"
+      },
+      {
+        "t": "20:14:22",
+        "msg": "📡 Buzzer connecté : Joueur 2 (buzzer2)"
+      },
+      {
+        "t": "20:14:47",
+        "msg": "📡 Buzzer connecté : Joueur 3 (buzzer3)"
+      },
+      {
+        "t": "20:14:52",
+        "msg": "📡 Buzzer déconnecté : buzzer3"
+      },
+      {
+        "t": "20:15:30",
+        "msg": "📡 Buzzer connecté : Joueur 2 (buzzer2)"
+      },
+      {
+        "t": "20:15:32",
+        "msg": "📡 Buzzer déconnecté : buzzer2"
+      },
+      {
+        "t": "20:15:58",
+        "msg": "📡 Buzzer connecté : Joueur 1 (buzzer1)"
+      },
+      {
+        "t": "20:15:59",
+        "msg": "📡 Buzzer déconnecté : buzzer1"
+      },
+      {
+        "t": "20:16:06",
+        "msg": "📡 Buzzer déconnecté : buzzer3"
+      },
+      {
+        "t": "20:16:09",
+        "msg": "📡 Buzzer déconnecté : buzzer2"
+      },
+      {
+        "t": "20:16:10",
+        "msg": "📡 Buzzer connecté : Joueur 3 (buzzer3)"
+      },
+      {
+        "t": "20:16:39",
+        "msg": "📡 Buzzer connecté : Joueur 3 (buzzer3)"
+      },
+      {
+        "t": "20:16:49",
+        "msg": "📡 Buzzer déconnecté : buzzer3"
+      },
+      {
+        "t": "20:16:58",
+        "msg": "📡 Buzzer déconnecté : buzzer1"
+      },
+      {
+        "t": "20:17:08",
+        "msg": "📡 Buzzer déconnecté : buzzer3"
+      }
+    ],
+    "nine_mode": "auto",
+    "q_value": 1,
+    "q_count": 0,
+    "round_active": false,
+    "buzzer_order": [],
+    "buzzed_wrong": [],
+    "winner_pid": null,
+    "four_current_pid": null,
+    "four_score": 0,
+    "four_best": 0,
+    "four_timer_end": 0.0,
+    "four_timer_running": false,
+    "four_done_pids": [],
+    "four_best_scores": {},
+    "four_theme_index": 0,
+    "four_theme_chosen": null,
+    "four_themes_taken": [],
+    "ff_player_a": null,
+    "ff_player_b": null,
+    "ff_scores": {},
+    "ff_timer_end": 0.0,
+    "ff_timer_running": false,
+    "ff_active_pid": null,
+    "ff_buzzed_pid": null,
+    "ff_current_pts": 4,
+    "ff_total_target": 12,
+    "eq_pids": [],
+    "eq_scores": {},
+    "eq_buzzed_wrong": [],
+    "ff_zone_pts": 4,
+    "ff_zone_dur": 5.0,
+    "ff_total_dur": 20
+  },
+  {
+    "game_id": "b4a4883b",
+    "created_at": "2026-05-21 22:58",
+    "phase": "setup",
+    "players": [],
+    "themes": [
+      "",
+      "",
+      "",
+      ""
+    ],
+    "finished": false,
+    "history": [
+      {
+        "t": "22:59:20",
+        "msg": "📡 Buzzer connecté : Joueur 3 (buzzer3)"
+      },
+      {
+        "t": "23:13:51",
+        "msg": "📡 Buzzer déconnecté : buzzer3"
+      }
+    ],
+    "nine_mode": "auto",
+    "q_value": 1,
+    "q_count": 0,
+    "round_active": false,
+    "buzzer_order": [],
+    "buzzed_wrong": [],
+    "winner_pid": null,
+    "four_current_pid": null,
+    "four_score": 0,
+    "four_best": 0,
+    "four_timer_end": 0.0,
+    "four_timer_running": false,
+    "four_done_pids": [],
+    "four_best_scores": {},
+    "four_theme_index": 0,
+    "four_theme_chosen": null,
+    "four_themes_taken": [],
+    "ff_player_a": null,
+    "ff_player_b": null,
+    "ff_scores": {},
+    "ff_timer_end": 0.0,
+    "ff_timer_running": false,
+    "ff_active_pid": null,
+    "ff_buzzed_pid": null,
+    "ff_current_pts": 4,
+    "ff_total_target": 12,
+    "eq_pids": [],
+    "eq_scores": {},
+    "eq_buzzed_wrong": [],
+    "ff_zone_pts": 4,
+    "ff_zone_dur": 5.0,
+    "ff_total_dur": 20
+  },
+  {
+    "game_id": "08cad724",
+    "created_at": "2026-05-31 11:27",
+    "phase": "setup",
+    "players": [],
+    "themes": [
+      "",
+      "",
+      "",
+      ""
+    ],
+    "finished": false,
+    "history": [
+      {
+        "t": "11:27:57",
+        "msg": "📡 Buzzer connecté : Joueur 3 (buzzer3)"
+      },
+      {
+        "t": "11:27:57",
+        "msg": "📡 Buzzer connecté : Joueur 1 (buzzer1)"
+      },
+      {
+        "t": "11:27:59",
+        "msg": "📡 Buzzer connecté : Joueur 2 (buzzer2)"
+      },
+      {
+        "t": "11:35:50",
+        "msg": "📡 Buzzer déconnecté : buzzer2"
+      },
+      {
+        "t": "11:35:50",
+        "msg": "📡 Buzzer déconnecté : buzzer1"
+      },
+      {
+        "t": "11:35:50",
+        "msg": "📡 Buzzer déconnecté : buzzer3"
+      }
+    ],
+    "nine_mode": "auto",
+    "q_value": 1,
+    "q_count": 0,
+    "round_active": false,
+    "buzzer_order": [],
+    "buzzed_wrong": [],
+    "winner_pid": null,
+    "four_current_pid": null,
+    "four_score": 0,
+    "four_best": 0,
+    "four_timer_end": 0.0,
+    "four_timer_running": false,
+    "four_done_pids": [],
+    "four_best_scores": {},
+    "four_theme_index": 0,
+    "four_theme_chosen": null,
+    "four_themes_taken": [],
+    "ff_player_a": null,
+    "ff_player_b": null,
+    "ff_scores": {},
+    "ff_timer_end": 0.0,
+    "ff_timer_running": false,
+    "ff_active_pid": null,
+    "ff_buzzed_pid": null,
+    "ff_current_pts": 4,
+    "ff_total_target": 12,
+    "eq_pids": [],
+    "eq_scores": {},
+    "eq_buzzed_wrong": [],
+    "ff_zone_pts": 4,
+    "ff_zone_dur": 5.0,
+    "ff_total_dur": 20
+  },
+  {
+    "game_id": "83b2a8c3",
+    "created_at": "2026-05-31 11:35",
+    "phase": "setup",
+    "players": [],
+    "themes": [
+      "",
+      "",
+      "",
+      ""
+    ],
+    "finished": false,
+    "history": [
+      {
+        "t": "11:35:55",
+        "msg": "📡 Buzzer connecté : Joueur 1 (buzzer1)"
+      },
+      {
+        "t": "11:35:56",
+        "msg": "📡 Buzzer connecté : Joueur 3 (buzzer3)"
+      },
+      {
+        "t": "11:35:56",
+        "msg": "📡 Buzzer connecté : Joueur 2 (buzzer2)"
+      },
+      {
+        "t": "12:01:13",
+        "msg": "📡 Buzzer déconnecté : buzzer2"
+      },
+      {
+        "t": "12:01:13",
+        "msg": "📡 Buzzer déconnecté : buzzer3"
+      },
+      {
+        "t": "12:01:13",
+        "msg": "📡 Buzzer déconnecté : buzzer1"
+      }
+    ],
+    "nine_mode": "auto",
+    "q_value": 1,
+    "q_count": 0,
+    "round_active": false,
+    "buzzer_order": [],
+    "buzzed_wrong": [],
+    "winner_pid": null,
+    "four_current_pid": null,
+    "four_score": 0,
+    "four_best": 0,
+    "four_timer_end": 0.0,
+    "four_timer_running": false,
+    "four_done_pids": [],
+    "four_best_scores": {},
+    "four_theme_index": 0,
+    "four_theme_chosen": null,
+    "four_themes_taken": [],
+    "ff_player_a": null,
+    "ff_player_b": null,
+    "ff_scores": {},
+    "ff_timer_end": 0.0,
+    "ff_timer_running": false,
+    "ff_active_pid": null,
+    "ff_buzzed_pid": null,
+    "ff_current_pts": 4,
+    "ff_total_target": 12,
+    "eq_pids": [],
+    "eq_scores": {},
+    "eq_buzzed_wrong": [],
+    "ff_zone_pts": 4,
+    "ff_zone_dur": 5.0,
+    "ff_total_dur": 20
+  },
+  {
+    "game_id": "64098f4c",
+    "created_at": "2026-05-31 12:01",
+    "phase": "setup",
+    "players": [],
+    "themes": [
+      "",
+      "",
+      "",
+      ""
+    ],
+    "finished": false,
+    "history": [
+      {
+        "t": "12:01:16",
+        "msg": "📡 Buzzer connecté : Joueur 2 (buzzer2)"
+      },
+      {
+        "t": "12:01:16",
+        "msg": "📡 Buzzer connecté : Joueur 1 (buzzer1)"
+      },
+      {
+        "t": "12:01:16",
+        "msg": "📡 Buzzer connecté : Joueur 3 (buzzer3)"
+      },
+      {
+        "t": "12:03:09",
+        "msg": "📡 Buzzer déconnecté : buzzer2"
+      },
+      {
+        "t": "12:03:09",
+        "msg": "📡 Buzzer déconnecté : buzzer3"
+      },
+      {
+        "t": "12:03:09",
+        "msg": "📡 Buzzer déconnecté : buzzer1"
+      }
+    ],
+    "nine_mode": "auto",
+    "q_value": 1,
+    "q_count": 0,
+    "round_active": false,
+    "buzzer_order": [],
+    "buzzed_wrong": [],
+    "winner_pid": null,
+    "four_current_pid": null,
+    "four_score": 0,
+    "four_best": 0,
+    "four_timer_end": 0.0,
+    "four_timer_running": false,
+    "four_done_pids": [],
+    "four_best_scores": {},
+    "four_theme_index": 0,
+    "four_theme_chosen": null,
+    "four_themes_taken": [],
+    "ff_player_a": null,
+    "ff_player_b": null,
+    "ff_scores": {},
+    "ff_timer_end": 0.0,
+    "ff_timer_running": false,
+    "ff_active_pid": null,
+    "ff_buzzed_pid": null,
+    "ff_current_pts": 4,
+    "ff_total_target": 12,
+    "eq_pids": [],
+    "eq_scores": {},
+    "eq_buzzed_wrong": [],
+    "ff_zone_pts": 4,
+    "ff_zone_dur": 5.0,
+    "ff_total_dur": 20
+  },
+  {
+    "game_id": "a8aea7a0",
+    "created_at": "2026-05-31 12:03",
+    "phase": "setup",
+    "players": [],
+    "themes": [
+      "",
+      "",
+      "",
+      ""
+    ],
+    "finished": false,
+    "history": [
+      {
+        "t": "12:03:12",
+        "msg": "📡 Buzzer connecté : Joueur 3 (buzzer3)"
+      },
+      {
+        "t": "12:03:12",
+        "msg": "📡 Buzzer connecté : Joueur 2 (buzzer2)"
+      },
+      {
+        "t": "12:03:12",
+        "msg": "📡 Buzzer connecté : Joueur 1 (buzzer1)"
+      },
+      {
+        "t": "12:04:27",
+        "msg": "📡 Buzzer déconnecté : buzzer3"
+      },
+      {
+        "t": "12:04:27",
+        "msg": "📡 Buzzer déconnecté : buzzer1"
+      },
+      {
+        "t": "12:04:27",
+        "msg": "📡 Buzzer déconnecté : buzzer2"
+      }
+    ],
+    "nine_mode": "auto",
+    "q_value": 1,
+    "q_count": 0,
+    "round_active": false,
+    "buzzer_order": [],
+    "buzzed_wrong": [],
+    "winner_pid": null,
+    "four_current_pid": null,
+    "four_score": 0,
+    "four_best": 0,
+    "four_timer_end": 0.0,
+    "four_timer_running": false,
+    "four_done_pids": [],
+    "four_best_scores": {},
+    "four_theme_index": 0,
+    "four_theme_chosen": null,
+    "four_themes_taken": [],
+    "ff_player_a": null,
+    "ff_player_b": null,
+    "ff_scores": {},
+    "ff_timer_end": 0.0,
+    "ff_timer_running": false,
+    "ff_active_pid": null,
+    "ff_buzzed_pid": null,
+    "ff_current_pts": 4,
+    "ff_total_target": 12,
+    "eq_pids": [],
+    "eq_scores": {},
+    "eq_buzzed_wrong": [],
+    "ff_zone_pts": 4,
+    "ff_zone_dur": 5.0,
+    "ff_total_dur": 20
+  },
+  {
+    "game_id": "694dda21",
+    "created_at": "2026-05-31 12:04",
+    "phase": "setup",
+    "players": [],
+    "themes": [
+      "",
+      "",
+      "",
+      ""
+    ],
+    "finished": false,
+    "history": [
+      {
+        "t": "12:04:30",
+        "msg": "📡 Buzzer connecté : Joueur 2 (buzzer2)"
+      },
+      {
+        "t": "12:04:30",
+        "msg": "📡 Buzzer connecté : Joueur 1 (buzzer1)"
+      },
+      {
+        "t": "12:04:30",
+        "msg": "📡 Buzzer connecté : Joueur 3 (buzzer3)"
+      },
+      {
+        "t": "12:17:24",
+        "msg": "📡 Buzzer déconnecté : buzzer1"
+      },
+      {
+        "t": "12:17:24",
+        "msg": "📡 Buzzer déconnecté : buzzer2"
+      },
+      {
+        "t": "12:17:24",
+        "msg": "📡 Buzzer déconnecté : buzzer3"
+      }
+    ],
+    "nine_mode": "auto",
+    "q_value": 1,
+    "q_count": 0,
+    "round_active": false,
+    "buzzer_order": [],
+    "buzzed_wrong": [],
+    "winner_pid": null,
+    "four_current_pid": null,
+    "four_score": 0,
+    "four_best": 0,
+    "four_timer_end": 0.0,
+    "four_timer_running": false,
+    "four_done_pids": [],
+    "four_best_scores": {},
+    "four_theme_index": 0,
+    "four_theme_chosen": null,
+    "four_themes_taken": [],
+    "ff_player_a": null,
+    "ff_player_b": null,
+    "ff_scores": {},
+    "ff_timer_end": 0.0,
+    "ff_timer_running": false,
+    "ff_active_pid": null,
+    "ff_buzzed_pid": null,
+    "ff_current_pts": 4,
+    "ff_total_target": 12,
+    "eq_pids": [],
+    "eq_scores": {},
+    "eq_buzzed_wrong": [],
+    "ff_zone_pts": 4,
+    "ff_zone_dur": 5.0,
+    "ff_total_dur": 20
+  },
+  {
+    "game_id": "04e9df46",
+    "created_at": "2026-05-31 12:17",
+    "phase": "setup",
+    "players": [],
+    "themes": [
+      "",
+      "",
+      "",
+      ""
+    ],
+    "finished": false,
+    "history": [
+      {
+        "t": "12:17:43",
+        "msg": "📡 Buzzer connecté : Joueur 2 (buzzer2)"
+      },
+      {
+        "t": "12:17:43",
+        "msg": "📡 Buzzer connecté : Joueur 1 (buzzer1)"
+      },
+      {
+        "t": "12:17:43",
+        "msg": "📡 Buzzer connecté : Joueur 3 (buzzer3)"
+      },
+      {
+        "t": "12:19:11",
+        "msg": "📡 Buzzer déconnecté : buzzer1"
+      },
+      {
+        "t": "12:19:11",
+        "msg": "📡 Buzzer déconnecté : buzzer3"
+      },
+      {
+        "t": "12:19:11",
+        "msg": "📡 Buzzer déconnecté : buzzer2"
+      }
+    ],
+    "nine_mode": "auto",
+    "q_value": 1,
+    "q_count": 0,
+    "round_active": false,
+    "buzzer_order": [],
+    "buzzed_wrong": [],
+    "winner_pid": null,
+    "four_current_pid": null,
+    "four_score": 0,
+    "four_best": 0,
+    "four_timer_end": 0.0,
+    "four_timer_running": false,
+    "four_done_pids": [],
+    "four_best_scores": {},
+    "four_theme_index": 0,
+    "four_theme_chosen": null,
+    "four_themes_taken": [],
+    "ff_player_a": null,
+    "ff_player_b": null,
+    "ff_scores": {},
+    "ff_timer_end": 0.0,
+    "ff_timer_running": false,
+    "ff_active_pid": null,
+    "ff_buzzed_pid": null,
+    "ff_current_pts": 4,
+    "ff_total_target": 12,
+    "eq_pids": [],
+    "eq_scores": {},
+    "eq_buzzed_wrong": [],
+    "ff_zone_pts": 4,
+    "ff_zone_dur": 5.0,
+    "ff_total_dur": 20
+  },
+  {
+    "game_id": "22d68177",
+    "created_at": "2026-05-31 12:31",
+    "phase": "setup",
+    "players": [],
+    "themes": [
+      "",
+      "",
+      "",
+      ""
+    ],
+    "finished": false,
+    "history": [
+      {
+        "t": "12:31:55",
+        "msg": "📡 Buzzer connecté : Joueur 2 (buzzer2)"
+      },
+      {
+        "t": "12:31:55",
+        "msg": "📡 Buzzer connecté : Joueur 3 (buzzer3)"
+      },
+      {
+        "t": "12:31:55",
+        "msg": "📡 Buzzer connecté : Joueur 1 (buzzer1)"
+      },
+      {
+        "t": "12:33:49",
+        "msg": "📡 Buzzer déconnecté : buzzer3"
+      },
+      {
+        "t": "12:33:49",
+        "msg": "📡 Buzzer déconnecté : buzzer2"
+      },
+      {
+        "t": "12:33:49",
+        "msg": "📡 Buzzer déconnecté : buzzer1"
+      }
+    ],
+    "nine_mode": "auto",
+    "q_value": 1,
+    "q_count": 0,
+    "round_active": false,
+    "buzzer_order": [],
+    "buzzed_wrong": [],
+    "winner_pid": null,
+    "four_current_pid": null,
+    "four_score": 0,
+    "four_best": 0,
+    "four_timer_end": 0.0,
+    "four_timer_running": false,
+    "four_done_pids": [],
+    "four_best_scores": {},
+    "four_theme_index": 0,
+    "four_theme_chosen": null,
+    "four_themes_taken": [],
+    "ff_player_a": null,
+    "ff_player_b": null,
+    "ff_scores": {},
+    "ff_timer_end": 0.0,
+    "ff_timer_running": false,
+    "ff_active_pid": null,
+    "ff_buzzed_pid": null,
+    "ff_current_pts": 4,
+    "ff_total_target": 12,
+    "eq_pids": [],
+    "eq_scores": {},
+    "eq_buzzed_wrong": [],
+    "ff_zone_pts": 4,
+    "ff_zone_dur": 5.0,
+    "ff_total_dur": 20
+  },
+  {
+    "game_id": "f07d68e7",
+    "created_at": "2026-05-31 12:33",
+    "phase": "setup",
+    "players": [],
+    "themes": [
+      "",
+      "",
+      "",
+      ""
+    ],
+    "finished": false,
+    "history": [
+      {
+        "t": "12:33:52",
+        "msg": "📡 Buzzer connecté : Joueur 2 (buzzer2)"
+      },
+      {
+        "t": "12:33:52",
+        "msg": "📡 Buzzer connecté : Joueur 1 (buzzer1)"
+      },
+      {
+        "t": "12:33:52",
+        "msg": "📡 Buzzer connecté : Joueur 3 (buzzer3)"
+      },
+      {
+        "t": "12:34:53",
+        "msg": "📡 Buzzer déconnecté : buzzer2"
+      }
+    ],
+    "nine_mode": "auto",
+    "q_value": 1,
+    "q_count": 0,
+    "round_active": false,
+    "buzzer_order": [],
+    "buzzed_wrong": [],
+    "winner_pid": null,
+    "four_current_pid": null,
+    "four_score": 0,
+    "four_best": 0,
+    "four_timer_end": 0.0,
+    "four_timer_running": false,
+    "four_done_pids": [],
+    "four_best_scores": {},
+    "four_theme_index": 0,
+    "four_theme_chosen": null,
+    "four_themes_taken": [],
+    "ff_player_a": null,
+    "ff_player_b": null,
+    "ff_scores": {},
+    "ff_timer_end": 0.0,
+    "ff_timer_running": false,
+    "ff_active_pid": null,
+    "ff_buzzed_pid": null,
+    "ff_current_pts": 4,
+    "ff_total_target": 12,
+    "eq_pids": [],
+    "eq_scores": {},
+    "eq_buzzed_wrong": [],
+    "ff_zone_pts": 4,
+    "ff_zone_dur": 5.0,
+    "ff_total_dur": 20
+  },
+  {
+    "game_id": "8b1cbfc4",
+    "created_at": "2026-05-31 12:34",
+    "phase": "9pts",
+    "players": [
+      {
+        "id": "p1",
+        "name": "1",
+        "buzzer_id": "buzzer1",
+        "points": 0,
+        "qualified": false,
+        "eliminated": false
+      },
+      {
+        "id": "p2",
+        "name": "2",
+        "buzzer_id": "buzzer2",
+        "points": 0,
+        "qualified": false,
+        "eliminated": false
+      },
+      {
+        "id": "p3",
+        "name": "3",
+        "buzzer_id": "buzzer3",
+        "points": 0,
+        "qualified": false,
+        "eliminated": false
+      }
+    ],
+    "themes": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "finished": false,
+    "history": [
+      {
+        "t": "12:34:29",
+        "msg": "🎮 Nouvelle partie démarrée"
+      }
+    ],
+    "nine_mode": "auto",
+    "q_value": 1,
+    "q_count": 0,
+    "round_active": false,
+    "buzzer_order": [],
+    "buzzed_wrong": [],
+    "winner_pid": null,
+    "four_current_pid": null,
+    "four_score": 0,
+    "four_best": 0,
+    "four_timer_end": 0.0,
+    "four_timer_running": false,
+    "four_done_pids": [],
+    "four_best_scores": {},
+    "four_theme_index": 0,
+    "four_theme_chosen": null,
+    "four_themes_taken": [],
+    "ff_player_a": null,
+    "ff_player_b": null,
+    "ff_scores": {},
+    "ff_timer_end": 0.0,
+    "ff_timer_running": false,
+    "ff_active_pid": null,
+    "ff_buzzed_pid": null,
+    "ff_current_pts": 4,
+    "ff_total_target": 12,
+    "eq_pids": [],
+    "eq_scores": {},
+    "eq_buzzed_wrong": [],
+    "ff_zone_pts": 4,
+    "ff_zone_dur": 5.0,
+    "ff_total_dur": 20
+  },
+  {
+    "game_id": "6ce1c89b",
+    "created_at": "2026-05-31 12:34",
+    "phase": "setup",
+    "players": [],
+    "themes": [
+      "",
+      "",
+      "",
+      ""
+    ],
+    "finished": false,
+    "history": [
+      {
+        "t": "12:34:56",
+        "msg": "📡 Buzzer connecté : Joueur 2 (buzzer2)"
+      },
+      {
+        "t": "12:34:56",
+        "msg": "📡 Buzzer connecté : Joueur 3 (buzzer3)"
+      },
+      {
+        "t": "12:34:56",
+        "msg": "📡 Buzzer connecté : Joueur 1 (buzzer1)"
+      },
+      {
+        "t": "12:40:14",
+        "msg": "📡 Buzzer déconnecté : buzzer2"
+      }
+    ],
+    "nine_mode": "auto",
+    "q_value": 1,
+    "q_count": 0,
+    "round_active": false,
+    "buzzer_order": [],
+    "buzzed_wrong": [],
+    "winner_pid": null,
+    "four_current_pid": null,
+    "four_score": 0,
+    "four_best": 0,
+    "four_timer_end": 0.0,
+    "four_timer_running": false,
+    "four_done_pids": [],
+    "four_best_scores": {},
+    "four_theme_index": 0,
+    "four_theme_chosen": null,
+    "four_themes_taken": [],
+    "ff_player_a": null,
+    "ff_player_b": null,
+    "ff_scores": {},
+    "ff_timer_end": 0.0,
+    "ff_timer_running": false,
+    "ff_active_pid": null,
+    "ff_buzzed_pid": null,
+    "ff_current_pts": 4,
+    "ff_total_target": 12,
+    "eq_pids": [],
+    "eq_scores": {},
+    "eq_buzzed_wrong": [],
+    "ff_zone_pts": 4,
+    "ff_zone_dur": 5.0,
+    "ff_total_dur": 20
+  },
+  {
+    "game_id": "badd860e",
+    "created_at": "2026-05-31 12:35",
+    "phase": "9pts",
+    "players": [
+      {
+        "id": "p1",
+        "name": "A",
+        "buzzer_id": "buzzer2",
+        "points": 0,
+        "qualified": false,
+        "eliminated": false
+      },
+      {
+        "id": "p2",
+        "name": "B",
+        "buzzer_id": "buzzer1",
+        "points": 0,
+        "qualified": false,
+        "eliminated": false
+      }
+    ],
+    "themes": [
+      "1",
+      "2",
+      "3",
+      "4"
+    ],
+    "finished": false,
+    "history": [
+      {
+        "t": "12:35:09",
+        "msg": "🎮 Nouvelle partie démarrée"
+      }
+    ],
+    "nine_mode": "auto",
+    "q_value": 1,
+    "q_count": 0,
+    "round_active": false,
+    "buzzer_order": [],
+    "buzzed_wrong": [],
+    "winner_pid": null,
+    "four_current_pid": null,
+    "four_score": 0,
+    "four_best": 0,
+    "four_timer_end": 0.0,
+    "four_timer_running": false,
+    "four_done_pids": [],
+    "four_best_scores": {},
+    "four_theme_index": 0,
+    "four_theme_chosen": null,
+    "four_themes_taken": [],
+    "ff_player_a": null,
+    "ff_player_b": null,
+    "ff_scores": {},
+    "ff_timer_end": 0.0,
+    "ff_timer_running": false,
+    "ff_active_pid": null,
+    "ff_buzzed_pid": null,
+    "ff_current_pts": 4,
+    "ff_total_target": 12,
+    "eq_pids": [],
+    "eq_scores": {},
+    "eq_buzzed_wrong": [],
+    "ff_zone_pts": 4,
+    "ff_zone_dur": 5.0,
+    "ff_total_dur": 20
+  },
+  {
+    "game_id": "340b64ed",
+    "created_at": "2026-05-31 12:36",
+    "phase": "9pts",
+    "players": [
+      {
+        "id": "p1",
+        "name": "A",
+        "buzzer_id": "buzzer1",
+        "points": 0,
+        "qualified": false,
+        "eliminated": false
+      },
+      {
+        "id": "p2",
+        "name": "B",
+        "buzzer_id": "buzzer2",
+        "points": 0,
+        "qualified": false,
+        "eliminated": false
+      }
+    ],
+    "themes": [
+      "1",
+      "2",
+      "3",
+      "4"
+    ],
+    "finished": false,
+    "history": [
+      {
+        "t": "12:36:24",
+        "msg": "🎮 Nouvelle partie démarrée"
+      }
+    ],
+    "nine_mode": "auto",
+    "q_value": 1,
+    "q_count": 0,
+    "round_active": false,
+    "buzzer_order": [],
+    "buzzed_wrong": [],
+    "winner_pid": null,
+    "four_current_pid": null,
+    "four_score": 0,
+    "four_best": 0,
+    "four_timer_end": 0.0,
+    "four_timer_running": false,
+    "four_done_pids": [],
+    "four_best_scores": {},
+    "four_theme_index": 0,
+    "four_theme_chosen": null,
+    "four_themes_taken": [],
+    "ff_player_a": null,
+    "ff_player_b": null,
+    "ff_scores": {},
+    "ff_timer_end": 0.0,
+    "ff_timer_running": false,
+    "ff_active_pid": null,
+    "ff_buzzed_pid": null,
+    "ff_current_pts": 4,
+    "ff_total_target": 12,
+    "eq_pids": [],
+    "eq_scores": {},
+    "eq_buzzed_wrong": [],
+    "ff_zone_pts": 4,
+    "ff_zone_dur": 5.0,
+    "ff_total_dur": 20
+  },
+  {
+    "game_id": "6d9f2475",
+    "created_at": "2026-05-31 12:36",
+    "phase": "9pts",
+    "players": [
+      {
+        "id": "p1",
+        "name": "A",
+        "buzzer_id": "buzzer1",
+        "points": 0,
+        "qualified": false,
+        "eliminated": false
+      },
+      {
+        "id": "p2",
+        "name": "B",
+        "buzzer_id": "buzzer2",
+        "points": 0,
+        "qualified": false,
+        "eliminated": false
+      }
+    ],
+    "themes": [
+      "1",
+      "4",
+      "2",
+      "3"
+    ],
+    "finished": false,
+    "history": [
+      {
+        "t": "12:36:37",
+        "msg": "🎮 Nouvelle partie démarrée"
+      }
+    ],
+    "nine_mode": "auto",
+    "q_value": 1,
+    "q_count": 0,
+    "round_active": false,
+    "buzzer_order": [],
+    "buzzed_wrong": [],
+    "winner_pid": null,
+    "four_current_pid": null,
+    "four_score": 0,
+    "four_best": 0,
+    "four_timer_end": 0.0,
+    "four_timer_running": false,
+    "four_done_pids": [],
+    "four_best_scores": {},
+    "four_theme_index": 0,
+    "four_theme_chosen": null,
+    "four_themes_taken": [],
+    "ff_player_a": null,
+    "ff_player_b": null,
+    "ff_scores": {},
+    "ff_timer_end": 0.0,
+    "ff_timer_running": false,
+    "ff_active_pid": null,
+    "ff_buzzed_pid": null,
+    "ff_current_pts": 4,
+    "ff_total_target": 12,
+    "eq_pids": [],
+    "eq_scores": {},
+    "eq_buzzed_wrong": [],
+    "ff_zone_pts": 4,
+    "ff_zone_dur": 5.0,
+    "ff_total_dur": 20
+  },
+  {
+    "game_id": "33e1a60c",
+    "created_at": "2026-05-31 12:37",
+    "phase": "9pts",
+    "players": [
+      {
+        "id": "p1",
+        "name": "A",
+        "buzzer_id": "buzzer2",
+        "points": 0,
+        "qualified": false,
+        "eliminated": false
+      },
+      {
+        "id": "p2",
+        "name": "B",
+        "buzzer_id": "buzzer3",
+        "points": 0,
+        "qualified": false,
+        "eliminated": false
+      },
+      {
+        "id": "p3",
+        "name": "C",
+        "buzzer_id": "buzzer3",
+        "points": 0,
+        "qualified": false,
+        "eliminated": false
+      },
+      {
+        "id": "p4",
+        "name": "D",
+        "buzzer_id": "",
+        "points": 0,
+        "qualified": false,
+        "eliminated": false
+      }
+    ],
+    "themes": [
+      "1",
+      "2",
+      "3",
+      "4"
+    ],
+    "finished": false,
+    "history": [
+      {
+        "t": "12:37:59",
+        "msg": "🎮 Nouvelle partie démarrée"
+      }
+    ],
+    "nine_mode": "auto",
+    "q_value": 1,
+    "q_count": 0,
+    "round_active": false,
+    "buzzer_order": [],
+    "buzzed_wrong": [],
+    "winner_pid": null,
+    "four_current_pid": null,
+    "four_score": 0,
+    "four_best": 0,
+    "four_timer_end": 0.0,
+    "four_timer_running": false,
+    "four_done_pids": [],
+    "four_best_scores": {},
+    "four_theme_index": 0,
+    "four_theme_chosen": null,
+    "four_themes_taken": [],
+    "ff_player_a": null,
+    "ff_player_b": null,
+    "ff_scores": {},
+    "ff_timer_end": 0.0,
+    "ff_timer_running": false,
+    "ff_active_pid": null,
+    "ff_buzzed_pid": null,
+    "ff_current_pts": 4,
+    "ff_total_target": 12,
+    "eq_pids": [],
+    "eq_scores": {},
+    "eq_buzzed_wrong": [],
+    "ff_zone_pts": 4,
+    "ff_zone_dur": 5.0,
+    "ff_total_dur": 20
+  },
+  {
+    "game_id": "c0e2bffa",
+    "created_at": "2026-05-31 12:40",
+    "phase": "setup",
+    "players": [],
+    "themes": [
+      "",
+      "",
+      "",
+      ""
+    ],
+    "finished": false,
+    "history": [
+      {
+        "t": "12:40:17",
+        "msg": "📡 Buzzer connecté : Joueur 2 (buzzer2)"
+      },
+      {
+        "t": "12:40:17",
+        "msg": "📡 Buzzer connecté : Joueur 3 (buzzer3)"
+      },
+      {
+        "t": "12:40:17",
+        "msg": "📡 Buzzer connecté : Joueur 1 (buzzer1)"
+      }
+    ],
+    "nine_mode": "auto",
+    "q_value": 1,
+    "q_count": 0,
+    "round_active": false,
+    "buzzer_order": [],
+    "buzzed_wrong": [],
+    "winner_pid": null,
+    "four_current_pid": null,
+    "four_score": 0,
+    "four_best": 0,
+    "four_timer_end": 0.0,
+    "four_timer_running": false,
+    "four_done_pids": [],
+    "four_best_scores": {},
+    "four_theme_index": 0,
+    "four_theme_chosen": null,
+    "four_themes_taken": [],
+    "ff_player_a": null,
+    "ff_player_b": null,
+    "ff_scores": {},
+    "ff_timer_end": 0.0,
+    "ff_timer_running": false,
+    "ff_active_pid": null,
+    "ff_buzzed_pid": null,
+    "ff_current_pts": 4,
+    "ff_total_target": 12,
+    "eq_pids": [],
+    "eq_scores": {},
+    "eq_buzzed_wrong": [],
+    "ff_zone_pts": 4,
+    "ff_zone_dur": 5.0,
+    "ff_total_dur": 20
+  },
+  {
+    "game_id": "53612e20",
+    "created_at": "2026-05-31 12:40",
+    "phase": "9pts",
+    "players": [
+      {
+        "id": "p1",
+        "name": "A",
+        "buzzer_id": "buzzer3",
+        "points": 0,
+        "qualified": false,
+        "eliminated": false
+      },
+      {
+        "id": "p2",
+        "name": "B",
+        "buzzer_id": "buzzer1",
+        "points": 0,
+        "qualified": false,
+        "eliminated": false
+      },
+      {
+        "id": "p3",
+        "name": "C",
+        "buzzer_id": "buzzer2",
+        "points": 0,
+        "qualified": false,
+        "eliminated": false
+      }
+    ],
+    "themes": [
+      "1",
+      "4",
+      "2",
+      "3"
+    ],
+    "finished": false,
+    "history": [
+      {
+        "t": "12:40:38",
+        "msg": "🎮 Nouvelle partie démarrée"
+      },
+      {
+        "t": "12:41:33",
+        "msg": "🔔 C buzzé en premier !"
+      },
+      {
+        "t": "12:46:20",
+        "msg": "📡 Buzzer déconnecté : buzzer1"
+      },
+      {
+        "t": "12:46:20",
+        "msg": "📡 Buzzer déconnecté : buzzer2"
+      },
+      {
+        "t": "12:46:20",
+        "msg": "📡 Buzzer déconnecté : buzzer3"
+      }
+    ],
+    "nine_mode": "auto",
+    "q_value": 1,
+    "q_count": 0,
+    "round_active": true,
+    "buzzer_order": [
+      "p3"
+    ],
+    "buzzed_wrong": [],
+    "winner_pid": "p3",
+    "four_current_pid": null,
+    "four_score": 0,
+    "four_best": 0,
+    "four_timer_end": 0.0,
+    "four_timer_running": false,
+    "four_done_pids": [],
+    "four_best_scores": {},
+    "four_theme_index": 0,
+    "four_theme_chosen": null,
+    "four_themes_taken": [],
+    "ff_player_a": null,
+    "ff_player_b": null,
+    "ff_scores": {},
+    "ff_timer_end": 0.0,
+    "ff_timer_running": false,
+    "ff_active_pid": null,
+    "ff_buzzed_pid": null,
+    "ff_current_pts": 4,
+    "ff_total_target": 12,
+    "eq_pids": [],
+    "eq_scores": {},
+    "eq_buzzed_wrong": [],
+    "ff_zone_pts": 4,
+    "ff_zone_dur": 5.0,
+    "ff_total_dur": 20
+  },
+  {
+    "game_id": "fe511228",
+    "created_at": "2026-05-31 12:46",
+    "phase": "setup",
+    "players": [],
+    "themes": [
+      "",
+      "",
+      "",
+      ""
+    ],
+    "finished": false,
+    "history": [
+      {
+        "t": "12:46:23",
+        "msg": "📡 Buzzer connecté : Joueur 1 (buzzer1)"
+      },
+      {
+        "t": "12:46:23",
+        "msg": "📡 Buzzer connecté : Joueur 2 (buzzer2)"
+      },
+      {
+        "t": "12:46:23",
+        "msg": "📡 Buzzer connecté : Joueur 3 (buzzer3)"
+      },
+      {
+        "t": "12:46:48",
+        "msg": "📡 Buzzer déconnecté : buzzer2"
+      },
+      {
+        "t": "12:46:48",
+        "msg": "📡 Buzzer déconnecté : buzzer1"
+      },
+      {
+        "t": "12:46:48",
+        "msg": "📡 Buzzer déconnecté : buzzer3"
+      }
+    ],
+    "nine_mode": "auto",
+    "q_value": 1,
+    "q_count": 0,
+    "round_active": false,
+    "buzzer_order": [],
+    "buzzed_wrong": [],
+    "winner_pid": null,
+    "four_current_pid": null,
+    "four_score": 0,
+    "four_best": 0,
+    "four_timer_end": 0.0,
+    "four_timer_running": false,
+    "four_done_pids": [],
+    "four_best_scores": {},
+    "four_theme_index": 0,
+    "four_theme_chosen": null,
+    "four_themes_taken": [],
+    "ff_player_a": null,
+    "ff_player_b": null,
+    "ff_scores": {},
+    "ff_timer_end": 0.0,
+    "ff_timer_running": false,
+    "ff_active_pid": null,
+    "ff_buzzed_pid": null,
+    "ff_current_pts": 4,
+    "ff_total_target": 12,
+    "eq_pids": [],
+    "eq_scores": {},
+    "eq_buzzed_wrong": [],
+    "ff_zone_pts": 4,
+    "ff_zone_dur": 5.0,
+    "ff_total_dur": 20
+  },
+  {
+    "game_id": "e299ac5b",
+    "created_at": "2026-05-31 12:46",
+    "phase": "setup",
+    "players": [],
+    "themes": [
+      "",
+      "",
+      "",
+      ""
+    ],
+    "finished": false,
+    "history": [
+      {
+        "t": "12:46:51",
+        "msg": "📡 Buzzer connecté : Joueur 1 (buzzer1)"
+      },
+      {
+        "t": "12:46:51",
+        "msg": "📡 Buzzer connecté : Joueur 2 (buzzer2)"
+      },
+      {
+        "t": "12:46:51",
+        "msg": "📡 Buzzer connecté : Joueur 3 (buzzer3)"
+      },
+      {
+        "t": "12:48:30",
+        "msg": "📡 Buzzer connecté : Joueur 2 (buzzer2)"
+      },
+      {
+        "t": "12:48:31",
+        "msg": "📡 Buzzer déconnecté : buzzer2"
+      },
+      {
+        "t": "12:49:07",
+        "msg": "📡 Buzzer déconnecté : buzzer2"
+      },
+      {
+        "t": "12:49:07",
+        "msg": "📡 Buzzer déconnecté : buzzer1"
+      },
+      {
+        "t": "12:49:07",
+        "msg": "📡 Buzzer déconnecté : buzzer3"
+      }
+    ],
+    "nine_mode": "auto",
+    "q_value": 1,
+    "q_count": 0,
+    "round_active": false,
+    "buzzer_order": [],
+    "buzzed_wrong": [],
+    "winner_pid": null,
+    "four_current_pid": null,
+    "four_score": 0,
+    "four_best": 0,
+    "four_timer_end": 0.0,
+    "four_timer_running": false,
+    "four_done_pids": [],
+    "four_best_scores": {},
+    "four_theme_index": 0,
+    "four_theme_chosen": null,
+    "four_themes_taken": [],
+    "ff_player_a": null,
+    "ff_player_b": null,
+    "ff_scores": {},
+    "ff_timer_end": 0.0,
+    "ff_timer_running": false,
+    "ff_active_pid": null,
+    "ff_buzzed_pid": null,
+    "ff_current_pts": 4,
+    "ff_total_target": 12,
+    "eq_pids": [],
+    "eq_scores": {},
+    "eq_buzzed_wrong": [],
+    "ff_zone_pts": 4,
+    "ff_zone_dur": 5.0,
+    "ff_total_dur": 20
+  },
+  {
+    "game_id": "0fbadc5c",
+    "created_at": "2026-05-31 12:49",
+    "phase": "setup",
+    "players": [],
+    "themes": [
+      "",
+      "",
+      "",
+      ""
+    ],
+    "finished": false,
+    "history": [
+      {
+        "t": "12:49:10",
+        "msg": "📡 Buzzer connecté : Joueur 3 (buzzer3)"
+      },
+      {
+        "t": "12:49:10",
+        "msg": "📡 Buzzer connecté : Joueur 2 (buzzer2)"
+      },
+      {
+        "t": "12:49:10",
+        "msg": "📡 Buzzer connecté : Joueur 1 (buzzer1)"
+      },
+      {
+        "t": "12:52:27",
+        "msg": "📡 Buzzer connecté : Joueur 2 (buzzer2)"
+      },
+      {
+        "t": "12:52:29",
+        "msg": "📡 Buzzer déconnecté : buzzer2"
+      },
+      {
+        "t": "12:52:49",
+        "msg": "📡 Buzzer déconnecté : buzzer1"
+      },
+      {
+        "t": "12:53:26",
+        "msg": "📡 Buzzer déconnecté : buzzer2"
+      },
+      {
+        "t": "13:10:43",
+        "msg": "📡 Buzzer déconnecté : buzzer3"
+      }
+    ],
+    "nine_mode": "auto",
+    "q_value": 1,
+    "q_count": 0,
+    "round_active": false,
+    "buzzer_order": [],
+    "buzzed_wrong": [],
+    "winner_pid": null,
+    "four_current_pid": null,
+    "four_score": 0,
+    "four_best": 0,
+    "four_timer_end": 0.0,
+    "four_timer_running": false,
+    "four_done_pids": [],
+    "four_best_scores": {},
+    "four_theme_index": 0,
+    "four_theme_chosen": null,
+    "four_themes_taken": [],
+    "ff_player_a": null,
+    "ff_player_b": null,
+    "ff_scores": {},
+    "ff_timer_end": 0.0,
+    "ff_timer_running": false,
+    "ff_active_pid": null,
+    "ff_buzzed_pid": null,
+    "ff_current_pts": 4,
+    "ff_total_target": 12,
+    "eq_pids": [],
+    "eq_scores": {},
+    "eq_buzzed_wrong": [],
+    "ff_zone_pts": 4,
+    "ff_zone_dur": 5.0,
+    "ff_total_dur": 20
+  },
+  {
+    "game_id": "ecfc051c",
+    "created_at": "2026-05-31 14:25",
+    "phase": "setup",
+    "players": [],
+    "themes": [
+      "",
+      "",
+      "",
+      ""
+    ],
+    "finished": false,
+    "history": [
+      {
+        "t": "14:25:10",
+        "msg": "📡 Buzzer connecté : Joueur 3 (buzzer3)"
+      },
+      {
+        "t": "14:25:39",
+        "msg": "📡 Buzzer connecté : Joueur 2 (buzzer2)"
+      },
+      {
+        "t": "14:25:53",
+        "msg": "📡 Buzzer connecté : Joueur 3 (buzzer3)"
+      },
+      {
+        "t": "14:25:53",
+        "msg": "📡 Buzzer déconnecté : buzzer3"
+      },
+      {
+        "t": "14:26:26",
+        "msg": "📡 Buzzer connecté : Joueur 2 (buzzer2)"
+      },
+      {
+        "t": "14:26:27",
+        "msg": "📡 Buzzer connecté : Joueur 3 (buzzer3)"
+      },
+      {
+        "t": "14:26:28",
+        "msg": "📡 Buzzer déconnecté : buzzer2"
+      },
+      {
+        "t": "14:26:32",
+        "msg": "📡 Buzzer déconnecté : buzzer3"
+      },
+      {
+        "t": "14:27:05",
+        "msg": "📡 Buzzer déconnecté : buzzer2"
+      },
+      {
+        "t": "14:27:06",
+        "msg": "📡 Buzzer déconnecté : buzzer3"
+      },
+      {
+        "t": "14:28:45",
+        "msg": "📡 Buzzer connecté : Joueur 3 (buzzer3)"
+      },
+      {
+        "t": "14:29:08",
+        "msg": "📡 Buzzer connecté : Joueur 2 (buzzer2)"
+      },
+      {
+        "t": "14:29:26",
+        "msg": "📡 Buzzer connecté : Joueur 1 (buzzer1)"
+      }
+    ],
+    "nine_mode": "auto",
+    "q_value": 1,
+    "q_count": 0,
+    "round_active": false,
+    "buzzer_order": [],
+    "buzzed_wrong": [],
+    "winner_pid": null,
+    "four_current_pid": null,
+    "four_score": 0,
+    "four_best": 0,
+    "four_timer_end": 0.0,
+    "four_timer_running": false,
+    "four_done_pids": [],
+    "four_best_scores": {},
+    "four_theme_index": 0,
+    "four_theme_chosen": null,
+    "four_themes_taken": [],
+    "ff_player_a": null,
+    "ff_player_b": null,
+    "ff_scores": {},
+    "ff_timer_end": 0.0,
+    "ff_timer_running": false,
+    "ff_active_pid": null,
+    "ff_buzzed_pid": null,
+    "ff_current_pts": 4,
+    "ff_total_target": 12,
+    "eq_pids": [],
+    "eq_scores": {},
+    "eq_buzzed_wrong": [],
+    "ff_zone_pts": 4,
+    "ff_zone_dur": 5.0,
+    "ff_total_dur": 20
+  },
+  {
+    "game_id": "63504198",
+    "created_at": "2026-05-31 14:30",
+    "phase": "9pts",
+    "players": [
+      {
+        "id": "p1",
+        "name": "A",
+        "buzzer_id": "buzzer1",
+        "points": 0,
+        "qualified": false,
+        "eliminated": false
+      },
+      {
+        "id": "p2",
+        "name": "B",
+        "buzzer_id": "buzzer2",
+        "points": 0,
+        "qualified": false,
+        "eliminated": false
+      }
+    ],
+    "themes": [
+      "1",
+      "2",
+      "34",
+      "4"
+    ],
+    "finished": false,
+    "history": [
+      {
+        "t": "14:30:29",
+        "msg": "🎮 Nouvelle partie démarrée"
+      },
+      {
+        "t": "14:30:31",
+        "msg": "Mode : manual"
+      },
+      {
+        "t": "14:30:32",
+        "msg": "Mode : auto"
+      },
+      {
+        "t": "14:30:33",
+        "msg": "Mode : manual"
+      },
+      {
+        "t": "14:30:34",
+        "msg": "Mode : auto"
+      },
+      {
+        "t": "14:30:46",
+        "msg": "🔔 A buzzé en premier !"
+      },
+      {
+        "t": "14:30:53",
+        "msg": "❌ A — faux"
+      },
+      {
+        "t": "14:30:53",
+        "msg": "⚠️ Tous ont répondu faux"
+      },
+      {
+        "t": "14:32:10",
+        "msg": "🔔 B buzzé en premier !"
+      },
+      {
+        "t": "14:32:15",
+        "msg": "❌ B — faux"
+      },
+      {
+        "t": "14:32:15",
+        "msg": "⚠️ Tous ont répondu faux"
+      },
+      {
+        "t": "14:32:28",
+        "msg": "Mode : manual"
+      },
+      {
+        "t": "14:32:29",
+        "msg": "Mode : auto"
+      },
+      {
+        "t": "14:32:31",
+        "msg": "Mode : manual"
+      },
+      {
+        "t": "14:32:42",
+        "msg": "✏️ A +2pt → 2pt"
+      },
+      {
+        "t": "14:32:43",
+        "msg": "✏️ A -2pt → 0pt"
+      },
+      {
+        "t": "14:37:21",
+        "msg": "📡 Buzzer déconnecté : buzzer1"
+      },
+      {
+        "t": "14:37:21",
+        "msg": "📡 Buzzer déconnecté : buzzer2"
+      },
+      {
+        "t": "14:37:21",
+        "msg": "📡 Buzzer déconnecté : buzzer3"
+      }
+    ],
+    "nine_mode": "manual",
+    "q_value": 1,
+    "q_count": 0,
+    "round_active": false,
+    "buzzer_order": [],
+    "buzzed_wrong": [],
+    "winner_pid": null,
+    "four_current_pid": null,
+    "four_score": 0,
+    "four_best": 0,
+    "four_timer_end": 0.0,
+    "four_timer_running": false,
+    "four_done_pids": [],
+    "four_best_scores": {},
+    "four_theme_index": 0,
+    "four_theme_chosen": null,
+    "four_themes_taken": [],
+    "ff_player_a": null,
+    "ff_player_b": null,
+    "ff_scores": {},
+    "ff_timer_end": 0.0,
+    "ff_timer_running": false,
+    "ff_active_pid": null,
+    "ff_buzzed_pid": null,
+    "ff_current_pts": 4,
+    "ff_total_target": 12,
+    "eq_pids": [],
+    "eq_scores": {},
+    "eq_buzzed_wrong": [],
+    "ff_zone_pts": 4,
+    "ff_zone_dur": 5.0,
+    "ff_total_dur": 20
+  },
+  {
+    "game_id": "c7792f3a",
+    "created_at": "2026-05-31 14:37",
+    "phase": "setup",
+    "players": [],
+    "themes": [
+      "",
+      "",
+      "",
+      ""
+    ],
+    "finished": false,
+    "history": [
+      {
+        "t": "14:37:24",
+        "msg": "📡 Buzzer connecté : Joueur 3 (buzzer3)"
+      },
+      {
+        "t": "14:37:24",
+        "msg": "📡 Buzzer connecté : Joueur 1 (buzzer1)"
+      },
+      {
+        "t": "14:37:24",
+        "msg": "📡 Buzzer connecté : Joueur 2 (buzzer2)"
+      }
+    ],
+    "nine_mode": "auto",
+    "q_value": 1,
+    "q_count": 0,
+    "round_active": false,
+    "buzzer_order": [],
+    "buzzed_wrong": [],
+    "winner_pid": null,
+    "four_current_pid": null,
+    "four_score": 0,
+    "four_best": 0,
+    "four_timer_end": 0.0,
+    "four_timer_running": false,
+    "four_done_pids": [],
+    "four_best_scores": {},
+    "four_theme_index": 0,
+    "four_theme_chosen": null,
+    "four_themes_taken": [],
+    "ff_player_a": null,
+    "ff_player_b": null,
+    "ff_scores": {},
+    "ff_timer_end": 0.0,
+    "ff_timer_running": false,
+    "ff_active_pid": null,
+    "ff_buzzed_pid": null,
+    "ff_current_pts": 4,
+    "ff_total_target": 12,
+    "eq_pids": [],
+    "eq_scores": {},
+    "eq_buzzed_wrong": [],
+    "ff_zone_pts": 4,
+    "ff_zone_dur": 5.0,
+    "ff_total_dur": 20
+  },
+  {
+    "game_id": "ae3c305a",
+    "created_at": "2026-05-31 14:37",
+    "phase": "9pts",
+    "players": [
+      {
+        "id": "p1",
+        "name": "A",
+        "buzzer_id": "buzzer1",
+        "points": 0,
+        "qualified": false,
+        "eliminated": false
+      },
+      {
+        "id": "p2",
+        "name": "B",
+        "buzzer_id": "buzzer2",
+        "points": 0,
+        "qualified": false,
+        "eliminated": false
+      },
+      {
+        "id": "p3",
+        "name": "C",
+        "buzzer_id": "buzzer3",
+        "points": 0,
+        "qualified": false,
+        "eliminated": false
+      }
+    ],
+    "themes": [
+      "1",
+      "2",
+      "3",
+      "4"
+    ],
+    "finished": false,
+    "history": [
+      {
+        "t": "14:37:48",
+        "msg": "🎮 Nouvelle partie démarrée"
+      },
+      {
+        "t": "14:37:57",
+        "msg": "Mode : manual"
+      },
+      {
+        "t": "14:37:58",
+        "msg": "Mode : auto"
+      },
+      {
+        "t": "14:37:59",
+        "msg": "Mode : manual"
+      },
+      {
+        "t": "14:38:00",
+        "msg": "Mode : auto"
+      },
+      {
+        "t": "14:38:34",
+        "msg": "🔔 C buzzé en premier !"
+      },
+      {
+        "t": "14:38:50",
+        "msg": "Mode : manual"
+      },
+      {
+        "t": "14:38:51",
+        "msg": "Mode : auto"
+      },
+      {
+        "t": "14:38:52",
+        "msg": "▶ Question — 2 pt(s)"
+      },
+      {
+        "t": "14:38:56",
+        "msg": "🔔 C buzzé en premier !"
+      },
+      {
+        "t": "14:39:04",
+        "msg": "🔔 C buzzé en premier !"
+      },
+      {
+        "t": "14:39:10",
+        "msg": "🔔 C buzzé en premier !"
+      },
+      {
+        "t": "14:39:25",
+        "msg": "🔔 A buzzé en premier !"
+      },
+      {
+        "t": "14:39:32",
+        "msg": "🔔 C buzzé en premier !"
+      }
+    ],
+    "nine_mode": "auto",
+    "q_value": 2,
+    "q_count": 0,
+    "round_active": false,
+    "buzzer_order": [],
+    "buzzed_wrong": [],
+    "winner_pid": null,
+    "four_current_pid": null,
+    "four_score": 0,
+    "four_best": 0,
+    "four_timer_end": 0.0,
+    "four_timer_running": false,
+    "four_done_pids": [],
+    "four_best_scores": {},
+    "four_theme_index": 0,
+    "four_theme_chosen": null,
+    "four_themes_taken": [],
+    "ff_player_a": null,
+    "ff_player_b": null,
+    "ff_scores": {},
+    "ff_timer_end": 0.0,
+    "ff_timer_running": false,
+    "ff_active_pid": null,
+    "ff_buzzed_pid": null,
+    "ff_current_pts": 4,
+    "ff_total_target": 12,
+    "eq_pids": [],
+    "eq_scores": {},
+    "eq_buzzed_wrong": [],
+    "ff_zone_pts": 4,
+    "ff_zone_dur": 5.0,
+    "ff_total_dur": 20
+  },
+  {
+    "game_id": "2e407cab",
+    "created_at": "2026-05-31 14:40",
+    "phase": "9pts",
+    "players": [
+      {
+        "id": "p1",
+        "name": "1",
+        "buzzer_id": "buzzer1",
+        "points": 0,
+        "qualified": false,
+        "eliminated": false
+      },
+      {
+        "id": "p2",
+        "name": "2",
+        "buzzer_id": "buzzer2",
+        "points": 0,
+        "qualified": false,
+        "eliminated": false
+      },
+      {
+        "id": "p3",
+        "name": "3",
+        "buzzer_id": "buzzer3",
+        "points": 0,
+        "qualified": false,
+        "eliminated": false
+      }
+    ],
+    "themes": [
+      "A",
+      "Z",
+      "E",
+      "R"
+    ],
+    "finished": false,
+    "history": [
+      {
+        "t": "14:40:02",
+        "msg": "🎮 Nouvelle partie démarrée"
+      },
+      {
+        "t": "14:40:37",
+        "msg": "🔔 2 buzzé en premier !"
+      },
+      {
+        "t": "14:40:42",
+        "msg": "🔔 3 buzzé en premier !"
+      },
+      {
+        "t": "14:40:48",
+        "msg": "🔔 1 buzzé en premier !"
+      },
+      {
+        "t": "14:43:08",
+        "msg": "📡 Buzzer déconnecté : buzzer1"
+      },
+      {
+        "t": "14:43:08",
+        "msg": "📡 Buzzer déconnecté : buzzer2"
+      },
+      {
+        "t": "14:43:08",
+        "msg": "📡 Buzzer déconnecté : buzzer3"
+      }
+    ],
+    "nine_mode": "auto",
+    "q_value": 1,
+    "q_count": 0,
+    "round_active": false,
+    "buzzer_order": [],
+    "buzzed_wrong": [],
+    "winner_pid": null,
+    "four_current_pid": null,
+    "four_score": 0,
+    "four_best": 0,
+    "four_timer_end": 0.0,
+    "four_timer_running": false,
+    "four_done_pids": [],
+    "four_best_scores": {},
+    "four_theme_index": 0,
+    "four_theme_chosen": null,
+    "four_themes_taken": [],
+    "ff_player_a": null,
+    "ff_player_b": null,
+    "ff_scores": {},
+    "ff_timer_end": 0.0,
+    "ff_timer_running": false,
+    "ff_active_pid": null,
+    "ff_buzzed_pid": null,
+    "ff_current_pts": 4,
+    "ff_total_target": 12,
+    "eq_pids": [],
+    "eq_scores": {},
+    "eq_buzzed_wrong": [],
+    "ff_zone_pts": 4,
+    "ff_zone_dur": 5.0,
+    "ff_total_dur": 20
+  },
+  {
+    "game_id": "cdfad93d",
+    "created_at": "2026-05-31 14:43",
+    "phase": "setup",
+    "players": [],
+    "themes": [
+      "",
+      "",
+      "",
+      ""
+    ],
+    "finished": false,
+    "history": [
+      {
+        "t": "14:43:13",
+        "msg": "📡 Buzzer connecté : Joueur 2 (buzzer2)"
+      },
+      {
+        "t": "14:43:13",
+        "msg": "📡 Buzzer connecté : Joueur 1 (buzzer1)"
+      },
+      {
+        "t": "14:43:13",
+        "msg": "📡 Buzzer connecté : Joueur 3 (buzzer3)"
+      }
+    ],
+    "nine_mode": "auto",
+    "q_value": 1,
+    "q_count": 0,
+    "round_active": false,
+    "buzzer_order": [],
+    "buzzed_wrong": [],
+    "winner_pid": null,
+    "four_current_pid": null,
+    "four_score": 0,
+    "four_best": 0,
+    "four_timer_end": 0.0,
+    "four_timer_running": false,
+    "four_done_pids": [],
+    "four_best_scores": {},
+    "four_theme_index": 0,
+    "four_theme_chosen": null,
+    "four_themes_taken": [],
+    "ff_player_a": null,
+    "ff_player_b": null,
+    "ff_scores": {},
+    "ff_timer_end": 0.0,
+    "ff_timer_running": false,
+    "ff_active_pid": null,
+    "ff_buzzed_pid": null,
+    "ff_current_pts": 4,
+    "ff_total_target": 12,
+    "eq_pids": [],
+    "eq_scores": {},
+    "eq_buzzed_wrong": [],
+    "ff_zone_pts": 4,
+    "ff_zone_dur": 5.0,
+    "ff_total_dur": 20
+  },
+  {
+    "game_id": "de91e927",
+    "created_at": "2026-05-31 14:43",
+    "phase": "9pts",
+    "players": [
+      {
+        "id": "p1",
+        "name": "1",
+        "buzzer_id": "buzzer1",
+        "points": 0,
+        "qualified": false,
+        "eliminated": false
+      },
+      {
+        "id": "p2",
+        "name": "2",
+        "buzzer_id": "buzzer2",
+        "points": 0,
+        "qualified": false,
+        "eliminated": false
+      },
+      {
+        "id": "p3",
+        "name": "3",
+        "buzzer_id": "buzzer3",
+        "points": 0,
+        "qualified": false,
+        "eliminated": false
+      }
+    ],
+    "themes": [
+      "a",
+      "z",
+      "er",
+      "rt"
+    ],
+    "finished": false,
+    "history": [
+      {
+        "t": "14:43:29",
+        "msg": "🎮 Nouvelle partie démarrée"
+      },
+      {
+        "t": "14:43:34",
+        "msg": "🔔 3 buzzé en premier !"
+      },
+      {
+        "t": "14:43:55",
+        "msg": "📡 Buzzer déconnecté : buzzer2"
+      },
+      {
+        "t": "14:43:55",
+        "msg": "📡 Buzzer déconnecté : buzzer1"
+      },
+      {
+        "t": "14:43:55",
+        "msg": "📡 Buzzer déconnecté : buzzer3"
+      }
+    ],
+    "nine_mode": "auto",
+    "q_value": 1,
+    "q_count": 0,
+    "round_active": false,
+    "buzzer_order": [],
+    "buzzed_wrong": [],
+    "winner_pid": null,
+    "four_current_pid": null,
+    "four_score": 0,
+    "four_best": 0,
+    "four_timer_end": 0.0,
+    "four_timer_running": false,
+    "four_done_pids": [],
+    "four_best_scores": {},
+    "four_theme_index": 0,
+    "four_theme_chosen": null,
+    "four_themes_taken": [],
+    "ff_player_a": null,
+    "ff_player_b": null,
+    "ff_scores": {},
+    "ff_timer_end": 0.0,
+    "ff_timer_running": false,
+    "ff_active_pid": null,
+    "ff_buzzed_pid": null,
+    "ff_current_pts": 4,
+    "ff_total_target": 12,
+    "eq_pids": [],
+    "eq_scores": {},
+    "eq_buzzed_wrong": [],
+    "ff_zone_pts": 4,
+    "ff_zone_dur": 5.0,
+    "ff_total_dur": 20
+  },
+  {
+    "game_id": "28a015ea",
+    "created_at": "2026-05-31 14:44",
+    "phase": "setup",
+    "players": [],
+    "themes": [
+      "",
+      "",
+      "",
+      ""
+    ],
+    "finished": false,
+    "history": [
+      {
+        "t": "14:44:57",
+        "msg": "📡 Buzzer connecté : Joueur 2 (buzzer2)"
+      },
+      {
+        "t": "14:44:57",
+        "msg": "📡 Buzzer connecté : Joueur 3 (buzzer3)"
+      },
+      {
+        "t": "14:44:57",
+        "msg": "📡 Buzzer connecté : Joueur 1 (buzzer1)"
+      }
+    ],
+    "nine_mode": "auto",
+    "q_value": 1,
+    "q_count": 0,
+    "round_active": false,
+    "buzzer_order": [],
+    "buzzed_wrong": [],
+    "winner_pid": null,
+    "four_current_pid": null,
+    "four_score": 0,
+    "four_best": 0,
+    "four_timer_end": 0.0,
+    "four_timer_running": false,
+    "four_done_pids": [],
+    "four_best_scores": {},
+    "four_theme_index": 0,
+    "four_theme_chosen": null,
+    "four_themes_taken": [],
+    "ff_player_a": null,
+    "ff_player_b": null,
+    "ff_scores": {},
+    "ff_timer_end": 0.0,
+    "ff_timer_running": false,
+    "ff_active_pid": null,
+    "ff_buzzed_pid": null,
+    "ff_current_pts": 4,
+    "ff_total_target": 12,
+    "eq_pids": [],
+    "eq_scores": {},
+    "eq_buzzed_wrong": [],
+    "ff_zone_pts": 4,
+    "ff_zone_dur": 5.0,
+    "ff_total_dur": 20
+  },
+  {
+    "game_id": "cfa7b172",
+    "created_at": "2026-05-31 14:45",
+    "phase": "9pts",
+    "players": [
+      {
+        "id": "p1",
+        "name": "1",
+        "buzzer_id": "",
+        "points": 0,
+        "qualified": false,
+        "eliminated": false
+      },
+      {
+        "id": "p2",
+        "name": "2",
+        "buzzer_id": "",
+        "points": 0,
+        "qualified": false,
+        "eliminated": false
+      }
+    ],
+    "themes": [
+      "z",
+      "za",
+      "f",
+      "zd"
+    ],
+    "finished": false,
+    "history": [
+      {
+        "t": "14:45:05",
+        "msg": "🎮 Nouvelle partie démarrée"
+      },
+      {
+        "t": "14:45:05",
+        "msg": "▶ Question — 3 pt(s)"
+      }
+    ],
+    "nine_mode": "auto",
+    "q_value": 3,
+    "q_count": 0,
+    "round_active": false,
+    "buzzer_order": [],
+    "buzzed_wrong": [],
+    "winner_pid": null,
+    "four_current_pid": null,
+    "four_score": 0,
+    "four_best": 0,
+    "four_timer_end": 0.0,
+    "four_timer_running": false,
+    "four_done_pids": [],
+    "four_best_scores": {},
+    "four_theme_index": 0,
+    "four_theme_chosen": null,
+    "four_themes_taken": [],
+    "ff_player_a": null,
+    "ff_player_b": null,
+    "ff_scores": {},
+    "ff_timer_end": 0.0,
+    "ff_timer_running": false,
+    "ff_active_pid": null,
+    "ff_buzzed_pid": null,
+    "ff_current_pts": 4,
+    "ff_total_target": 12,
+    "eq_pids": [],
+    "eq_scores": {},
+    "eq_buzzed_wrong": [],
+    "ff_zone_pts": 4,
+    "ff_zone_dur": 5.0,
+    "ff_total_dur": 20
+  },
+  {
+    "game_id": "81111b37",
+    "created_at": "2026-05-31 14:46",
+    "phase": "9pts",
+    "players": [
+      {
+        "id": "p1",
+        "name": "11",
+        "buzzer_id": "buzzer1",
+        "points": 0,
+        "qualified": false,
+        "eliminated": false
+      },
+      {
+        "id": "p2",
+        "name": "22",
+        "buzzer_id": "buzzer2",
+        "points": 0,
+        "qualified": false,
+        "eliminated": false
+      }
+    ],
+    "themes": [
+      "z",
+      "e",
+      "u",
+      "g"
+    ],
+    "finished": false,
+    "history": [
+      {
+        "t": "14:46:16",
+        "msg": "🎮 Nouvelle partie démarrée"
+      },
+      {
+        "t": "14:46:20",
+        "msg": "🔔 22 buzzé en premier !"
+      },
+      {
+        "t": "14:46:23",
+        "msg": "▶ Question — 3 pt(s)"
+      },
+      {
+        "t": "14:46:24",
+        "msg": "🔔 22 buzzé en premier !"
+      },
+      {
+        "t": "14:48:05",
+        "msg": "📡 Buzzer déconnecté : buzzer2"
+      },
+      {
+        "t": "14:48:05",
+        "msg": "📡 Buzzer déconnecté : buzzer3"
+      },
+      {
+        "t": "14:48:05",
+        "msg": "📡 Buzzer déconnecté : buzzer1"
+      }
+    ],
+    "nine_mode": "auto",
+    "q_value": 3,
+    "q_count": 0,
+    "round_active": true,
+    "buzzer_order": [
+      "p2"
+    ],
+    "buzzed_wrong": [],
+    "winner_pid": "p2",
+    "four_current_pid": null,
+    "four_score": 0,
+    "four_best": 0,
+    "four_timer_end": 0.0,
+    "four_timer_running": false,
+    "four_done_pids": [],
+    "four_best_scores": {},
+    "four_theme_index": 0,
+    "four_theme_chosen": null,
+    "four_themes_taken": [],
+    "ff_player_a": null,
+    "ff_player_b": null,
+    "ff_scores": {},
+    "ff_timer_end": 0.0,
+    "ff_timer_running": false,
+    "ff_active_pid": null,
+    "ff_buzzed_pid": null,
+    "ff_current_pts": 4,
+    "ff_total_target": 12,
+    "eq_pids": [],
+    "eq_scores": {},
+    "eq_buzzed_wrong": [],
+    "ff_zone_pts": 4,
+    "ff_zone_dur": 5.0,
+    "ff_total_dur": 20
+  },
+  {
+    "game_id": "ade5019c",
+    "created_at": "2026-05-31 14:48",
+    "phase": "setup",
+    "players": [],
+    "themes": [
+      "",
+      "",
+      "",
+      ""
+    ],
+    "finished": false,
+    "history": [
+      {
+        "t": "14:48:08",
+        "msg": "📡 Buzzer connecté : Joueur 3 (buzzer3)"
+      },
+      {
+        "t": "14:48:08",
+        "msg": "📡 Buzzer connecté : Joueur 2 (buzzer2)"
+      },
+      {
+        "t": "14:48:08",
+        "msg": "📡 Buzzer connecté : Joueur 1 (buzzer1)"
+      }
+    ],
+    "nine_mode": "auto",
+    "q_value": 1,
+    "q_count": 0,
+    "round_active": false,
+    "buzzer_order": [],
+    "buzzed_wrong": [],
+    "winner_pid": null,
+    "four_current_pid": null,
+    "four_score": 0,
+    "four_best": 0,
+    "four_timer_end": 0.0,
+    "four_timer_running": false,
+    "four_done_pids": [],
+    "four_best_scores": {},
+    "four_theme_index": 0,
+    "four_theme_chosen": null,
+    "four_themes_taken": [],
+    "ff_player_a": null,
+    "ff_player_b": null,
+    "ff_scores": {},
+    "ff_timer_end": 0.0,
+    "ff_timer_running": false,
+    "ff_active_pid": null,
+    "ff_buzzed_pid": null,
+    "ff_current_pts": 4,
+    "ff_total_target": 12,
+    "eq_pids": [],
+    "eq_scores": {},
+    "eq_buzzed_wrong": [],
+    "ff_zone_pts": 4,
+    "ff_zone_dur": 5.0,
+    "ff_total_dur": 20
+  },
+  {
+    "game_id": "4b2c1554",
+    "created_at": "2026-05-31 14:48",
+    "phase": "9pts",
+    "players": [
+      {
+        "id": "p1",
+        "name": "11",
+        "buzzer_id": "buzzer1",
+        "points": 0,
+        "qualified": false,
+        "eliminated": false
+      },
+      {
+        "id": "p2",
+        "name": "22",
+        "buzzer_id": "buzzer2",
+        "points": 0,
+        "qualified": false,
+        "eliminated": false
+      }
+    ],
+    "themes": [
+      "a",
+      "e",
+      "z",
+      "g"
+    ],
+    "finished": false,
+    "history": [
+      {
+        "t": "14:48:19",
+        "msg": "🎮 Nouvelle partie démarrée"
+      },
+      {
+        "t": "14:48:22",
+        "msg": "DEBUG buzz: p=<modele.Player object at 0x0000024D1234BF20>, phase=9pts, PHASE_9PTS=9pts"
+      },
+      {
+        "t": "14:48:22",
+        "msg": "DEBUG buzz: 22 - buzzed_wrong=False, qualified=False, eliminated=False, winner_pid=None → can_buzz=True"
+      },
+      {
+        "t": "14:48:22",
+        "msg": "🔔 22 buzzé en premier !"
+      },
+      {
+        "t": "14:49:10",
+        "msg": "📡 Buzzer déconnecté : buzzer1"
+      },
+      {
+        "t": "14:49:10",
+        "msg": "📡 Buzzer déconnecté : buzzer3"
+      },
+      {
+        "t": "14:49:10",
+        "msg": "📡 Buzzer déconnecté : buzzer2"
+      }
+    ],
+    "nine_mode": "auto",
+    "q_value": 1,
+    "q_count": 0,
+    "round_active": false,
+    "buzzer_order": [
+      "p2"
+    ],
+    "buzzed_wrong": [],
+    "winner_pid": "p2",
+    "four_current_pid": null,
+    "four_score": 0,
+    "four_best": 0,
+    "four_timer_end": 0.0,
+    "four_timer_running": false,
+    "four_done_pids": [],
+    "four_best_scores": {},
+    "four_theme_index": 0,
+    "four_theme_chosen": null,
+    "four_themes_taken": [],
+    "ff_player_a": null,
+    "ff_player_b": null,
+    "ff_scores": {},
+    "ff_timer_end": 0.0,
+    "ff_timer_running": false,
+    "ff_active_pid": null,
+    "ff_buzzed_pid": null,
+    "ff_current_pts": 4,
+    "ff_total_target": 12,
+    "eq_pids": [],
+    "eq_scores": {},
+    "eq_buzzed_wrong": [],
+    "ff_zone_pts": 4,
+    "ff_zone_dur": 5.0,
+    "ff_total_dur": 20
+  },
+  {
+    "game_id": "ca809033",
+    "created_at": "2026-05-31 14:49",
+    "phase": "setup",
+    "players": [],
+    "themes": [
+      "",
+      "",
+      "",
+      ""
+    ],
+    "finished": false,
+    "history": [
+      {
+        "t": "14:49:13",
+        "msg": "📡 Buzzer connecté : Joueur 2 (buzzer2)"
+      },
+      {
+        "t": "14:49:13",
+        "msg": "📡 Buzzer connecté : Joueur 3 (buzzer3)"
+      },
+      {
+        "t": "14:49:13",
+        "msg": "📡 Buzzer connecté : Joueur 1 (buzzer1)"
+      }
+    ],
+    "nine_mode": "auto",
+    "q_value": 1,
+    "q_count": 0,
+    "round_active": false,
+    "buzzer_order": [],
+    "buzzed_wrong": [],
+    "winner_pid": null,
+    "four_current_pid": null,
+    "four_score": 0,
+    "four_best": 0,
+    "four_timer_end": 0.0,
+    "four_timer_running": false,
+    "four_done_pids": [],
+    "four_best_scores": {},
+    "four_theme_index": 0,
+    "four_theme_chosen": null,
+    "four_themes_taken": [],
+    "ff_player_a": null,
+    "ff_player_b": null,
+    "ff_scores": {},
+    "ff_timer_end": 0.0,
+    "ff_timer_running": false,
+    "ff_active_pid": null,
+    "ff_buzzed_pid": null,
+    "ff_current_pts": 4,
+    "ff_total_target": 12,
+    "eq_pids": [],
+    "eq_scores": {},
+    "eq_buzzed_wrong": [],
+    "ff_zone_pts": 4,
+    "ff_zone_dur": 5.0,
+    "ff_total_dur": 20
+  },
+  {
+    "game_id": "67c81124",
+    "created_at": "2026-05-31 14:49",
+    "phase": "9pts",
+    "players": [
+      {
+        "id": "p1",
+        "name": "11",
+        "buzzer_id": "buzzer1",
+        "points": 0,
+        "qualified": false,
+        "eliminated": false
+      },
+      {
+        "id": "p2",
+        "name": "22",
+        "buzzer_id": "buzzer2",
+        "points": 0,
+        "qualified": false,
+        "eliminated": false
+      }
+    ],
+    "themes": [
+      "",
+      "",
+      "",
+      ""
+    ],
+    "finished": false,
+    "history": [
+      {
+        "t": "14:49:21",
+        "msg": "🎮 Nouvelle partie démarrée"
+      },
+      {
+        "t": "14:49:27",
+        "msg": "DEBUG buzz: p=<modele.Player object at 0x00000148546FAB40>, phase=9pts, PHASE_9PTS=9pts"
+      },
+      {
+        "t": "14:49:27",
+        "msg": "DEBUG buzz: 22 - buzzed_wrong=False, qualified=False, eliminated=False, winner_pid=None → can_buzz=True"
+      },
+      {
+        "t": "14:49:27",
+        "msg": "🔔 22 buzzé en premier !"
+      },
+      {
+        "t": "14:50:08",
+        "msg": "DEBUG buzz: p=<modele.Player object at 0x00000148546FAB40>, phase=9pts, PHASE_9PTS=9pts"
+      },
+      {
+        "t": "14:50:08",
+        "msg": "DEBUG buzz: 22 - buzzed_wrong=False, qualified=False, eliminated=False, winner_pid=None → can_buzz=True"
+      },
+      {
+        "t": "14:50:08",
+        "msg": "🔔 22 buzzé en premier !"
+      },
+      {
+        "t": "14:50:33",
+        "msg": "📡 Buzzer déconnecté : buzzer2"
+      },
+      {
+        "t": "14:50:33",
+        "msg": "📡 Buzzer connecté : Joueur 2 (buzzer2)"
+      },
+      {
+        "t": "14:50:49",
+        "msg": "📡 Buzzer déconnecté : buzzer2"
+      },
+      {
+        "t": "14:50:49",
+        "msg": "📡 Buzzer déconnecté : buzzer1"
+      },
+      {
+        "t": "14:50:49",
+        "msg": "📡 Buzzer déconnecté : buzzer3"
+      }
+    ],
+    "nine_mode": "auto",
+    "q_value": 1,
+    "q_count": 0,
+    "round_active": false,
+    "buzzer_order": [
+      "p2"
+    ],
+    "buzzed_wrong": [],
+    "winner_pid": "p2",
+    "four_current_pid": null,
+    "four_score": 0,
+    "four_best": 0,
+    "four_timer_end": 0.0,
+    "four_timer_running": false,
+    "four_done_pids": [],
+    "four_best_scores": {},
+    "four_theme_index": 0,
+    "four_theme_chosen": null,
+    "four_themes_taken": [],
+    "ff_player_a": null,
+    "ff_player_b": null,
+    "ff_scores": {},
+    "ff_timer_end": 0.0,
+    "ff_timer_running": false,
+    "ff_active_pid": null,
+    "ff_buzzed_pid": null,
+    "ff_current_pts": 4,
+    "ff_total_target": 12,
+    "eq_pids": [],
+    "eq_scores": {},
+    "eq_buzzed_wrong": [],
+    "ff_zone_pts": 4,
+    "ff_zone_dur": 5.0,
+    "ff_total_dur": 20
+  },
+  {
+    "game_id": "23146907",
+    "created_at": "2026-05-31 14:50",
+    "phase": "setup",
+    "players": [],
+    "themes": [
+      "",
+      "",
+      "",
+      ""
+    ],
+    "finished": false,
+    "history": [
+      {
+        "t": "14:50:52",
+        "msg": "📡 Buzzer connecté : Joueur 2 (buzzer2)"
+      },
+      {
+        "t": "14:50:52",
+        "msg": "📡 Buzzer connecté : Joueur 3 (buzzer3)"
+      },
+      {
+        "t": "14:50:52",
+        "msg": "📡 Buzzer connecté : Joueur 1 (buzzer1)"
+      }
+    ],
+    "nine_mode": "auto",
+    "q_value": 1,
+    "q_count": 0,
+    "round_active": false,
+    "buzzer_order": [],
+    "buzzed_wrong": [],
+    "winner_pid": null,
+    "four_current_pid": null,
+    "four_score": 0,
+    "four_best": 0,
+    "four_timer_end": 0.0,
+    "four_timer_running": false,
+    "four_done_pids": [],
+    "four_best_scores": {},
+    "four_theme_index": 0,
+    "four_theme_chosen": null,
+    "four_themes_taken": [],
+    "ff_player_a": null,
+    "ff_player_b": null,
+    "ff_scores": {},
+    "ff_timer_end": 0.0,
+    "ff_timer_running": false,
+    "ff_active_pid": null,
+    "ff_buzzed_pid": null,
+    "ff_current_pts": 4,
+    "ff_total_target": 12,
+    "eq_pids": [],
+    "eq_scores": {},
+    "eq_buzzed_wrong": [],
+    "ff_zone_pts": 4,
+    "ff_zone_dur": 5.0,
+    "ff_total_dur": 20
+  },
+  {
+    "game_id": "f43e4de5",
+    "created_at": "2026-05-31 14:50",
+    "phase": "9pts",
+    "players": [
+      {
+        "id": "p1",
+        "name": "z",
+        "buzzer_id": "buzzer1",
+        "points": 0,
+        "qualified": false,
+        "eliminated": false
+      },
+      {
+        "id": "p2",
+        "name": "za",
+        "buzzer_id": "buzzer2",
+        "points": 0,
+        "qualified": false,
+        "eliminated": false
+      }
+    ],
+    "themes": [
+      "",
+      "",
+      "",
+      ""
+    ],
+    "finished": false,
+    "history": [
+      {
+        "t": "14:50:59",
+        "msg": "🎮 Nouvelle partie démarrée"
+      },
+      {
+        "t": "14:51:01",
+        "msg": "DEBUG buzz: p=<modele.Player object at 0x00000187A7EA6E40>, phase=9pts, PHASE_9PTS=9pts"
+      },
+      {
+        "t": "14:51:01",
+        "msg": "DEBUG buzz: za - buzzed_wrong=False, qualified=False, eliminated=False, winner_pid=None → can_buzz=True"
+      },
+      {
+        "t": "14:51:01",
+        "msg": "🔔 za buzzé en premier !"
+      },
+      {
+        "t": "14:51:22",
+        "msg": "📡 Buzzer connecté : Joueur 2 (buzzer2)"
+      },
+      {
+        "t": "14:51:32",
+        "msg": "📡 Buzzer déconnecté : buzzer2"
+      },
+      {
+        "t": "14:54:27",
+        "msg": "📡 Buzzer déconnecté : buzzer2"
+      },
+      {
+        "t": "14:54:27",
+        "msg": "📡 Buzzer déconnecté : buzzer3"
+      },
+      {
+        "t": "14:54:27",
+        "msg": "📡 Buzzer déconnecté : buzzer1"
+      }
+    ],
+    "nine_mode": "auto",
+    "q_value": 1,
+    "q_count": 0,
+    "round_active": false,
+    "buzzer_order": [
+      "p2"
+    ],
+    "buzzed_wrong": [],
+    "winner_pid": "p2",
+    "four_current_pid": null,
+    "four_score": 0,
+    "four_best": 0,
+    "four_timer_end": 0.0,
+    "four_timer_running": false,
+    "four_done_pids": [],
+    "four_best_scores": {},
+    "four_theme_index": 0,
+    "four_theme_chosen": null,
+    "four_themes_taken": [],
+    "ff_player_a": null,
+    "ff_player_b": null,
+    "ff_scores": {},
+    "ff_timer_end": 0.0,
+    "ff_timer_running": false,
+    "ff_active_pid": null,
+    "ff_buzzed_pid": null,
+    "ff_current_pts": 4,
+    "ff_total_target": 12,
+    "eq_pids": [],
+    "eq_scores": {},
+    "eq_buzzed_wrong": [],
+    "ff_zone_pts": 4,
+    "ff_zone_dur": 5.0,
+    "ff_total_dur": 20
+  },
+  {
+    "game_id": "6879a394",
+    "created_at": "2026-05-31 14:54",
+    "phase": "setup",
+    "players": [],
+    "themes": [
+      "",
+      "",
+      "",
+      ""
+    ],
+    "finished": false,
+    "history": [
+      {
+        "t": "14:54:30",
+        "msg": "📡 Buzzer connecté : Joueur 3 (buzzer3)"
+      },
+      {
+        "t": "14:54:30",
+        "msg": "📡 Buzzer connecté : Joueur 1 (buzzer1)"
+      },
+      {
+        "t": "14:54:30",
+        "msg": "📡 Buzzer connecté : Joueur 2 (buzzer2)"
+      }
+    ],
+    "nine_mode": "auto",
+    "q_value": 1,
+    "q_count": 0,
+    "round_active": false,
+    "buzzer_order": [],
+    "buzzed_wrong": [],
+    "winner_pid": null,
+    "four_current_pid": null,
+    "four_score": 0,
+    "four_best": 0,
+    "four_timer_end": 0.0,
+    "four_timer_running": false,
+    "four_done_pids": [],
+    "four_best_scores": {},
+    "four_theme_index": 0,
+    "four_theme_chosen": null,
+    "four_themes_taken": [],
+    "ff_player_a": null,
+    "ff_player_b": null,
+    "ff_scores": {},
+    "ff_timer_end": 0.0,
+    "ff_timer_running": false,
+    "ff_active_pid": null,
+    "ff_buzzed_pid": null,
+    "ff_current_pts": 4,
+    "ff_total_target": 12,
+    "eq_pids": [],
+    "eq_scores": {},
+    "eq_buzzed_wrong": [],
+    "ff_zone_pts": 4,
+    "ff_zone_dur": 5.0,
+    "ff_total_dur": 20
+  },
+  {
+    "game_id": "e534c146",
+    "created_at": "2026-05-31 14:54",
+    "phase": "9pts",
+    "players": [
+      {
+        "id": "p1",
+        "name": "1",
+        "buzzer_id": "buzzer1",
+        "points": 0,
+        "qualified": false,
+        "eliminated": false
+      },
+      {
+        "id": "p2",
+        "name": "2",
+        "buzzer_id": "buzzer2",
+        "points": 0,
+        "qualified": false,
+        "eliminated": false
+      }
+    ],
+    "themes": [
+      "a",
+      "ze",
+      "",
+      ""
+    ],
+    "finished": false,
+    "history": [
+      {
+        "t": "14:54:47",
+        "msg": "🎮 Nouvelle partie démarrée"
+      },
+      {
+        "t": "14:54:54",
+        "msg": "🔔 2 buzzé en premier !"
+      },
+      {
+        "t": "14:54:56",
+        "msg": "❌ 2 — faux"
+      },
+      {
+        "t": "14:54:56",
+        "msg": "⚠️ Tous ont répondu faux"
+      },
+      {
+        "t": "14:56:08",
+        "msg": "📡 Buzzer connecté : Joueur 2 (buzzer2)"
+      },
+      {
+        "t": "14:56:10",
+        "msg": "📡 Buzzer déconnecté : buzzer2"
+      },
+      {
+        "t": "14:56:34",
+        "msg": "📡 Buzzer connecté : Joueur 2 (buzzer2)"
+      },
+      {
+        "t": "14:56:38",
+        "msg": "📡 Buzzer déconnecté : buzzer2"
+      },
+      {
+        "t": "14:57:31",
+        "msg": "📡 Buzzer connecté : Joueur 2 (buzzer2)"
+      },
+      {
+        "t": "14:57:34",
+        "msg": "📡 Buzzer déconnecté : buzzer2"
+      },
+      {
+        "t": "14:58:22",
+        "msg": "📡 Buzzer connecté : Joueur 2 (buzzer2)"
+      },
+      {
+        "t": "14:58:30",
+        "msg": "📡 Buzzer déconnecté : buzzer2"
+      },
+      {
+        "t": "14:59:19",
+        "msg": "📡 Buzzer connecté : Joueur 2 (buzzer2)"
+      },
+      {
+        "t": "14:59:22",
+        "msg": "📡 Buzzer déconnecté : buzzer2"
+      },
+      {
+        "t": "14:59:57",
+        "msg": "📡 Buzzer connecté : Joueur 2 (buzzer2)"
+      },
+      {
+        "t": "14:59:58",
+        "msg": "📡 Buzzer déconnecté : buzzer2"
+      },
+      {
+        "t": "15:00:37",
+        "msg": "📡 Buzzer déconnecté : buzzer2"
+      },
+      {
+        "t": "15:01:03",
+        "msg": "📡 Buzzer connecté : Joueur 2 (buzzer2)"
+      },
+      {
+        "t": "15:01:14",
+        "msg": "📡 Buzzer connecté : Joueur 2 (buzzer2)"
+      },
+      {
+        "t": "15:01:23",
+        "msg": "📡 Buzzer déconnecté : buzzer2"
+      },
+      {
+        "t": "15:02:27",
+        "msg": "📡 Buzzer connecté : Joueur 2 (buzzer2)"
+      },
+      {
+        "t": "15:02:34",
+        "msg": "📡 Buzzer déconnecté : buzzer2"
+      },
+      {
+        "t": "15:03:06",
+        "msg": "📡 Buzzer déconnecté : buzzer2"
+      },
+      {
+        "t": "15:03:06",
+        "msg": "📡 Buzzer connecté : Joueur 3 (buzzer3)"
+      },
+      {
+        "t": "15:03:10",
+        "msg": "📡 Buzzer déconnecté : buzzer3"
+      },
+      {
+        "t": "15:03:30",
+        "msg": "📡 Buzzer connecté : Joueur 2 (buzzer2)"
+      },
+      {
+        "t": "15:05:49",
+        "msg": "📡 Buzzer déconnecté : buzzer2"
+      },
+      {
+        "t": "15:14:46",
+        "msg": "📡 Buzzer déconnecté : buzzer3"
+      },
+      {
+        "t": "15:15:27",
+        "msg": "📡 Buzzer connecté : Joueur 3 (buzzer3)"
+      },
+      {
+        "t": "15:17:21",
+        "msg": "📡 Buzzer connecté : Joueur 3 (buzzer3)"
+      },
+      {
+        "t": "15:17:22",
+        "msg": "📡 Buzzer connecté : Joueur 2 (buzzer2)"
+      },
+      {
+        "t": "15:17:26",
+        "msg": "📡 Buzzer déconnecté : buzzer3"
+      },
+      {
+        "t": "15:17:40",
+        "msg": "📡 Buzzer connecté : Joueur 3 (buzzer3)"
+      },
+      {
+        "t": "15:17:41",
+        "msg": "📡 Buzzer déconnecté : buzzer3"
+      },
+      {
+        "t": "15:19:55",
+        "msg": "📡 Buzzer déconnecté : buzzer3"
+      },
+      {
+        "t": "15:19:55",
+        "msg": "📡 Buzzer déconnecté : buzzer2"
+      },
+      {
+        "t": "15:19:55",
+        "msg": "📡 Buzzer déconnecté : buzzer1"
+      }
+    ],
+    "nine_mode": "auto",
+    "q_value": 1,
+    "q_count": 0,
+    "round_active": false,
+    "buzzer_order": [
+      "p2"
+    ],
+    "buzzed_wrong": [
+      "p2"
+    ],
+    "winner_pid": null,
+    "four_current_pid": null,
+    "four_score": 0,
+    "four_best": 0,
+    "four_timer_end": 0.0,
+    "four_timer_running": false,
+    "four_done_pids": [],
+    "four_best_scores": {},
+    "four_theme_index": 0,
+    "four_theme_chosen": null,
+    "four_themes_taken": [],
+    "ff_player_a": null,
+    "ff_player_b": null,
+    "ff_scores": {},
+    "ff_timer_end": 0.0,
+    "ff_timer_running": false,
+    "ff_active_pid": null,
+    "ff_buzzed_pid": null,
+    "ff_current_pts": 4,
+    "ff_total_target": 12,
+    "eq_pids": [],
+    "eq_scores": {},
+    "eq_buzzed_wrong": [],
+    "ff_zone_pts": 4,
+    "ff_zone_dur": 5.0,
+    "ff_total_dur": 20
+  },
+  {
+    "game_id": "8e9ec658",
+    "created_at": "2026-05-31 15:19",
+    "phase": "setup",
+    "players": [],
+    "themes": [
+      "",
+      "",
+      "",
+      ""
+    ],
+    "finished": false,
+    "history": [
+      {
+        "t": "15:19:58",
+        "msg": "📡 Buzzer connecté : Joueur 1 (buzzer1)"
+      },
+      {
+        "t": "15:19:58",
+        "msg": "📡 Buzzer connecté : Joueur 3 (buzzer3)"
+      },
+      {
+        "t": "15:19:58",
+        "msg": "📡 Buzzer connecté : Joueur 2 (buzzer2)"
+      }
+    ],
+    "nine_mode": "auto",
+    "q_value": 1,
+    "q_count": 0,
+    "round_active": false,
+    "buzzer_order": [],
+    "buzzed_wrong": [],
+    "winner_pid": null,
+    "four_current_pid": null,
+    "four_score": 0,
+    "four_best": 0,
+    "four_timer_end": 0.0,
+    "four_timer_running": false,
+    "four_done_pids": [],
+    "four_best_scores": {},
+    "four_theme_index": 0,
+    "four_theme_chosen": null,
+    "four_themes_taken": [],
+    "ff_player_a": null,
+    "ff_player_b": null,
+    "ff_scores": {},
+    "ff_timer_end": 0.0,
+    "ff_timer_running": false,
+    "ff_active_pid": null,
+    "ff_buzzed_pid": null,
+    "ff_current_pts": 4,
+    "ff_total_target": 12,
+    "eq_pids": [],
+    "eq_scores": {},
+    "eq_buzzed_wrong": [],
+    "ff_zone_pts": 4,
+    "ff_zone_dur": 5.0,
+    "ff_total_dur": 20
+  },
+  {
+    "game_id": "4af7eecb",
+    "created_at": "2026-05-31 15:20",
+    "phase": "9pts",
+    "players": [
+      {
+        "id": "p1",
+        "name": "1",
+        "buzzer_id": "buzzer1",
+        "points": 0,
+        "qualified": false,
+        "eliminated": false
+      },
+      {
+        "id": "p2",
+        "name": "2",
+        "buzzer_id": "buzzer2",
+        "points": 0,
+        "qualified": false,
+        "eliminated": false
+      }
+    ],
+    "themes": [
+      "",
+      "",
+      "",
+      ""
+    ],
+    "finished": false,
+    "history": [
+      {
+        "t": "15:20:09",
+        "msg": "🎮 Nouvelle partie démarrée"
+      },
+      {
+        "t": "15:20:11",
+        "msg": "🔔 2 buzzé en premier !"
+      },
+      {
+        "t": "15:20:15",
+        "msg": "❌ 2 — faux"
+      },
+      {
+        "t": "15:20:15",
+        "msg": "🔔 Main libre — autres joueurs peuvent buzzer"
+      },
+      {
+        "t": "15:20:23",
+        "msg": "🔔 1 buzzé en premier !"
+      },
+      {
+        "t": "15:20:25",
+        "msg": "❌ 1 — faux"
+      },
+      {
+        "t": "15:20:25",
+        "msg": "⚠️ Tous ont répondu faux"
+      },
+      {
+        "t": "15:20:39",
+        "msg": "📡 Buzzer déconnecté : buzzer1"
+      },
+      {
+        "t": "15:20:39",
+        "msg": "📡 Buzzer déconnecté : buzzer2"
+      },
+      {
+        "t": "15:20:39",
+        "msg": "📡 Buzzer déconnecté : buzzer3"
+      }
+    ],
+    "nine_mode": "auto",
+    "q_value": 1,
+    "q_count": 0,
+    "round_active": false,
+    "buzzer_order": [
+      "p2",
+      "p1"
+    ],
+    "buzzed_wrong": [
+      "p2",
+      "p1"
+    ],
+    "winner_pid": null,
+    "four_current_pid": null,
+    "four_score": 0,
+    "four_best": 0,
+    "four_timer_end": 0.0,
+    "four_timer_running": false,
+    "four_done_pids": [],
+    "four_best_scores": {},
+    "four_theme_index": 0,
+    "four_theme_chosen": null,
+    "four_themes_taken": [],
+    "ff_player_a": null,
+    "ff_player_b": null,
+    "ff_scores": {},
+    "ff_timer_end": 0.0,
+    "ff_timer_running": false,
+    "ff_active_pid": null,
+    "ff_buzzed_pid": null,
+    "ff_current_pts": 4,
+    "ff_total_target": 12,
+    "eq_pids": [],
+    "eq_scores": {},
+    "eq_buzzed_wrong": [],
+    "ff_zone_pts": 4,
+    "ff_zone_dur": 5.0,
+    "ff_total_dur": 20
+  },
+  {
+    "game_id": "4c2fcec7",
+    "created_at": "2026-05-31 15:22",
+    "phase": "setup",
+    "players": [],
+    "themes": [
+      "",
+      "",
+      "",
+      ""
+    ],
+    "finished": false,
+    "history": [
+      {
+        "t": "15:22:26",
+        "msg": "📡 Buzzer connecté : Joueur 3 (buzzer3)"
+      },
+      {
+        "t": "15:22:26",
+        "msg": "📡 Buzzer connecté : Joueur 1 (buzzer1)"
+      },
+      {
+        "t": "15:22:27",
+        "msg": "📡 Buzzer connecté : Joueur 2 (buzzer2)"
+      }
+    ],
+    "nine_mode": "auto",
+    "q_value": 1,
+    "q_count": 0,
+    "round_active": false,
+    "buzzer_order": [],
+    "buzzed_wrong": [],
+    "winner_pid": null,
+    "four_current_pid": null,
+    "four_score": 0,
+    "four_best": 0,
+    "four_timer_end": 0.0,
+    "four_timer_running": false,
+    "four_done_pids": [],
+    "four_best_scores": {},
+    "four_theme_index": 0,
+    "four_theme_chosen": null,
+    "four_themes_taken": [],
+    "ff_player_a": null,
+    "ff_player_b": null,
+    "ff_scores": {},
+    "ff_timer_end": 0.0,
+    "ff_timer_running": false,
+    "ff_active_pid": null,
+    "ff_buzzed_pid": null,
+    "ff_current_pts": 4,
+    "ff_total_target": 12,
+    "eq_pids": [],
+    "eq_scores": {},
+    "eq_buzzed_wrong": [],
+    "ff_zone_pts": 4,
+    "ff_zone_dur": 5.0,
+    "ff_total_dur": 20
+  },
+  {
+    "game_id": "254342eb",
+    "created_at": "2026-05-31 15:22",
+    "phase": "9pts",
+    "players": [
+      {
+        "id": "p1",
+        "name": "a",
+        "buzzer_id": "buzzer1",
+        "points": 0,
+        "qualified": false,
+        "eliminated": false
+      },
+      {
+        "id": "p2",
+        "name": "v",
+        "buzzer_id": "buzzer2",
+        "points": 0,
+        "qualified": false,
+        "eliminated": false
+      }
+    ],
+    "themes": [
+      "",
+      "",
+      "",
+      ""
+    ],
+    "finished": false,
+    "history": [
+      {
+        "t": "15:22:34",
+        "msg": "🎮 Nouvelle partie démarrée"
+      },
+      {
+        "t": "15:22:42",
+        "msg": "🔔 v buzzé en premier !"
+      },
+      {
+        "t": "15:22:43",
+        "msg": "❌ v — faux"
+      },
+      {
+        "t": "15:22:43",
+        "msg": "🔔 Main libre — autres joueurs peuvent buzzer"
+      },
+      {
+        "t": "15:22:48",
+        "msg": "🔔 a buzzé en premier !"
+      },
+      {
+        "t": "15:22:50",
+        "msg": "❌ a — faux"
+      },
+      {
+        "t": "15:22:50",
+        "msg": "⚠️ Tous ont répondu faux — fin de la question"
+      },
+      {
+        "t": "15:25:47",
+        "msg": "📡 Buzzer déconnecté : buzzer3"
+      },
+      {
+        "t": "15:25:47",
+        "msg": "📡 Buzzer déconnecté : buzzer1"
+      },
+      {
+        "t": "15:25:47",
+        "msg": "📡 Buzzer déconnecté : buzzer2"
+      }
+    ],
+    "nine_mode": "auto",
+    "q_value": 1,
+    "q_count": 1,
+    "round_active": false,
+    "buzzer_order": [
+      "p2",
+      "p1"
+    ],
+    "buzzed_wrong": [
+      "p2",
+      "p1"
+    ],
+    "winner_pid": null,
+    "four_current_pid": null,
+    "four_score": 0,
+    "four_best": 0,
+    "four_timer_end": 0.0,
+    "four_timer_running": false,
+    "four_done_pids": [],
+    "four_best_scores": {},
+    "four_theme_index": 0,
+    "four_theme_chosen": null,
+    "four_themes_taken": [],
+    "ff_player_a": null,
+    "ff_player_b": null,
+    "ff_scores": {},
+    "ff_timer_end": 0.0,
+    "ff_timer_running": false,
+    "ff_active_pid": null,
+    "ff_buzzed_pid": null,
+    "ff_current_pts": 4,
+    "ff_total_target": 12,
+    "eq_pids": [],
+    "eq_scores": {},
+    "eq_buzzed_wrong": [],
+    "ff_zone_pts": 4,
+    "ff_zone_dur": 5.0,
+    "ff_total_dur": 20
+  },
+  {
+    "game_id": "229ed15f",
+    "created_at": "2026-05-31 15:25",
+    "phase": "setup",
+    "players": [],
+    "themes": [
+      "",
+      "",
+      "",
+      ""
+    ],
+    "finished": false,
+    "history": [
+      {
+        "t": "15:25:50",
+        "msg": "📡 Buzzer connecté : Joueur 3 (buzzer3)"
+      },
+      {
+        "t": "15:25:50",
+        "msg": "📡 Buzzer connecté : Joueur 2 (buzzer2)"
+      },
+      {
+        "t": "15:25:50",
+        "msg": "📡 Buzzer connecté : Joueur 1 (buzzer1)"
+      }
+    ],
+    "nine_mode": "auto",
+    "q_value": 1,
+    "q_count": 0,
+    "round_active": false,
+    "buzzer_order": [],
+    "buzzed_wrong": [],
+    "winner_pid": null,
+    "four_current_pid": null,
+    "four_score": 0,
+    "four_best": 0,
+    "four_timer_end": 0.0,
+    "four_timer_running": false,
+    "four_done_pids": [],
+    "four_best_scores": {},
+    "four_theme_index": 0,
+    "four_theme_chosen": null,
+    "four_themes_taken": [],
+    "ff_player_a": null,
+    "ff_player_b": null,
+    "ff_scores": {},
+    "ff_timer_end": 0.0,
+    "ff_timer_running": false,
+    "ff_active_pid": null,
+    "ff_buzzed_pid": null,
+    "ff_current_pts": 4,
+    "ff_total_target": 12,
+    "eq_pids": [],
+    "eq_scores": {},
+    "eq_buzzed_wrong": [],
+    "ff_zone_pts": 4,
+    "ff_zone_dur": 5.0,
+    "ff_total_dur": 20
+  },
+  {
+    "game_id": "6d930329",
+    "created_at": "2026-05-31 15:25",
+    "phase": "9pts",
+    "players": [
+      {
+        "id": "p1",
+        "name": "z",
+        "buzzer_id": "buzzer1",
+        "points": 0,
+        "qualified": false,
+        "eliminated": false
+      },
+      {
+        "id": "p2",
+        "name": "er",
+        "buzzer_id": "buzzer2",
+        "points": 0,
+        "qualified": false,
+        "eliminated": false
+      }
+    ],
+    "themes": [
+      "",
+      "",
+      "",
+      ""
+    ],
+    "finished": false,
+    "history": [
+      {
+        "t": "15:25:59",
+        "msg": "🎮 Nouvelle partie démarrée"
+      },
+      {
+        "t": "15:26:04",
+        "msg": "🔔 er buzzé en premier !"
+      },
+      {
+        "t": "15:26:06",
+        "msg": "❌ er — faux"
+      },
+      {
+        "t": "15:26:06",
+        "msg": "🔔 Main libre — autres joueurs peuvent buzzer"
+      },
+      {
+        "t": "15:26:08",
+        "msg": "🔔 z buzzé en premier !"
+      },
+      {
+        "t": "15:26:10",
+        "msg": "❌ z — faux"
+      },
+      {
+        "t": "15:26:10",
+        "msg": "⚠️ Tous les joueurs actifs ont répondu faux — fin de la question"
+      },
+      {
+        "t": "15:27:33",
+        "msg": "📡 Buzzer déconnecté : buzzer3"
+      },
+      {
+        "t": "15:27:33",
+        "msg": "📡 Buzzer déconnecté : buzzer2"
+      },
+      {
+        "t": "15:27:33",
+        "msg": "📡 Buzzer déconnecté : buzzer1"
+      }
+    ],
+    "nine_mode": "auto",
+    "q_value": 1,
+    "q_count": 1,
+    "round_active": false,
+    "buzzer_order": [],
+    "buzzed_wrong": [],
+    "winner_pid": null,
+    "four_current_pid": null,
+    "four_score": 0,
+    "four_best": 0,
+    "four_timer_end": 0.0,
+    "four_timer_running": false,
+    "four_done_pids": [],
+    "four_best_scores": {},
+    "four_theme_index": 0,
+    "four_theme_chosen": null,
+    "four_themes_taken": [],
+    "ff_player_a": null,
+    "ff_player_b": null,
+    "ff_scores": {},
+    "ff_timer_end": 0.0,
+    "ff_timer_running": false,
+    "ff_active_pid": null,
+    "ff_buzzed_pid": null,
+    "ff_current_pts": 4,
+    "ff_total_target": 12,
+    "eq_pids": [],
+    "eq_scores": {},
+    "eq_buzzed_wrong": [],
+    "ff_zone_pts": 4,
+    "ff_zone_dur": 5.0,
+    "ff_total_dur": 20
+  },
+  {
+    "game_id": "71b60052",
+    "created_at": "2026-05-31 15:27",
+    "phase": "setup",
+    "players": [],
+    "themes": [
+      "",
+      "",
+      "",
+      ""
+    ],
+    "finished": false,
+    "history": [
+      {
+        "t": "15:27:36",
+        "msg": "📡 Buzzer connecté : Joueur 3 (buzzer3)"
+      },
+      {
+        "t": "15:27:36",
+        "msg": "📡 Buzzer connecté : Joueur 2 (buzzer2)"
+      },
+      {
+        "t": "15:27:36",
+        "msg": "📡 Buzzer connecté : Joueur 1 (buzzer1)"
+      }
+    ],
+    "nine_mode": "auto",
+    "q_value": 1,
+    "q_count": 0,
+    "round_active": false,
+    "buzzer_order": [],
+    "buzzed_wrong": [],
+    "winner_pid": null,
+    "four_current_pid": null,
+    "four_score": 0,
+    "four_best": 0,
+    "four_timer_end": 0.0,
+    "four_timer_running": false,
+    "four_done_pids": [],
+    "four_best_scores": {},
+    "four_theme_index": 0,
+    "four_theme_chosen": null,
+    "four_themes_taken": [],
+    "ff_player_a": null,
+    "ff_player_b": null,
+    "ff_scores": {},
+    "ff_timer_end": 0.0,
+    "ff_timer_running": false,
+    "ff_active_pid": null,
+    "ff_buzzed_pid": null,
+    "ff_current_pts": 4,
+    "ff_total_target": 12,
+    "eq_pids": [],
+    "eq_scores": {},
+    "eq_buzzed_wrong": [],
+    "ff_zone_pts": 4,
+    "ff_zone_dur": 5.0,
+    "ff_total_dur": 20
+  },
+  {
+    "game_id": "e0ea6554",
+    "created_at": "2026-05-31 15:28",
+    "phase": "facaface",
+    "players": [
+      {
+        "id": "p1",
+        "name": "1",
+        "buzzer_id": "buzzer1",
+        "points": 9,
+        "qualified": true,
+        "eliminated": false
+      },
+      {
+        "id": "p2",
+        "name": "2",
+        "buzzer_id": "buzzer2",
+        "points": 4,
+        "qualified": false,
+        "eliminated": true
+      },
+      {
+        "id": "p3",
+        "name": "3",
+        "buzzer_id": "buzzer3",
+        "points": 9,
+        "qualified": true,
+        "eliminated": false
+      }
+    ],
+    "themes": [
+      "a",
+      "z",
+      "e",
+      "r"
+    ],
+    "finished": false,
+    "history": [
+      {
+        "t": "15:28:11",
+        "msg": "🎮 Nouvelle partie démarrée"
+      },
+      {
+        "t": "15:28:14",
+        "msg": "Mode : manual"
+      },
+      {
+        "t": "15:28:19",
+        "msg": "✏️ 1 +3pt → 3pt"
+      },
+      {
+        "t": "15:28:25",
+        "msg": "✏️ 1 +3pt → 6pt"
+      },
+      {
+        "t": "15:28:28",
+        "msg": "🏆 1 QUALIFIÉ !"
+      },
+      {
+        "t": "15:28:32",
+        "msg": "▶ Question — 1 pt(s)"
+      },
+      {
+        "t": "15:28:41",
+        "msg": "🔔 2 buzzé en premier !"
+      },
+      {
+        "t": "15:28:43",
+        "msg": "✅ 2 +1pt → 1pt"
+      },
+      {
+        "t": "15:28:54",
+        "msg": "Mode : auto"
+      },
+      {
+        "t": "15:28:57",
+        "msg": "▶ Question — 3 pt(s)"
+      },
+      {
+        "t": "15:29:00",
+        "msg": "🔔 3 buzzé en premier !"
+      },
+      {
+        "t": "15:29:01",
+        "msg": "✅ 3 +3pt → 3pt"
+      },
+      {
+        "t": "15:29:21",
+        "msg": "🔔 2 buzzé en premier !"
+      },
+      {
+        "t": "15:29:23",
+        "msg": "✅ 2 +3pt → 4pt"
+      },
+      {
+        "t": "15:30:09",
+        "msg": "🔔 3 buzzé en premier !"
+      },
+      {
+        "t": "15:30:12",
+        "msg": "✅ 3 +3pt → 6pt"
+      },
+      {
+        "t": "15:30:16",
+        "msg": "▶ Question — 3 pt(s)"
+      },
+      {
+        "t": "15:30:19",
+        "msg": "🔔 3 buzzé en premier !"
+      },
+      {
+        "t": "15:30:21",
+        "msg": "🏆 3 QUALIFIÉ !"
+      },
+      {
+        "t": "15:30:21",
+        "msg": "🏁 Manche 9 points terminée !"
+      },
+      {
+        "t": "15:31:03",
+        "msg": "📌 Phase → 4suite"
+      },
+      {
+        "t": "15:31:19",
+        "msg": "🎯 3 choisit le thème 1"
+      },
+      {
+        "t": "15:31:19",
+        "msg": "⏱ Tour de 3 — 4 à la suite"
+      },
+      {
+        "t": "15:31:21",
+        "msg": "✅ 3 : 1 consécutives (record: 1)"
+      },
+      {
+        "t": "15:31:22",
+        "msg": "✅ 3 : 2 consécutives (record: 2)"
+      },
+      {
+        "t": "15:31:23",
+        "msg": "❌ 3 — repart de 0 (record: 2)"
+      },
+      {
+        "t": "15:31:24",
+        "msg": "✅ 3 : 1 consécutives (record: 2)"
+      },
+      {
+        "t": "15:31:24",
+        "msg": "✅ 3 : 2 consécutives (record: 2)"
+      },
+      {
+        "t": "15:31:25",
+        "msg": "✅ 3 : 3 consécutives (record: 3)"
+      },
+      {
+        "t": "15:31:25",
+        "msg": "❌ 3 — repart de 0 (record: 3)"
+      },
+      {
+        "t": "15:31:26",
+        "msg": "✅ 3 : 1 consécutives (record: 3)"
+      },
+      {
+        "t": "15:31:26",
+        "msg": "✅ 3 : 2 consécutives (record: 3)"
+      },
+      {
+        "t": "15:31:31",
+        "msg": "❌ 3 — repart de 0 (record: 3)"
+      },
+      {
+        "t": "15:31:32",
+        "msg": "✅ 3 : 1 consécutives (record: 3)"
+      },
+      {
+        "t": "15:31:52",
+        "msg": "❌ 3 — repart de 0 (record: 3)"
+      },
+      {
+        "t": "15:31:53",
+        "msg": "✅ 3 : 1 consécutives (record: 3)"
+      },
+      {
+        "t": "15:31:59",
+        "msg": "⏰ Temps écoulé — 3 (record: 3)"
+      },
+      {
+        "t": "15:31:59",
+        "msg": "🔚 Temps écoulé"
+      },
+      {
+        "t": "15:32:12",
+        "msg": "🎯 1 choisit le thème 4"
+      },
+      {
+        "t": "15:32:12",
+        "msg": "⏱ Tour de 1 — 4 à la suite"
+      },
+      {
+        "t": "15:32:18",
+        "msg": "✅ 1 : 1 consécutives (record: 1)"
+      },
+      {
+        "t": "15:32:53",
+        "msg": "⏰ Temps écoulé — 1 (record: 1)"
+      },
+      {
+        "t": "15:32:53",
+        "msg": "🔚 Temps écoulé"
+      },
+      {
+        "t": "15:32:53",
+        "msg": "🏁 4 à la suite terminé pour tous — calcul des qualifiés"
+      },
+      {
+        "t": "15:32:53",
+        "msg": "✅ 3 qualifié (score 3)"
+      },
+      {
+        "t": "15:32:53",
+        "msg": "✅ 1 qualifié (score 1)"
+      },
+      {
+        "t": "15:32:53",
+        "msg": "🏁 Les 2 qualifiés pour le face à face sont déterminés"
+      },
+      {
+        "t": "15:33:13",
+        "msg": "📡 Buzzer déconnecté : buzzer1"
+      },
+      {
+        "t": "15:33:13",
+        "msg": "📡 Buzzer déconnecté : buzzer3"
+      },
+      {
+        "t": "15:33:13",
+        "msg": "📡 Buzzer déconnecté : buzzer2"
+      }
+    ],
+    "nine_mode": "auto",
+    "q_value": 3,
+    "q_count": 5,
+    "round_active": false,
+    "buzzer_order": [
+      "p3"
+    ],
+    "buzzed_wrong": [],
+    "winner_pid": null,
+    "four_current_pid": null,
+    "four_score": 0,
+    "four_best": 0,
+    "four_timer_end": 1780234372.7156093,
+    "four_timer_running": false,
+    "four_done_pids": [
+      "p3",
+      "p1"
+    ],
+    "four_best_scores": {
+      "p3": 3,
+      "p1": 1
+    },
+    "four_theme_index": 2,
+    "four_theme_chosen": null,
+    "four_themes_taken": [],
+    "ff_player_a": null,
+    "ff_player_b": null,
+    "ff_scores": {},
+    "ff_timer_end": 0.0,
+    "ff_timer_running": false,
+    "ff_active_pid": null,
+    "ff_buzzed_pid": null,
+    "ff_current_pts": 4,
+    "ff_total_target": 12,
+    "eq_pids": [],
+    "eq_scores": {},
+    "eq_buzzed_wrong": [],
+    "ff_zone_pts": 4,
+    "ff_zone_dur": 5.0,
+    "ff_total_dur": 20
+  }
+]
