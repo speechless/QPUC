@@ -1,5 +1,4 @@
 import json, time, websockets
-from websockets.server import WebSocketServerProtocol
 from ..server import game, esp_clients, web_clients, web_sessions, log
 
 
@@ -51,27 +50,6 @@ from ..server import game, esp_clients, web_clients, web_sessions, log
 #             game.log(f"📡 Buzzer déconnecté : {buzzer_id}")
 #         await broadcast_state()
 
-async def web_handler(ws: WebSocketServerProtocol):
-    web_clients.add(ws)
-    try:
-        payload = {"type": "state", "game": game.to_dict(),
-                   "saves_meta": saves_meta(), "server_now": time.time(),
-                   "esp_list": esp_list()}
-        await ws.send(json.dumps(payload))
-    except: pass
-    try:
-        async for raw in ws:
-            try: data = json.loads(raw)
-            except: continue
-            try:
-                log.info(f"Web admin message from {getattr(ws, 'remote_address', None)}: {data.get('cmd')}")
-            except: pass
-            await handle_admin_cmd(data)
-    except websockets.exceptions.ConnectionClosed: pass
-    finally: web_clients.discard(ws)
-
-# -- 
-
 
 async def web_handler(ws, payload=None):
     web_clients.add(ws)
@@ -90,9 +68,6 @@ async def web_handler(ws, payload=None):
             except:
                 continue
 
-            if data.get("isAdmin") == True:
-                await handle_admin_cmd(data)
-
             if data.get("type") == "hello":
                 if session_id in web_sessions:
                     # session existante : on la retrouve, on met juste à jour la connexion
@@ -102,7 +77,10 @@ async def web_handler(ws, payload=None):
                     # nouveau client
                     web_sessions[session_id] = {"ws": ws, "last_seen": time.time()}
                     continue
-                
+
+
+            if data.get("isAdmin") == True:
+                await handle_admin_cmd(data)
             # elif ... :
     
     except websockets.exceptions.ConnectionClosed:
@@ -117,10 +95,9 @@ async def web_handler(ws, payload=None):
                 session["last_seen"] = time.time()
 
 
-# async def handle_admin_cmd(data: dict):
-#     typeCmd = data.get("typeCmd")
+async def handle_admin_cmd(data: dict):
+    typeCmd = data.get("type")
 #     if typeCmd == "PHASE_SETUP":
-#         global game
 #         game = GameState()
 
 #         for index, playerData in enumerate(data.get("players", [])):

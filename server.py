@@ -18,6 +18,8 @@ web_sessions: dict = {}
 SERVER_HOST = "0.0.0.0"
 SERVER_PORT = 8765
 
+logging.basicConfig(level=logging.INFO,format="%(asctime)s [%(levelname)s] %(message)s", datefmt="%H:%M:%S")
+log = logging.getLogger("qpuc")
 
 def start_http():
     os.chdir(Path(__file__).parent)
@@ -67,9 +69,6 @@ async def main():
     async with websockets.serve(router, SERVER_HOST, SERVER_PORT):
         #asyncio.create_task(timer_tick())
         await asyncio.get_running_loop().create_future()
-
-logging.basicConfig(level=logging.INFO,format="%(asctime)s [%(levelname)s] %(message)s", datefmt="%H:%M:%S")
-log = logging.getLogger("qpuc")
 
 
 if __name__ == "__main__":
