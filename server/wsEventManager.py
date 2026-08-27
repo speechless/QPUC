@@ -1,5 +1,6 @@
 import json, time, websockets
 from ..server import game, esp_clients, web_clients, web_sessions, log
+import modele
 
 
 # ══════════════════════════════════════════════════════════════════════
@@ -51,48 +52,33 @@ from ..server import game, esp_clients, web_clients, web_sessions, log
 #         await broadcast_state()
 
 
-async def web_handler(ws, payload=None):
-    web_clients.add(ws)
-    session_id = None
-    try:
-        if payload is None:
-            payload = {"type": "state", "phase": "PHASE_SETUP", "numPlayers": "4"}
-        await ws.send(json.dumps(payload))
-    except Exception as exc:
-        log.exception("websocket handler error: %s", exc)
-
+async def web_handler(ws):
     try:
         async for raw in ws:
             try:
                 data = json.loads(raw)
             except:
                 continue
-
-            if data.get("type") == "hello":
-                if session_id in web_sessions:
-                    # session existante : on la retrouve, on met juste à jour la connexion
-                    web_sessions[session_id]["ws"] = ws
-                    web_sessions[session_id]["last_seen"] = time.time()
-                else:
-                    # nouveau client
-                    web_sessions[session_id] = {"ws": ws, "last_seen": time.time()}
-                    continue
-
-
+            
             if data.get("isAdmin") == True:
                 await handle_admin_cmd(data)
+
+            elif data.get("type") == "hello":
+                client_session_id = data.get("client_id")
+
+                if client_session_id in web_sessions["web_session_id"]:
+                    web_sessions[client_session_id].ws_sessions.append(ws)
+                else:
+                    new_web_session = modele.Web_Session(client_session_id,ws)
+                    web_sessions.add(new_web_session)
+
             # elif ... :
     
     except websockets.exceptions.ConnectionClosed:
         pass
     finally:
-        web_clients.discard(ws)
-        if session_id:
-            session = web_sessions.get(session_id)
-            if session and session.get("ws") is ws:
-                # keep session record so a refresh can reconnect with same clientId
-                session["ws"] = None
-                session["last_seen"] = time.time()
+        if client_session_id:
+            web_sessions[client_session_id].ws_sessions.remove(ws)
 
 
 async def handle_admin_cmd(data: dict):

@@ -1,23 +1,16 @@
 from ..server import game, esp_clients, web_clients, log
-# ══════════════════════════════════════════════════════════════════════
-#  DIFFUSION
-# ══════════════════════════════════════════════════════════════════════
+import json
 
-async def send_web(data, destination):
+async def send_web(data):
     try:
-        if destination == 0:
-            log.info(f"server to web: sending to {len(web_clients)} web clients")
-        elif destination == 1:
-            log.info("server to web: sending to admin")
-        elif destination == 2:
-            log.info("server to web: sending to display")
+        log.info(f"server to web: sending to {len(web_clients)} web clients")
     except: pass
 
     dead = set()
     success = 0
     for ws in list(web_clients):
         try:
-            await ws.send(data)
+            await ws.send(json.dumps(data))
             success += 1
         except Exception as e:
             try: log.warning(f"broadcast_state: failed to send to a web client: {e}")
@@ -30,18 +23,18 @@ async def send_web(data, destination):
     try: log.info(f"broadcast_state: {success} messages sent")
     except: pass
 
+async def send_esp(bid, data):
+    info = esp_clients.get(bid)
+    if info:
+        try: await info["ws"].send(json.dumps(data))
+        except: pass
 
-# async def broadcast_esp(data, exclude=None):
-#     for bid, info in list(esp_clients.items()):
-#         if bid == exclude: continue
-#         try: await info["ws"].send(json.dumps(data))
-#         except: pass
+async def broadcast_esp(data, exclude=None):
+    for bid, info in list(esp_clients.items()):
+        if bid in exclude: continue
+        try: await info["ws"].send(json.dumps(data))
+        except: pass
 
-# async def send_esp(bid, data):
-#     info = esp_clients.get(bid)
-#     if info:
-#         try: await info["ws"].send(json.dumps(data))
-#         except: pass
 
 
 

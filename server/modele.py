@@ -14,14 +14,27 @@ PHASE_FAF = "Face à face"
 FAF_ZONES = [4, 3, 2, 1]      # points par zone
 FAF_ZONE_DUR = FAF_DURATION / len(FAF_ZONES)  # secondes par zone
 
+class ESP_Session:
+    def __init__(self, esp_session_id : str, ws):
+        self.esp_session_id = esp_session_id
+        self.ws_session = ws
+
+class Web_Session:
+    def __init__(self, web_session_id : str, ws):
+        self.web_session_id = web_session_id
+        self.ws_sessions = [ws]
+
+    def add_web_device(self, web_device):
+        self.ws.append(web_device)
 
 class Buzzer:
-    def __init__(self, bid : str, name : str):
+    def __init__(self, bid : str, name : str, esp_session : ESP_Session):
         self.bid = bid
         self.name = name
-        self.isConnected = False
-        self.isActivated = False
-        self.isTalking = False
+        self.esp_session = esp_session
+        self.isConnected = False # connection établie entre serveur et esp
+        self.isActivated = False # n'est pas bloqué, peut buzzer
+        self.isTalking = False # a buzzé, a la main
 
 
 class Player:

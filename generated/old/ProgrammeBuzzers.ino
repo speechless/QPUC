@@ -246,9 +246,9 @@ void loop() {
   lastButtonState = reading;
 
   // Clignotement LED si déconnecté
-  static unsigned long lastBlink = 0;
-  if (!wsConnected && millis() - lastBlink > 500) {
-    lastBlink = millis();
-    digitalWrite(PIN_LED, !digitalRead(PIN_LED));
-  }
+  // static unsigned long lastBlink = 0;
+  // if (!wsConnected && millis() - lastBlink > 500) {
+  //   lastBlink = millis();
+  //   digitalWrite(PIN_LED, !digitalRead(PIN_LED));
+  // }
 }

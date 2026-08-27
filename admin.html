@@ -60,7 +60,7 @@
 
         <div>
             <h3>Commencer la partie</h3>
-            <button class="endInitButton" onclick="sendCloseInit()">Commencer</button>
+            <button class="endInitButton" onclick="send_close_init()">Commencer</button>
         </div>
         
     </div>
@@ -71,7 +71,7 @@
 </html>
 
 <script>
-    const CLIENT_ID_KEY = 'qpucClientId';
+    const CLIENT_ID_KEY = 'qpuc_admin_client_id';
     let clientId = localStorage.getItem(CLIENT_ID_KEY);
     let ws = null;
     let G = null;
@@ -79,17 +79,17 @@
     function connect() {
         ws = new WebSocket(`ws://${location.hostname}:8765/web`);
         ws.onopen = () => {
-            ws.send(JSON.stringify({ type: 'hello', clientId }));
+            ws.send(JSON.stringify({ type: 'hello', client_session_id :clientId }));
         };
         ws.onclose = () => setTimeout(connect, 3000);
         ws.onmessage = e => {
             console.log('ws.onmessage', e.data);
             const d = JSON.parse(e.data);
-            if (d.type === 'hello_ack' && d.clientId) {
-                clientId = d.clientId;
-                localStorage.setItem(CLIENT_ID_KEY, clientId);
-                return;
-            }
+            // if (d.type === 'hello_ack' && d.clientId) {
+            //     clientId = d.clientId;
+            //     localStorage.setItem(CLIENT_ID_KEY, clientId);
+            //     return;
+            // }
             if (d.type === 'state' && d.phase) {
                 G = d;
                 render();
@@ -97,7 +97,7 @@
         };
     }
 
-    function s(obj) {
+    function send_ws(obj) {
         if (ws && ws.readyState === 1) {
             ws.send(JSON.stringify(obj));
         }
@@ -113,15 +113,15 @@
             initView.style.display = (G.phase === 'PHASE_SETUP') ? 'block' : 'none';
         }
 
-        if (G.phase === 'PHASE_SETUP')    renderInit();
-        if (G.phase === 'PHASE_NPG')     render9pts();
-        if (G.phase === 'PHASE_QALS')   render4suite();
-        if (G.phase === 'PHASE_FAF') renderFF();
-        if (G.phase === 'PHASE_TIEBREAK')  renderEq();
-        if (G.phase === 'PHASE_FIN')      renderFin();
+        if (G.phase === 'PHASE_SETUP')    render_init();
+        // if (G.phase === 'PHASE_NPG')     render9pts();
+        // if (G.phase === 'PHASE_QALS')   render4suite();
+        // if (G.phase === 'PHASE_FAF') renderFF();
+        // if (G.phase === 'PHASE_TIEBREAK')  renderEq();
+        // if (G.phase === 'PHASE_FIN')      renderFin();
     }
 
-    function renderInit(){
+    function render_init(){
         const initView = document.getElementById('initView');
         if (initView) {
             initView.style.display = 'block';
@@ -129,7 +129,7 @@
     }
 
     
-    function getPlayersFromForm() {
+    function get_players_from_form() {
         return Array.from(document.querySelectorAll('.playerInitTemplate'))
             .map((row, index) => {
                 const nameInput = row.querySelector('.playerInitTemplate_nameInput');
@@ -145,27 +145,28 @@
             .filter(player => player.name || player.buzzer_id);
     }
 
-    function getThemesFromForm() {
+    function get_themes_from_form() {
         return Array.from({ length: 4 }, (_, index) => ({
             index,
             theme: document.getElementById(`theme${index + 1}`)?.value?.trim() || ''
         }));
     }
 
-    function sendCloseInit() {
-        const players = getPlayersFromForm();
-        const themes = getThemesFromForm();
+    function send_close_init() {
+        const players = get_players_from_form();
+        const themes = get_themes_from_form();
 
         document.getElementById('playerCount').textContent = players.length;
 
-        command = {
+        const command = {
             typeCmd: "PHASE_SETUP",
+            isAdmin: true,
             players,
             themes
         }
 
         console.log("setNewPhase", command);
 
-        s(command);
+        send_ws(command);
     }
 </script>
