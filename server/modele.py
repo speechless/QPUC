@@ -25,10 +25,10 @@ class Web_Session:
         self.ws_sessions = [ws]
 
     def add_web_device(self, web_device):
-        self.ws.append(web_device)
+        self.ws_sessions.append(web_device)
 
 class Buzzer:
-    def __init__(self, bid : str, name : str, esp_session : ESP_Session):
+    def __init__(self, bid : str, name : str, esp_session : ESP_Session = None):
         self.bid = bid
         self.name = name
         self.esp_session = esp_session
@@ -68,12 +68,12 @@ class Player:
 
 
 class GameState:
-    def __init__(self):
+    def __init__(self, players = None, themes = None):
         self.game_id    = str(uuid.uuid4())[:8]
         self.created_at = time.strftime("%Y-%m-%d %H:%M")
         self.phase      = PHASE_SETUP
-        self.players    = []
-        self.themes     = ["", "", "", ""]
+        self.players    = players if players is not None else []
+        self.themes     = themes if themes is not None else ["", "", "", ""]
         self.finished   = False
         self.history    = []
 
@@ -122,6 +122,7 @@ class GameState:
         self.FAF_current_pts    = 4     # valeur actuelle selon zone chrono
         self.FAF_max_pts    = 21    # points à atteindre pour gagner le face à face
 
+
     def to_dict(self):
         return {
             "game_id": self.game_id,
@@ -163,6 +164,7 @@ class GameState:
             "FAF_current_pts": self.FAF_current_pts,
             "FAF_max_pts": self.FAF_max_pts
         }
+
 
 
     def player_by_id(self, pid):

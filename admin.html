@@ -76,22 +76,25 @@
     let ws = null;
     let G = null;
 
+    const PHASE_SETUP = "Setup"
+    const PHASE_NPG = "9 point gagnants"
+    const PHASE_QALS = "4 à la suite"
+    const PHASE_TIEBREAK = "Tiebreak"
+    const PHASE_FAF = "Face à face"
+
     function connect() {
         ws = new WebSocket(`ws://${location.hostname}:8765/web`);
         ws.onopen = () => {
+            localStorage.setItem(CLIENT_ID_KEY, clientId);
             ws.send(JSON.stringify({ type: 'hello', client_session_id :clientId }));
         };
         ws.onclose = () => setTimeout(connect, 3000);
         ws.onmessage = e => {
             console.log('ws.onmessage', e.data);
             const d = JSON.parse(e.data);
-            // if (d.type === 'hello_ack' && d.clientId) {
-            //     clientId = d.clientId;
-            //     localStorage.setItem(CLIENT_ID_KEY, clientId);
-            //     return;
-            // }
-            if (d.type === 'state' && d.phase) {
-                G = d;
+            
+            if (d.type === 'state' && d.game["phase"]) {
+                G = d.game;
                 render();
             }
         };
@@ -113,7 +116,7 @@
             initView.style.display = (G.phase === 'PHASE_SETUP') ? 'block' : 'none';
         }
 
-        if (G.phase === 'PHASE_SETUP')    render_init();
+        if (G.phase === PHASE_SETUP)    render_init();
         // if (G.phase === 'PHASE_NPG')     render9pts();
         // if (G.phase === 'PHASE_QALS')   render4suite();
         // if (G.phase === 'PHASE_FAF') renderFF();
@@ -122,6 +125,7 @@
     }
 
     function render_init(){
+        console.log("render_init");
         const initView = document.getElementById('initView');
         if (initView) {
             initView.style.display = 'block';
@@ -159,7 +163,7 @@
         document.getElementById('playerCount').textContent = players.length;
 
         const command = {
-            typeCmd: "PHASE_SETUP",
+            type: "end_init",
             isAdmin: true,
             players,
             themes

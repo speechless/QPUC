@@ -9,9 +9,9 @@ global esp_sessions
 global web_sessions
 global log
 
-game = modele.GameState()
-esp_sessions: set[modele.ESP_Session] = set()    # ESP_Session  (une connection / buzzer)
-web_sessions: set[modele.Web_Session] = set()    # Web_Session  (plusieurs connections possibles pour un même affichage web)
+game = modele.GameState() 
+esp_sessions: set[modele.ESP_Session] = dict()    # ESP_Session  (une connection / buzzer)
+web_sessions: set[modele.Web_Session] = dict()    # Web_Session  (plusieurs connections possibles pour un même affichage web)
 
 SERVER_HOST = "0.0.0.0"
 SERVER_PORT = 8765
@@ -59,7 +59,7 @@ async def timer_tick():
 async def main():
     log.info("════════════════════════════════════════════════")
     log.info("  QPUC  — Serveur démarré")
-    log.info("  Admin     : http://localhost:8080/admin/admin.html")
+    log.info("  Admin     : http://localhost:8080/admin.html")
     log.info("  Display   : http://localhost:8080/display.html")
     log.info("═══════════════════════════════════════════════")
     threading.Thread(target=start_http, daemon=True).start()
