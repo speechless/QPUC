@@ -62,6 +62,10 @@
             <h3>Commencer la partie</h3>
             <button class="endInitButton" onclick="send_close_init()">Commencer</button>
         </div>
+
+        <div>
+            <button class="endInitButton" onclick="send_esp_list_rq()">Get list esp</button>
+        </div>
         
     </div>
 </div>
@@ -82,11 +86,18 @@
     const PHASE_TIEBREAK = "Tiebreak"
     const PHASE_FAF = "Face à face"
 
+    function send_ws(obj) {
+        if (ws && ws.readyState === 1) {
+            ws.send(JSON.stringify(obj));
+        }
+    }
+
+
     function connect() {
         ws = new WebSocket(`ws://${location.hostname}:8765/web`);
         ws.onopen = () => {
             localStorage.setItem(CLIENT_ID_KEY, clientId);
-            ws.send(JSON.stringify({ type: 'hello', client_session_id :clientId }));
+            send_ws({ type: 'hello', client_session_id :clientId });
         };
         ws.onclose = () => setTimeout(connect, 3000);
         ws.onmessage = e => {
@@ -97,13 +108,10 @@
                 G = d.game;
                 render();
             }
+            else if (d.type == "esp_list_rs"){
+                console.log("ESP list received:", d.esp_sessions);
+            }
         };
-    }
-
-    function send_ws(obj) {
-        if (ws && ws.readyState === 1) {
-            ws.send(JSON.stringify(obj));
-        }
     }
 
     connect();
@@ -171,6 +179,16 @@
 
         console.log("setNewPhase", command);
 
+        send_ws(command);
+    }
+
+    function send_esp_list_rq(){
+        const command = {
+            type: 'esp_list_rq', 
+            isAdmin: true, 
+            client_session_id :clientId 
+        };
+        
         send_ws(command);
     }
 </script>

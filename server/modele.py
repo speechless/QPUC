@@ -19,6 +19,11 @@ class ESP_Session:
         self.esp_session_id = esp_session_id
         self.ws_session = ws
 
+    def to_dict(self):
+        return {
+            "esp_session_id": self.esp_session_id,
+            "isConnected": self.ws_session is not None
+        }
 class Web_Session:
     def __init__(self, web_session_id : str, ws):
         self.web_session_id = web_session_id

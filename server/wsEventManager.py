@@ -1,4 +1,4 @@
-import json, time, websockets
+import json, websockets
 from main import game, esp_sessions, web_sessions, log
 from server import modele, wsDiffusion as wsd
 from server.phases import initPhase
@@ -34,6 +34,35 @@ async def web_handler(ws):
             web_sessions[client_session_id].ws_sessions.remove(ws)
 
 
+async def esp_handler(ws):
+    esp_session_id = None
+    try:
+        async for raw in ws:
+            try: 
+                data = json.loads(raw)
+            except: 
+                continue
+            event = data.get("event")
+
+            if event == "hello":
+                esp_session_id = data.get("client_session_id")
+                if esp_session_id in esp_sessions:
+                    esp_sessions[esp_session_id].ws_session = ws
+                else:
+                    new_esp_session = modele.ESP_Session(esp_session_id, ws)
+                    esp_sessions[esp_session_id] = new_esp_session
+                log.info(f"ESP connecté : {esp_session_id}")
+
+    except websockets.exceptions.ConnectionClosed: 
+        log.info(f"Connection perdue : {esp_session_id}")
+    finally:
+        if esp_session_id and esp_session_id in esp_sessions:
+            esp_sessions[esp_session_id].ws_session = None
+            log.info(f"ESP déconnecté : {esp_session_id}")
+        await wsd.sendUpdateGameState(game)
+
+
+
 async def handle_admin_cmd(data: dict):
     typeCmd = data.get("type")
     if typeCmd == "end_init":
@@ -63,6 +92,12 @@ async def handle_admin_cmd(data: dict):
         await wsd.sendUpdateGameState(game)
 
         log.info("🎮 Nouvelle partie démarrée")
+
+    elif typeCmd == "esp_list_rq":
+        await wsd.send_web({
+            "type": "esp_list_rs",
+            "esp_sessions": [s.to_dict() for s in esp_sessions.values()]
+        })
+    
     else:
         log.warning(f"Commande inconnue : {typeCmd}")
-

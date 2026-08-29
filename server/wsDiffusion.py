@@ -1,4 +1,4 @@
-from main import game, esp_sessions, web_sessions, log
+from main import esp_sessions, web_sessions, log
 import json
 
 async def send_web(data):
@@ -28,21 +28,12 @@ async def send_esp(ws_session_id, data):
 async def broadcast_esp(data):
     for esp_s in esp_sessions:
         try: await esp_s["ws"].send(json.dumps(data))
-        except: log(f"ESP not found to this address : {ws_session_id}")
-
-
-
-
+        except: log(f"ESP not found to this address : {esp_s["ws"]}")
 
 async def sendUpdateGameState(game_state):
     payload = {"type": "state", "game": game_state.to_dict()}
     await send_web(payload)
+
+async def sendInitBuzzer(buzzer):
+    pass
     
-
-
-# async def sendStateToClient(ws: WebSocketServerProtocol):
-#     payload = {"type": "state", "game": game.to_dict(), "phase": game.phase, "numPlayers": str(len(game.players))}
-#     try:
-#         await ws.send(json.dumps(payload))
-#     except Exception as exc:
-#         log.warning("Impossible d'envoyer l'état au client reconnecté : %s", exc)
