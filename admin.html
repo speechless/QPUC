@@ -4,58 +4,63 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>QPUC — Admin</title>
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
 
+<body>
 <h1>Admin</h1>
 
 <div class="INIT" id="initView" style="display: none;">
     <h2>Init</h2>
     <div class="step1_INIT">
-        <!-- Ajout des joueurs, de leurs noms et association à un buzzer -->
-        <!-- Pop-up réutilisable lors du jeu dans les paramètres pour modifier le nom ou un buzzer -->
-        <span class="playersInitPanel">
-            <p>Nombre de joueurs : <span id="playerCount">Z</span></p>
-            
-            <!-- Template pour un joueur -->
-            <div class="playerInitTemplate">
-                <span>
-                    <h4 class="playerInitTemplate_name" id="playerInitTemplate_name_1">Joueur 1</h4>
-                    <input class="playerInitTemplate_nameInput" type= "text" placeholder="Nom du joueur 1" id="playerInitTemplate_nameInput_1">
-                </span> 
-                
-                <span>
-                    <select class="playerInitTemplate_buzzerSelect" id="playerInitTemplate_buzzerSelect_1">
-                        <option value="NotSelected" selected disabled>Choix du buzzer</option>
-                        <option value="buzzer2">Buzzer X</option>
-                        <option value="buzzer3">Buzzer Y</option>
-                    </select>
-                </span>
 
-                <span>
-                    <button class="playerInitTemplate_removePlayer_1">Retirer ce joueur</button>
-                </span>
+        <div class="playersInitPanel" x-data>
+            <p>Nombre de joueurs : <span x-text="$store.app.players.length"></span></p>
+
+            <template x-for="(player, index) in $store.app.players" :key="index">
+                <div class="playerInitTemplate">
+                    <span>
+                        <h4 class="playerInitTemplate_name" x-text="`Joueur ${index + 1}`"></h4>
+                        <input class="playerInitTemplate_nameInput"
+                               type="text"
+                               :placeholder="`Nom du joueur ${index + 1}`"
+                               x-model="player.name">
+                    </span>
+
+                    <span>
+                        <select class="playerInitTemplate_buzzerSelect" x-model="player.buzzer_id">
+                            <option value="">Choix du buzzer</option>
+                            <template x-for="buzzer in $store.app.buzzers.filter(b =>
+                                        b.bid === player.buzzer_id ||
+                                        !$store.app.players.some(p => p.buzzer_id === b.bid)
+                                     )" :key="buzzer.bid">
+                                <option :value="buzzer.bid" x-text="buzzer.name"></option>
+                            </template>
+                        </select>
+                    </span>
+
+                    <span x-show="$store.app.players.length > 1">
+                        <button @click="$store.app.players.splice(index, 1)">Retirer ce joueur</button>
+                    </span>
+                </div>
+            </template>
+
+            <div x-show="$store.app.players.length < 4">
+                <button @click="$store.app.players.push({ name: '', buzzer_id: '' })">Ajouter un joueur</button>
             </div>
-            <!-- <div> 
-                <button class="playerInitTemplate_validatePlayers">Valider</button>
-            </div> -->
-        </span>
+        </div>
 
 
-        <span class="step2_INIT">
+        <span class="step2_INIT" x-data>
             <h3>Choix des thèmes du 4 à la suite</h3>
             <div>
-                <p>Thème 1</p>
-                <input type="text" placeholder="Thème 1" id="theme1">
-                <p>Thème 2</p>
-                <input type="text" placeholder="Thème 2" id="theme2">
-                <p>Thème 3</p>
-                <input type="text" placeholder="Thème 3" id="theme3">
-                <p>Thème mystère <br>Ce thème ne sera révélé que lors de sa sélection par un joueur</p>
-                <input type="text" placeholder="Thème 4" id="theme4">
+                <template x-for="(theme, index) in $store.app.themes" :key="index">
+                    <div>
+                        <p x-text="index === 3 ? 'Thème mystère' : `Thème ${index + 1}`"></p>
+                        <input type="text" :placeholder="`Thème ${index + 1}`" x-model="$store.app.themes[index]">
+                    </div>
+                </template>
             </div>
-
-            <!-- <div> 
-                <button class="playerInitTemplate_validatePlayers">Valider</button>
-            </div> -->
         </span>
 
         <div>
@@ -66,19 +71,28 @@
         <div>
             <button class="endInitButton" onclick="send_esp_list_rq()">Get list esp</button>
         </div>
-        
+
     </div>
 </div>
 
-
-</head>
-</html>
-
 <script>
+    document.addEventListener('alpine:init', () => {
+        Alpine.store('app', {
+            game: null,
+            buzzers: [],  // liste des buzzers dispo, ex: [{id: "buzzer2", name: "Buzzer X"}, ...]
+            players: [
+                { name: '', buzzer_id: '' },
+                { name: '', buzzer_id: '' },
+                { name: '', buzzer_id: '' },
+                { name: '', buzzer_id: '' },
+            ],
+            themes: ['', '', '', ''],
+        });
+    });
+
     const CLIENT_ID_KEY = 'qpuc_admin_client_id';
     let clientId = localStorage.getItem(CLIENT_ID_KEY);
     let ws = null;
-    let G = null;
 
     const PHASE_SETUP = "Setup"
     const PHASE_NPG = "9 point gagnants"
@@ -92,24 +106,30 @@
         }
     }
 
-
     function connect() {
         ws = new WebSocket(`ws://${location.hostname}:8765/web`);
         ws.onopen = () => {
             localStorage.setItem(CLIENT_ID_KEY, clientId);
-            send_ws({ type: 'hello', client_session_id :clientId });
+            send_ws({ type: 'hello', client_session_id: clientId });
+            send_esp_list_rq();
         };
         ws.onclose = () => setTimeout(connect, 3000);
         ws.onmessage = e => {
             console.log('ws.onmessage', e.data);
             const d = JSON.parse(e.data);
-            
-            if (d.type === 'state' && d.game["phase"]) {
-                G = d.game;
+
+            if (d.type === 'state' && d.game && d.game.phase) {
+                Alpine.store('app').game = d.game;
+                for(const player of d.game.players) {
+                    if(!Alpine.store('app').players.some(p => p.name === player.name && p.buzzer_id === player.buzzer_id)) {
+                        Alpine.store('app').players.push({ name: player.name, buzzer_id: player.buzzer_id });
+                    }
+                }
                 render();
             }
-            else if (d.type == "esp_list_rs"){
-                console.log("ESP list received:", d.esp_sessions);
+            else if (d.type === "esp_list_rs") {
+                console.log("ESP list received:", d.buzzer_sessions);
+                Alpine.store('app').buzzers = d.buzzer_sessions || [];
             }
         };
     }
@@ -117,14 +137,14 @@
     connect();
 
     function render() {
+        const G = Alpine.store('app').game;
         if (!G) return;
 
         const initView = document.getElementById('initView');
         if (initView) {
-            initView.style.display = (G.phase === 'PHASE_SETUP') ? 'block' : 'none';
+            initView.style.display = (G.phase === PHASE_SETUP) ? 'block' : 'none';
         }
 
-        if (G.phase === PHASE_SETUP)    render_init();
         // if (G.phase === 'PHASE_NPG')     render9pts();
         // if (G.phase === 'PHASE_QALS')   render4suite();
         // if (G.phase === 'PHASE_FAF') renderFF();
@@ -132,63 +152,68 @@
         // if (G.phase === 'PHASE_FIN')      renderFin();
     }
 
-    function render_init(){
-        console.log("render_init");
-        const initView = document.getElementById('initView');
-        if (initView) {
-            initView.style.display = 'block';
-        }
-    }
-
-    
-    function get_players_from_form() {
-        return Array.from(document.querySelectorAll('.playerInitTemplate'))
-            .map((row, index) => {
-                const nameInput = row.querySelector('.playerInitTemplate_nameInput');
-                const buzzerSelect = row.querySelector('.playerInitTemplate_buzzerSelect');
-                const name = nameInput?.value?.trim() || `Joueur ${index + 1}`;
-                const buzzerId = buzzerSelect?.value || '';
-
-                return {
-                    name,
-                    buzzer_id: buzzerId
-                };
-            })
-            .filter(player => player.name || player.buzzer_id);
-    }
-
-    function get_themes_from_form() {
-        return Array.from({ length: 4 }, (_, index) => ({
-            index,
-            theme: document.getElementById(`theme${index + 1}`)?.value?.trim() || ''
-        }));
-    }
-
     function send_close_init() {
-        const players = get_players_from_form();
-        const themes = get_themes_from_form();
+        var error = false;
+        var errorMessage = "";
 
-        document.getElementById('playerCount').textContent = players.length;
+        const players = Alpine.store('app').players
+            .map(p => ({ name: p.name.trim(), buzzer_id: p.buzzer_id }))
+            .filter(p => p.name || p.buzzer_id);
+            console.log("players", players);
+
+        const themes = Alpine.store('app').themes.map((theme, index) => ({
+            index,
+            theme: theme.trim()
+        }));
+        
+        if(players.length != 4){
+            errorMessage += "Il doit y avoir 4 joueurs afin de commencer la partie.\n";
+            error = true;
+        }
+
+        for (const player of Alpine.store('app').players) {
+            console.log("player", player);
+            if (player.name.trim() === "" || player.buzzer_id.trim() === "" ) {
+                errorMessage += "Tous les joueurs doivent avoir un nom et un buzzer sélectionné.\n";
+                error = true;
+            }
+            break;
+        }
+
+        for (const theme of themes) {
+            if (!theme.theme || theme.theme.trim() === "") {
+                errorMessage += "Tous les thèmes doivent être remplis.\n";
+                error = true;
+            }
+            break;
+        }
+
+        if (error) { 
+            alert(errorMessage);
+            console.error("send_close_init error:", errorMessage);
+            return;
+        }
 
         const command = {
             type: "end_init",
             isAdmin: true,
             players,
             themes
-        }
+        };
 
         console.log("setNewPhase", command);
-
         send_ws(command);
     }
 
-    function send_esp_list_rq(){
+    function send_esp_list_rq() {
         const command = {
-            type: 'esp_list_rq', 
-            isAdmin: true, 
-            client_session_id :clientId 
+            type: 'esp_list_rq',
+            isAdmin: true,
+            client_session_id: clientId
         };
-        
+
         send_ws(command);
     }
 </script>
+</body>
+</html>
