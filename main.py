@@ -5,12 +5,12 @@ import server.modele as modele
 import server.wsEventManager as wsEM
 
 global game
-global esp_sessions
+global buzzer_sessions
 global web_sessions
 global log
 
 game = modele.GameState() 
-esp_sessions: set[modele.ESP_Session] = dict()    # ESP_Session  (une connection / buzzer)
+buzzer_sessions: set[modele.Buzzer] = dict()    # Buzzer  (une connection / buzzer)
 web_sessions: set[modele.Web_Session] = dict()    # Web_Session  (plusieurs connections possibles pour un même affichage web)
 
 SERVER_HOST = "0.0.0.0"

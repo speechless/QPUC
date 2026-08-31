@@ -14,16 +14,6 @@ PHASE_FAF = "Face à face"
 FAF_ZONES = [4, 3, 2, 1]      # points par zone
 FAF_ZONE_DUR = FAF_DURATION / len(FAF_ZONES)  # secondes par zone
 
-class ESP_Session:
-    def __init__(self, esp_session_id : str, ws):
-        self.esp_session_id = esp_session_id
-        self.ws_session = ws
-
-    def to_dict(self):
-        return {
-            "esp_session_id": self.esp_session_id,
-            "isConnected": self.ws_session is not None
-        }
 class Web_Session:
     def __init__(self, web_session_id : str, ws):
         self.web_session_id = web_session_id
@@ -32,18 +22,21 @@ class Web_Session:
     def add_web_device(self, web_device):
         self.ws_sessions.append(web_device)
 
+
 class Buzzer:
-    def __init__(self, bid : str, name : str, esp_session : ESP_Session = None):
+    def __init__(self, bid : str, name : str, esp_session_id : str, ws = None):
         self.bid = bid
         self.name = name
-        self.esp_session = esp_session
+        self.esp_session_id = esp_session_id
+        self.ws_session = ws
         self.isConnected = False # connection établie entre serveur et esp
         self.isActivated = False # n'est pas bloqué, peut buzzer
         self.isTalking = False # a buzzé, a la main
+        self.batteryLevel = -1
 
 
 class Player:
-    def __init__(self, pid : str, name : str, buzzer : Buzzer):
+    def __init__(self, pid : str, name : str, buzzer : Buzzer = None):
         self.pid = pid
         self.name = name
         self.buzzer = buzzer
@@ -60,7 +53,11 @@ class Player:
         return {
             "pid": self.pid,
             "name": self.name,
-            "buzzer_id": self.buzzer.bid,
+            "buzzer_id": self.buzzer.bid if self.buzzer else None,
+            "buzzer_name": self.buzzer.name if self.buzzer else None,
+            "buzzer_esp_session_id": self.buzzer.esp_session_id if self.buzzer else None,
+            "buzzer_esp_ws_session": self.buzzer.ws_session if self.buzzer else None,
+            "buzzer_batteryLevel": self.buzzer.batteryLevel if self.buzzer else -1,
             "scoreNPG": self.scoreNPG,
             "isQualifiedNPG": self.isQualifiedNPG,
             "scoreQALS": self.scoreQALS,
@@ -170,13 +167,16 @@ class GameState:
             "FAF_max_pts": self.FAF_max_pts
         }
 
+    def buzzer_sessions_dict(self, buzzer_sessions: dict):
+        """buzzer_sessions : le dict global {esp_session_id: ESP_Session} du serveur"""
+        return [esp.to_dict() for esp in buzzer_sessions.values()]
 
 
     def player_by_id(self, pid):
-        return next((p for p in self.players if p.id == pid), None)
+        return next((p for p in self.players if p.pid == pid), None)
 
     def player_by_buzzer(self, bid):
-        return next((p for p in self.players if p.buzzer_id == bid), None)
+        return next((p for p in self.players if p.buzzer and p.buzzer.bid == bid), None)
     
 #--- Fonctions pour le mode 9 points gagnants
     def NPG_auto_q_value(self):

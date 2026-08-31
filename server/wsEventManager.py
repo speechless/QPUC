@@ -1,5 +1,5 @@
 import json, websockets
-from main import game, esp_sessions, web_sessions, log
+from main import game, buzzer_sessions, web_sessions, log
 from server import modele, wsDiffusion as wsd
 from server.phases import initPhase
 
@@ -46,18 +46,19 @@ async def esp_handler(ws):
 
             if event == "hello":
                 esp_session_id = data.get("client_session_id")
-                if esp_session_id in esp_sessions:
-                    esp_sessions[esp_session_id].ws_session = ws
+                if esp_session_id in buzzer_sessions:
+                    buzzer_sessions[esp_session_id].ws_session = ws
                 else:
                     new_esp_session = modele.ESP_Session(esp_session_id, ws)
-                    esp_sessions[esp_session_id] = new_esp_session
+                    buzzer_sessions[esp_session_id] = new_esp_session
                 log.info(f"ESP connecté : {esp_session_id}")
+                await wsd.sendUpdateGameState(game)
 
     except websockets.exceptions.ConnectionClosed: 
         log.info(f"Connection perdue : {esp_session_id}")
     finally:
-        if esp_session_id and esp_session_id in esp_sessions:
-            esp_sessions[esp_session_id].ws_session = None
+        if esp_session_id and esp_session_id in buzzer_sessions:
+            buzzer_sessions[esp_session_id].ws_session = None
             log.info(f"ESP déconnecté : {esp_session_id}")
         await wsd.sendUpdateGameState(game)
 
@@ -96,7 +97,7 @@ async def handle_admin_cmd(data: dict):
     elif typeCmd == "esp_list_rq":
         await wsd.send_web({
             "type": "esp_list_rs",
-            "esp_sessions": [s.to_dict() for s in esp_sessions.values()]
+            "buzzer_sessions": [s.to_dict() for s in buzzer_sessions.values()]
         })
     
     else:

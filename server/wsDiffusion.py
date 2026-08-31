@@ -1,4 +1,4 @@
-from main import esp_sessions, web_sessions, log
+from main import buzzer_sessions, web_sessions, log
 import json
 
 async def send_web(data):
@@ -20,13 +20,13 @@ async def send_web(data):
         except: pass
 
 async def send_esp(ws_session_id, data):
-    for esp_s in esp_sessions:
+    for esp_s in buzzer_sessions:
         if esp_s["ws_session"] == ws_session_id:
             try: await esp_s["ws"].send(json.dumps(data))
             except: log(f"ESP not found to this address : {ws_session_id}")
 
 async def broadcast_esp(data):
-    for esp_s in esp_sessions:
+    for esp_s in buzzer_sessions:
         try: await esp_s["ws"].send(json.dumps(data))
         except: log(f"ESP not found to this address : {esp_s["ws"]}")
 
