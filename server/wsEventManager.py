@@ -49,10 +49,11 @@ async def esp_handler(ws):
                 esp_s = next((b for b in buzzer_sessions if b.esp_session_id == esp_session_id), None)
                 if esp_s != None:
                     esp_s.ws_session = ws
+                    log.info(f"ESP connecté : {esp_s.name, esp_s.bid}")
                 else:
                     new_esp_session = modele.Buzzer(data.get("bid"),data.get("name"),esp_session_id, ws)
                     buzzer_sessions.add(new_esp_session)
-                log.info(f"ESP connecté : {new_esp_session.bid}")
+                    log.info(f"ESP connecté : {new_esp_session.name, new_esp_session.bid}")
                 await wsd.sendUpdateGameState(game)
 
     except websockets.exceptions.ConnectionClosed: 
@@ -78,8 +79,12 @@ async def handle_admin_cmd(data: dict):
 
             name = str(playerData.get("name", "") or f"Joueur {index + 1}").strip()
             buzzer_id = str(playerData.get("buzzer_id", "") or "").strip()
-            buzzer = modele.Buzzer(buzzer_id, name)
-            initPhase.add_player_game(game, name, buzzer)
+            esp_s = next((b for b in buzzer_sessions if b.bid == buzzer_id), None)
+            if esp_s != None:
+                initPhase.add_player_game(game, name, esp_s)
+                log.info(f"Joueur ajouté : {name} (buzzer_id: {buzzer_id})")
+            else:
+                log.warning(f"ESP non trouvé pour le buzzer_id : {buzzer_id}")
 
         for themeData in data.get("themes", []):
             if not isinstance(themeData, dict):

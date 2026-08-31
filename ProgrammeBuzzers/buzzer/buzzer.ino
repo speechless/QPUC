@@ -6,6 +6,10 @@
 const char* WIFI_SSID     = "TCHOUPICOMPUTER 0635";
 const char* WIFI_PASSWORD = "X1[7973v";
 
+const char* bid = "X0004X";
+const char* name = "Buzzer 4";
+
+
 const char* WS_HOST = "192.168.137.1";  // IP du PC qui fait tourner main.py
 const uint16_t WS_PORT = 8765;
 const char* WS_PATH = "/esp";
@@ -17,6 +21,8 @@ void sendHello() {
   StaticJsonDocument<128> doc;
   doc["event"] = "hello";
   doc["client_session_id"] = clientSessionId;
+  doc["name"] = name;
+  doc["bid"] = bid;
 
   String out;
   serializeJson(doc, out);
