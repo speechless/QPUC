@@ -10,8 +10,8 @@ global web_sessions
 global log
 
 game = modele.GameState() 
-buzzer_sessions: set[modele.Buzzer] = dict()    # Buzzer  (une connection / buzzer)
-web_sessions: set[modele.Web_Session] = dict()    # Web_Session  (plusieurs connections possibles pour un même affichage web)
+buzzer_sessions: set[modele.Buzzer] = set() # Buzzer  (une connection / buzzer)
+web_sessions: dict[str, modele.Web_Session] = {}    # Web_Session  (plusieurs connections possibles pour un même affichage web)
 
 SERVER_HOST = "0.0.0.0"
 SERVER_PORT = 8765

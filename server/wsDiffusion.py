@@ -20,15 +20,15 @@ async def send_web(data):
         except: pass
 
 async def send_esp(ws_session_id, data):
-    for esp_s in buzzer_sessions:
-        if esp_s["ws_session"] == ws_session_id:
-            try: await esp_s["ws"].send(json.dumps(data))
-            except: log(f"ESP not found to this address : {ws_session_id}")
+    esp_s = next((b for b in buzzer_sessions if b.ws_session == ws_session_id), None)
+    if esp_s != None:
+        try: await esp_s.ws_session.send(json.dumps(data))
+        except: log(f"ESP not found to this address : {ws_session_id}")
 
 async def broadcast_esp(data):
     for esp_s in buzzer_sessions:
-        try: await esp_s["ws"].send(json.dumps(data))
-        except: log(f"ESP not found to this address : {esp_s["ws"]}")
+        try: await esp_s.ws_session.send(json.dumps(data))
+        except: log(f"ESP not found to this address : {esp_s.ws_session}")
 
 async def sendUpdateGameState(game_state):
     payload = {"type": "state", "game": game_state.to_dict()}

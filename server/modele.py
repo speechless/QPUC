@@ -34,6 +34,18 @@ class Buzzer:
         self.isTalking = False # a buzzé, a la main
         self.batteryLevel = -1
 
+    def to_dict(self):
+        return {
+            "bid": self.bid,
+            "name": self.name,
+            "esp_session_id": self.esp_session_id,
+            "ws_session": self.ws_session,
+            "isConnected": self.isConnected,
+            "isActivated": self.isActivated,
+            "isTalking": self.isTalking,
+            "batteryLevel": self.batteryLevel
+        }
+
 
 class Player:
     def __init__(self, pid : str, name : str, buzzer : Buzzer = None):
@@ -166,10 +178,6 @@ class GameState:
             "FAF_current_pts": self.FAF_current_pts,
             "FAF_max_pts": self.FAF_max_pts
         }
-
-    def buzzer_sessions_dict(self, buzzer_sessions: dict):
-        """buzzer_sessions : le dict global {esp_session_id: ESP_Session} du serveur"""
-        return [esp.to_dict() for esp in buzzer_sessions.values()]
 
 
     def player_by_id(self, pid):
