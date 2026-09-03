@@ -22,6 +22,12 @@ def reset_players(game: GameState):
         player.buzzer.isActivated = True
     return game
 
+def stop_players(game: GameState):
+    for player in game.players:
+        player.buzzer.isTalking = False
+        player.buzzer.isActivated = False
+    return game
+
 def next_question(game: GameState):
     game.NPG_q_count += 1
     points_next_q_manuel(game)
@@ -29,7 +35,7 @@ def next_question(game: GameState):
     reset_players(game)
     return game
 
-def add_points_to_player(game: GameState, player: str, points: int, is_manual: bool = False):
+def npg_add_points_to_player(game: GameState, player: str, points: int, is_manual: bool = False):
     new_score = max(0, min(player.scoreNPG + points, 9))  # Ensure score is between 0 and 9
     if is_manual:
         log.info(f"Points manuels : {player.name} (score: {player.scoreNPG} -> {new_score})")
@@ -44,6 +50,9 @@ def add_points_to_player(game: GameState, player: str, points: int, is_manual: b
             game.NPG_qualified_pids.append(player.pid)
             game.NPG_qualified_count += 1
             log.info(f"Joueur qualifié : {player.name} (score: {player.scoreNPG})")
+            if game.NPG_qualified_count >= 3:
+                log.info("3 joueurs qualifiés, fin de la manche")
+                game.NPG_Finished = True
     else:
         if player.pid in game.NPG_qualified_pids:
             game.NPG_qualified_pids.remove(player.pid)

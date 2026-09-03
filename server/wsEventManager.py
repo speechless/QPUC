@@ -1,7 +1,7 @@
 import json, websockets
 from main import game, buzzer_sessions, web_sessions, log
 from server import modele, wsDiffusion as wsd
-from server.phases import initPhase, npgPhase
+from server.phases import setupPhase, npgPhase, qalsPhase
 
 async def web_handler(ws):
     client_session_id = None
@@ -35,10 +35,10 @@ async def web_handler(ws):
                         buzzer_id = str(playerData.get("buzzer_id", "") or "").strip()
                         esp_s = next((b for b in buzzer_sessions if b.bid == buzzer_id), None)
                         if esp_s != None:
-                            initPhase.add_player_game(game, name, esp_s)
+                            setupPhase.add_player_game(game, name, esp_s)
                             log.info(f"Joueur ajouté : {name} (buzzer_id: {buzzer_id})")
                         else:
-                            initPhase.add_player_game(game, name, modele.Buzzer("NON-BUZZER_"+name, "NON-BUZZER_"+name, "", None))
+                            setupPhase.add_player_game(game, name, modele.Buzzer("NON-BUZZER_"+name, "NON-BUZZER_"+name, "", None))
                             log.warning(f"ESP non trouvé pour le buzzer_id : {buzzer_id}")
 
                     npgPhase.reset_players(game)
@@ -50,11 +50,18 @@ async def web_handler(ws):
                         index = themeData.get("index")
                         if index is None:
                             continue
-                        initPhase.add_theme_game(game, theme, int(index))
+                        setupPhase.add_theme_game(game, theme, int(index))
         
                     game.phase = modele.PHASE_NPG
                     log.info(game.to_dict())
                     log.info("🎮 Nouvelle partie démarrée")
+                    await wsd.sendUpdateGameState(game)
+
+                elif game.phase == modele.PHASE_NPG:
+                    npgPhase.stop_players(game)
+                    game.phase = modele.PHASE_QALS
+                    game.QALS_currentPid = game.NPG_qualified_pids[0]
+                    log.info("🎮 Phase NPG terminée, passage à la phase QALS")
                     await wsd.sendUpdateGameState(game)
 
         
@@ -118,10 +125,11 @@ async def web_handler(ws):
                 npgPhase.points_next_q_manuel(game)
                 await wsd.sendUpdateGameState(game)
 
-            elif typeCmd == "modify_player_points":
+            elif typeCmd == "npg_modify_player_points":
                 if data.get("player_id"):
-                    npgPhase.add_points_to_player(game, next((p for p in game.players if p.pid == data.get("player_id")), None), data.get("points",game.NPG_q_value), data.get("is_manual", False))   
-                    npgPhase.next_question(game)
+                    npgPhase.npg_add_points_to_player(game, next((p for p in game.players if p.pid == data.get("player_id")), None), data.get("points",game.NPG_q_value), data.get("is_manual", False))   
+                    if not game.NPG_Finished:
+                        npgPhase.next_question(game)
                     await wsd.sendUpdateGameState(game)
             else:
                 log.warning(f"Commande inconnue : {typeCmd}")

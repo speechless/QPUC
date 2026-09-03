@@ -122,54 +122,59 @@
 
     // -------------------------
 
-    function send_close_setup() {
+    function send_close_phase() {
+        var command = {type: "end_phase"};
         var error = false;
         var errorMessage = "";
 
-        const players = Alpine.store('app').players
-            .map(p => ({ name: p.name.trim(), buzzer_id: p.buzzer_id }))
-            .filter(p => p.name || p.buzzer_id);
-            console.log("players", players);
-
-        const themes = Alpine.store('app').themes.map((theme, index) => ({
-            index,
-            theme: theme.trim()
-        }));
-        /*
-        if(players.length != 4){
-            errorMessage += "Il doit y avoir 4 joueurs afin de commencer la partie.\n";
-            error = true;
-        }
-
-        for (const player of Alpine.store('app').players) {
-            console.log("player", player);
-            if (player.name.trim() === "" || player.buzzer_id.trim() === "" ) {
-                errorMessage += "Tous les joueurs doivent avoir un nom et un buzzer sélectionné.\n";
+        if(Alpine.store('app').game.phase === PHASE_SETUP){
+            /*
+            if(players.length != 4){
+                errorMessage += "Il doit y avoir 4 joueurs afin de commencer la partie.\n";
                 error = true;
             }
-            break;
-        }
 
-        for (const theme of themes) {
-            if (!theme.theme || theme.theme.trim() === "") {
-                errorMessage += "Tous les thèmes doivent être remplis.\n";
-                error = true;
+            for (const player of Alpine.store('app').players) {
+                console.log("player", player);
+                if (player.name.trim() === "" || player.buzzer_id.trim() === "" ) {
+                    errorMessage += "Tous les joueurs doivent avoir un nom et un buzzer sélectionné.\n";
+                    error = true;
+                }
+                break;
             }
-            break;
+
+            for (const theme of themes) {
+                if (!theme.theme || theme.theme.trim() === "") {
+                    errorMessage += "Tous les thèmes doivent être remplis.\n";
+                    error = true;
+                }
+                break;
+            }
+            }
+
+            if (error) { 
+                alert(errorMessage);
+                console.error(`send_close_phase error: phase : ${Alpine.store('app').game.phase}. ${errorMessage}`);
+                return;
+            }
+            */    
+            const players = Alpine.store('app').players
+                .map(p => ({ name: p.name.trim(), buzzer_id: p.buzzer_id }))
+                .filter(p => p.name || p.buzzer_id);
+                console.log("players", players);
+
+            const themes = Alpine.store('app').themes.map((theme, index) => ({
+                index,
+                theme: theme.trim()
+            }));
+            
+            command = {
+                type: "end_phase",
+                players,
+                themes
+            };
         }
-
-        if (error) { 
-            alert(errorMessage);
-            console.error("send_close_setup error:", errorMessage);
-            return;
-        }*/
-
-        const command = {
-            type: "end_phase",
-            players,
-            themes
-        };
-
+        
         console.log("setNewPhase", command);
         send_ws(command);
     }
@@ -236,7 +241,7 @@
         if (!player) return;
 
         const command = {
-            type: 'modify_player_points',
+            type: 'npg_modify_player_points',
             player_id: player.pid
         };
 

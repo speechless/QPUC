@@ -3,13 +3,18 @@
     <h2>NPG</h2>
 
     <div class="playersList" x-data>
+
+        <span x-show="$store.app.game.NPG_Finished">✅ Manche terminée
+            <button class="" @click="send_close_phase()">Passer à la phase suivante</button>
+        </span>
+
         <template x-for="player in $store.app.game.players" :key="player.pid">
             <div class="playerCard">
                 <h3 x-text="player.name"></h3>
                 <p x-text="`Score: ${player.scoreNPG}`"></p>
                 <span x-show="player.isQualifiedNPG">✅ Qualifié</span>
                 <span x-show="player.buzzer_isConnected">📶 Connecté</span>
-                <span x-show="player.buzzer_isActivated">🔘 Peut répondre</span>
+                <span x-show="player.buzzer_isActivated && !player.buzzer_isTalking && !player.isQualifiedNPG">🔘 Peut répondre</span>
                 <span x-show="player.buzzer_isTalking">🎤 A la main</span>
                 
                 

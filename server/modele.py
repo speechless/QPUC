@@ -98,7 +98,7 @@ class GameState:
         self.NPG_mode      = "auto"
         self.NPG_q_value        = 1
         self.NPG_q_count        = 0
-        self.NPG_round_active   = False
+        self.NPG_Finished   = False
         self.NPG_buzzed_wrong   = []
         self.NPG_qualified_pids   = []    # pids des joueurs qualifiés pour la manche suivante
         self.NPG_qualified_count = 0
@@ -152,7 +152,7 @@ class GameState:
             "NPG_mode": self.NPG_mode,
             "NPG_q_value": self.NPG_q_value,
             "NPG_q_count": self.NPG_q_count,
-            "NPG_round_active": self.NPG_round_active,
+            "NPG_Finished": self.NPG_Finished,
             "NPG_buzzed_wrong": self.NPG_buzzed_wrong,
             "NPG_qualified_pids": self.NPG_qualified_pids,
             "NPG_qualified_count": self.NPG_qualified_count,

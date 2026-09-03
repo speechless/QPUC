@@ -53,11 +53,11 @@
 
         <div>
             <h3>Commencer la partie</h3>
-            <button class="endSetupButton" onclick="send_close_setup()">Commencer</button>
+            <button class="endSetupButton" @click="send_close_phase()">Commencer</button>
         </div>
 
         <div>
-            <button class="endSetupButton" onclick="send_esp_list_rq()">Get list esp</button>
+            <button class="endSetupButton" @click="send_esp_list_rq()">Get list esp</button>
         </div>
 
     </div>
