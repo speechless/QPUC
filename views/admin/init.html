@@ -1,0 +1,64 @@
+<div class="INIT" id="initView">
+    <h2>Init</h2>
+    <div class="step1_INIT">
+
+        <div class="playersInitPanel" x-data>
+            <p>Nombre de joueurs : <span x-text="$store.app.players.length"></span></p>
+
+            <template x-for="(player, index) in $store.app.players" :key="index">
+                <div class="playerInitTemplate">
+                    <span>
+                        <h4 class="playerInitTemplate_name" x-text="`Joueur ${index + 1}`"></h4>
+                        <input class="playerInitTemplate_nameInput"
+                               type="text"
+                               :placeholder="`Nom du joueur ${index + 1}`"
+                               x-model="player.name">
+                    </span>
+
+                    <span>
+                        <select class="playerInitTemplate_buzzerSelect" x-model="player.buzzer_id">
+                            <option value="">Choix du buzzer</option>
+                            <template x-for="buzzer in $store.app.buzzers.filter(b =>
+                                        b.bid === player.buzzer_id ||
+                                        !$store.app.players.some(p => p.buzzer_id === b.bid)
+                                     )" :key="buzzer.bid">
+                                <option :value="buzzer.bid" x-text="buzzer.name"></option>
+                            </template>
+                        </select>
+                    </span>
+
+                    <span x-show="$store.app.players.length > 1">
+                        <button @click="$store.app.players.splice(index, 1)">Retirer ce joueur</button>
+                    </span>
+                </div>
+            </template>
+
+            <div x-show="$store.app.players.length < 4">
+                <button @click="$store.app.players.push({ name: '', buzzer_id: '' })">Ajouter un joueur</button>
+            </div>
+        </div>
+
+
+        <span class="step2_INIT" x-data>
+            <h3>Choix des thèmes du 4 à la suite</h3>
+            <div>
+                <template x-for="(theme, index) in $store.app.themes" :key="index">
+                    <div>
+                        <p x-text="index === 3 ? 'Thème mystère' : `Thème ${index + 1}`"></p>
+                        <input type="text" :placeholder="`Thème ${index + 1}`" x-model="$store.app.themes[index]">
+                    </div>
+                </template>
+            </div>
+        </span>
+
+        <div>
+            <h3>Commencer la partie</h3>
+            <button class="endInitButton" onclick="send_close_init()">Commencer</button>
+        </div>
+
+        <div>
+            <button class="endInitButton" onclick="send_esp_list_rq()">Get list esp</button>
+        </div>
+
+    </div>
+</div>

@@ -8,78 +8,18 @@
 </head>
 
 <body>
+
 <h1>Admin</h1>
+<div id="app-view"></div>
 
-<div class="INIT" id="initView" style="display: none;">
-    <h2>Init</h2>
-    <div class="step1_INIT">
-
-        <div class="playersInitPanel" x-data>
-            <p>Nombre de joueurs : <span x-text="$store.app.players.length"></span></p>
-
-            <template x-for="(player, index) in $store.app.players" :key="index">
-                <div class="playerInitTemplate">
-                    <span>
-                        <h4 class="playerInitTemplate_name" x-text="`Joueur ${index + 1}`"></h4>
-                        <input class="playerInitTemplate_nameInput"
-                               type="text"
-                               :placeholder="`Nom du joueur ${index + 1}`"
-                               x-model="player.name">
-                    </span>
-
-                    <span>
-                        <select class="playerInitTemplate_buzzerSelect" x-model="player.buzzer_id">
-                            <option value="">Choix du buzzer</option>
-                            <template x-for="buzzer in $store.app.buzzers.filter(b =>
-                                        b.bid === player.buzzer_id ||
-                                        !$store.app.players.some(p => p.buzzer_id === b.bid)
-                                     )" :key="buzzer.bid">
-                                <option :value="buzzer.bid" x-text="buzzer.name"></option>
-                            </template>
-                        </select>
-                    </span>
-
-                    <span x-show="$store.app.players.length > 1">
-                        <button @click="$store.app.players.splice(index, 1)">Retirer ce joueur</button>
-                    </span>
-                </div>
-            </template>
-
-            <div x-show="$store.app.players.length < 4">
-                <button @click="$store.app.players.push({ name: '', buzzer_id: '' })">Ajouter un joueur</button>
-            </div>
-        </div>
-
-
-        <span class="step2_INIT" x-data>
-            <h3>Choix des thèmes du 4 à la suite</h3>
-            <div>
-                <template x-for="(theme, index) in $store.app.themes" :key="index">
-                    <div>
-                        <p x-text="index === 3 ? 'Thème mystère' : `Thème ${index + 1}`"></p>
-                        <input type="text" :placeholder="`Thème ${index + 1}`" x-model="$store.app.themes[index]">
-                    </div>
-                </template>
-            </div>
-        </span>
-
-        <div>
-            <h3>Commencer la partie</h3>
-            <button class="endInitButton" onclick="send_close_init()">Commencer</button>
-        </div>
-
-        <div>
-            <button class="endInitButton" onclick="send_esp_list_rq()">Get list esp</button>
-        </div>
-
-    </div>
-</div>
+</body>
+</html>
 
 <script>
     document.addEventListener('alpine:init', () => {
         Alpine.store('app', {
             game: null,
-            buzzers: [],  // liste des buzzers dispo, ex: [{id: "buzzer2", name: "Buzzer X"}, ...]
+            buzzers: [],
             players: [
                 { name: '', buzzer_id: '' },
                 { name: '', buzzer_id: '' },
@@ -90,6 +30,8 @@
         });
     });
 
+    // -------------------------
+
     const CLIENT_ID_KEY = 'qpuc_admin_client_id';
     let clientId = localStorage.getItem(CLIENT_ID_KEY);
     let ws = null;
@@ -99,6 +41,18 @@
     const PHASE_QALS = "4 à la suite"
     const PHASE_TIEBREAK = "Tiebreak"
     const PHASE_FAF = "Face à face"
+
+    const VIEW_PATH = "views/admin/";
+
+    const VIEW_FILES = {
+        [PHASE_SETUP]:    VIEW_PATH + 'init.html',
+        [PHASE_NPG]:      VIEW_PATH + 'npg.html',
+        [PHASE_QALS]:     VIEW_PATH + 'qals.html',
+        [PHASE_FAF]:      VIEW_PATH + 'faf.html',
+        [PHASE_TIEBREAK]: VIEW_PATH + 'tiebreak.html',
+    };
+
+    // -------------------------
 
     function send_ws(obj) {
         if (ws && ws.readyState === 1) {
@@ -136,14 +90,34 @@
 
     connect();
 
+    // -------------------------
+
+    let currentPhase = null;
+    const container = document.getElementById('app-view');
+
+    async function loadView(phase) {
+        if (phase === currentPhase) return;   // évite de recharger la même vue
+        currentPhase = phase;
+
+        const file = VIEW_FILES[phase];
+        if (!file) return;
+
+        const html = await (await fetch(file)).text();
+
+        Alpine.destroyTree(container);   // détruit les watchers/listeners de l'ancienne vue
+        container.innerHTML = html;
+        Alpine.initTree(container);      // active Alpine sur le nouveau contenu injecté
+    }
+
     function render() {
         const G = Alpine.store('app').game;
         if (!G) return;
 
-        const initView = document.getElementById('initView');
-        if (initView) {
-            initView.style.display = (G.phase === PHASE_SETUP) ? 'block' : 'none';
-        }
+        loadView(G.phase);
+        // const initView = document.getElementById('initView');
+        // if (initView) {
+        //     initView.style.display = (G.phase === PHASE_SETUP) ? 'block' : 'none';
+        // }
 
         // if (G.phase === 'PHASE_NPG')     render9pts();
         // if (G.phase === 'PHASE_QALS')   render4suite();
@@ -151,6 +125,8 @@
         // if (G.phase === 'PHASE_TIEBREAK')  renderEq();
         // if (G.phase === 'PHASE_FIN')      renderFin();
     }
+
+    // -------------------------
 
     function send_close_init() {
         var error = false;
