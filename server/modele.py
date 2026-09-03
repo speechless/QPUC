@@ -9,6 +9,8 @@ PHASE_QALS = "4 à la suite"
 PHASE_TIEBREAK = "Tiebreak"
 PHASE_FAF = "Face à face"
 
+PHASES = [PHASE_SETUP, PHASE_NPG, PHASE_QALS, PHASE_TIEBREAK, PHASE_FAF]
+
 
 # Zones du face à face : 4 pts dans la première zone, puis 3, 2, 1
 FAF_ZONES = [4, 3, 2, 1]      # points par zone

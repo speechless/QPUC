@@ -159,8 +159,7 @@
         }*/
 
         const command = {
-            type: "end_init",
-            isAdmin: true,
+            type: "end_phase",
             players,
             themes
         };
@@ -172,7 +171,6 @@
     function send_esp_list_rq() {
         const command = {
             type: 'esp_list_rq',
-            isAdmin: true,
             client_session_id: clientId
         };
 

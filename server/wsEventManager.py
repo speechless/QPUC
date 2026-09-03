@@ -12,10 +12,9 @@ async def web_handler(ws):
             except:
                 continue
 
-            if data.get("isAdmin") == True:
-                await handle_admin_cmd(data)
+            typeCmd = data.get("type")
 
-            elif data.get("type") == "hello":
+            if typeCmd == "hello":
                 client_session_id = data.get("client_session_id")
 
                 if client_session_id in web_sessions:
@@ -25,8 +24,48 @@ async def web_handler(ws):
                     web_sessions[client_session_id] = new_web_session
 
                 await wsd.sendUpdateGameState(game)
-            # elif ... :
-    
+
+            elif typeCmd == "end_phase":
+                if game.phase == modele.PHASE_INIT:
+                    for index, playerData in enumerate(data.get("players", [])):
+                        if not isinstance(playerData, dict):
+                            continue
+        
+                        name = str(playerData.get("name", "") or f"Joueur {index + 1}").strip()
+                        buzzer_id = str(playerData.get("buzzer_id", "") or "").strip()
+                        esp_s = next((b for b in buzzer_sessions if b.bid == buzzer_id), None)
+                        if esp_s != None:
+                            initPhase.add_player_game(game, name, esp_s)
+                            log.info(f"Joueur ajouté : {name} (buzzer_id: {buzzer_id})")
+                        else:
+                            log.warning(f"ESP non trouvé pour le buzzer_id : {buzzer_id}")
+        
+                    for themeData in data.get("themes", []):
+                        if not isinstance(themeData, dict):
+                            continue
+        
+                        theme = str(themeData.get("theme", "") or "").strip()
+                        index = themeData.get("index")
+                        if index is None:
+                            continue
+                        initPhase.add_theme_game(game, theme, int(index))
+        
+                    game.phase = modele.PHASE_NPG
+                    log.info(game.to_dict())
+                    await wsd.sendUpdateGameState(game)
+        
+                    log.info("🎮 Nouvelle partie démarrée")
+        
+            elif typeCmd == "esp_list_rq":
+                await wsd.send_web({
+                    "type": "esp_list_rs",
+                    "buzzer_sessions": [s.to_dict() for s in buzzer_sessions]
+                })
+
+            
+            else:
+                log.warning(f"Commande inconnue : {typeCmd}")
+
     except websockets.exceptions.ConnectionClosed:
         pass
     finally:
@@ -65,47 +104,3 @@ async def esp_handler(ws):
                 esp_s.ws_session = None
                 log.info(f"ESP déconnecté : {esp_s.bid}")
         await wsd.sendUpdateGameState(game)
-
-
-
-async def handle_admin_cmd(data: dict):
-    typeCmd = data.get("type")
-    if typeCmd == "end_init":
-
-        for index, playerData in enumerate(data.get("players", [])):
-            if not isinstance(playerData, dict):
-                continue
-
-            name = str(playerData.get("name", "") or f"Joueur {index + 1}").strip()
-            buzzer_id = str(playerData.get("buzzer_id", "") or "").strip()
-            esp_s = next((b for b in buzzer_sessions if b.bid == buzzer_id), None)
-            if esp_s != None:
-                initPhase.add_player_game(game, name, esp_s)
-                log.info(f"Joueur ajouté : {name} (buzzer_id: {buzzer_id})")
-            else:
-                log.warning(f"ESP non trouvé pour le buzzer_id : {buzzer_id}")
-
-        for themeData in data.get("themes", []):
-            if not isinstance(themeData, dict):
-                continue
-
-            theme = str(themeData.get("theme", "") or "").strip()
-            index = themeData.get("index")
-            if index is None:
-                continue
-            initPhase.add_theme_game(game, theme, int(index))
-
-        game.phase = modele.PHASE_NPG
-        log.info(game.to_dict())
-        await wsd.sendUpdateGameState(game)
-
-        log.info("🎮 Nouvelle partie démarrée")
-
-    elif typeCmd == "esp_list_rq":
-        await wsd.send_web({
-            "type": "esp_list_rs",
-            "buzzer_sessions": [s.to_dict() for s in buzzer_sessions]
-        })
-    
-    else:
-        log.warning(f"Commande inconnue : {typeCmd}")
