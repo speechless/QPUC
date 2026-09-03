@@ -1,7 +1,7 @@
 import json, websockets
 from main import game, buzzer_sessions, web_sessions, log
 from server import modele, wsDiffusion as wsd
-from server.phases import initPhase
+from server.phases import initPhase, npgPhase
 
 async def web_handler(ws):
     client_session_id = None
@@ -38,8 +38,10 @@ async def web_handler(ws):
                             initPhase.add_player_game(game, name, esp_s)
                             log.info(f"Joueur ajouté : {name} (buzzer_id: {buzzer_id})")
                         else:
+                            initPhase.add_player_game(game, name, modele.Buzzer("NON-BUZZER_"+name, "NON-BUZZER_"+name, "", None))
                             log.warning(f"ESP non trouvé pour le buzzer_id : {buzzer_id}")
-        
+
+                    npgPhase.update_deactivated_players(game)
                     for themeData in data.get("themes", []):
                         if not isinstance(themeData, dict):
                             continue
@@ -52,9 +54,9 @@ async def web_handler(ws):
         
                     game.phase = modele.PHASE_NPG
                     log.info(game.to_dict())
-                    await wsd.sendUpdateGameState(game)
-        
                     log.info("🎮 Nouvelle partie démarrée")
+                    await wsd.sendUpdateGameState(game)
+
         
             elif typeCmd == "esp_list_rq":
                 await wsd.send_web({
@@ -62,9 +64,79 @@ async def web_handler(ws):
                     "buzzer_sessions": [s.to_dict() for s in buzzer_sessions]
                 })
 
-            
+            elif typeCmd == "activate_buzzers":
+                buzzers = data.get("buzzers", [])
+                for buzzer_id in buzzers:
+                    esp_s = next((b for b in buzzer_sessions if b.bid == buzzer_id), None)
+                    if esp_s:
+                        esp_s.isActivated = True
+                        log.info(f"Buzzer activé : {esp_s.bid}")
+                npgPhase.update_deactivated_players(game)
+                await wsd.sendUpdateGameState(game)
+
+            elif typeCmd == "deactivate_buzzers":
+                buzzers = data.get("buzzers", [])
+                for buzzer_id in buzzers:
+                    esp_s = next((b for b in buzzer_sessions if b.bid == buzzer_id), None)
+                    if esp_s:
+                        esp_s.isActivated = False
+                        esp_s.isTalking = False
+                        log.info(f"Buzzer désactivé : {esp_s.bid}")
+                npgPhase.update_deactivated_players(game)
+                await wsd.sendUpdateGameState(game)
+
+
+            elif typeCmd == "buzzer_ask_to_talk":
+                buzzer_id = data.get("buzzer_id")
+
+                own_player = next((p for p in game.players if p.buzzer and p.buzzer.bid == buzzer_id), None)
+                blocking_player = next((p for p in game.players if p.buzzer and p.buzzer.bid != buzzer_id and p.buzzer.isTalking),None)
+
+                if own_player and own_player.buzzer.isTalking:
+                    log.info(f"{buzzer_id} a déjà la main")
+
+                elif own_player and not own_player.buzzer.isActivated:
+                    log.info(f"{buzzer_id} ne peut pas prendre la main car il est désactivé")
+
+                elif blocking_player:
+                    log.info(f"{buzzer_id} ne peut pas prendre la main car {blocking_player.buzzer.name} parle")
+
+                else:
+                    esp_s = next((b for b in buzzer_sessions if b.bid == buzzer_id), None)
+                    if esp_s:
+                        esp_s.isTalking = True
+                        log.info(f"Buzzer prend la main : {esp_s.bid}")
+
+                await wsd.sendUpdateGameState(game)
+
+            elif typeCmd == "toggle_question_mode":
+                npgPhase.toggle_question_mode(game)
+                log.info(f"Mode de question changé : {game.NPG_mode}")
+                await wsd.sendUpdateGameState(game)
+
+            elif typeCmd == "points_next_q_manuel":
+                npgPhase.points_next_q_manuel(game)
+                await wsd.sendUpdateGameState(game)
+
+            elif typeCmd == "correct_answer":
+                for player in game.players:
+                    if player.pid == data.get("player_id"):
+                        log.info(f"Réponse correcte : {player.name} (score: {player.scoreNPG} -> {min(player.scoreNPG+game.NPG_q_value, 9)})")
+                        player.scoreNPG = min(player.scoreNPG+game.NPG_q_value, 9) #max 9 points
+                        if player.scoreNPG >= 9:
+                            player.isQualifiedNPG = True
+                            player.isActivated = False
+                            log.info(f"Joueur qualifié : {player.name} (score: {player.scoreNPG})")
+                            game.NPG_qualified_pids.append(player.pid)
+                            game.NPG_qualified_count += 1
+                npgPhase.next_question(game)
+                await wsd.sendUpdateGameState(game)
+                pass
+
             else:
                 log.warning(f"Commande inconnue : {typeCmd}")
+
+        
 
     except websockets.exceptions.ConnectionClosed:
         pass
@@ -88,9 +160,11 @@ async def esp_handler(ws):
                 esp_s = next((b for b in buzzer_sessions if b.esp_session_id == esp_session_id), None)
                 if esp_s != None:
                     esp_s.ws_session = ws
+                    esp_s.isConnected = True
                     log.info(f"ESP connecté : {esp_s.name, esp_s.bid}")
                 else:
                     new_esp_session = modele.Buzzer(data.get("bid"),data.get("name"),esp_session_id, ws)
+                    new_esp_session.isConnected = True
                     buzzer_sessions.add(new_esp_session)
                     log.info(f"ESP connecté : {new_esp_session.name, new_esp_session.bid}")
                 await wsd.sendUpdateGameState(game)
@@ -102,5 +176,6 @@ async def esp_handler(ws):
             esp_s = next((b for b in buzzer_sessions if b.esp_session_id == esp_session_id), None)
             if esp_s:
                 esp_s.ws_session = None
+                esp_s.isConnected = False
                 log.info(f"ESP déconnecté : {esp_s.bid}")
         await wsd.sendUpdateGameState(game)

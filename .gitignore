@@ -6,3 +6,4 @@ server/__pycache__/modele.cpython-312.pyc
 server/__pycache__/wsDiffusion.cpython-312.pyc
 server/__pycache__/wsEventManager.cpython-312.pyc
 server/phases/__pycache__/initPhase.cpython-312.pyc
+/server/phases/__pycache__

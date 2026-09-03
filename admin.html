@@ -73,6 +73,12 @@
 
             if (d.type === 'state' && d.game && d.game.phase) {
                 Alpine.store('app').game = d.game;
+                Alpine.store('app').players = [
+                    { name: '', buzzer_id: '' },
+                    { name: '', buzzer_id: '' },
+                    { name: '', buzzer_id: '' },
+                    { name: '', buzzer_id: '' },
+                ]
                 for(const player of d.game.players) {
                     if(!Alpine.store('app').players.some(p => p.name === player.name && p.buzzer_id === player.buzzer_id)) {
                         Alpine.store('app').players.push({ name: player.name, buzzer_id: player.buzzer_id });
@@ -176,5 +182,66 @@
 
         send_ws(command);
     }
+
+    function activate_buzzers(players) {
+        if (!players || players.length === 0) return;
+
+        const command = {
+            type: 'activate_buzzers',
+            buzzers: players.map(p => p.buzzer_id)
+        };
+
+        send_ws(command);
+    }
+
+    function deactivate_buzzers(players) {
+        if (!players || players.length === 0) return;
+
+        const command = {
+            type: 'deactivate_buzzers',
+            buzzers: players.map(p => p.buzzer_id)
+        };
+
+        send_ws(command);
+    }
+
+    function buzzer_ask_to_talk(player) {
+        if (!player) return;
+
+        const command = {
+            type: 'buzzer_ask_to_talk',
+            buzzer_id: player.buzzer_id
+        };
+
+        send_ws(command);
+    }
+
+    function toggle_question_mode(){
+        const command = {
+            type: 'toggle_question_mode'
+        };
+
+        send_ws(command);
+    }
+
+    function points_next_q_manuel(){
+        const command = {
+            type: 'points_next_q_manuel'
+        };
+
+        send_ws(command);
+    }
+
+    function correct_answer(player) {
+        if (!player) return;
+
+        const command = {
+            type: 'correct_answer',
+            player_id: player.pid
+        };
+
+        send_ws(command);
+    }
+
 </script>
 </html>

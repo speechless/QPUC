@@ -1,3 +1,54 @@
+<!-- ADMIN -->
 <div class="NPG" id="npgview">
     <h2>NPG</h2>
+
+    <!-- 
+    
+    
+    -->
+    <div class="playersList" x-data>
+        <template x-for="player in $store.app.game.players" :key="player.pid">
+            <div class="playerCard">
+                <h3 x-text="player.name"></h3>
+                <p x-text="`Score: ${player.scoreNPG}`"></p>
+                <span x-show="player.isQualifiedNPG">✅ Qualifié</span>
+                <span x-show="player.buzzer_isConnected">📶 Connecté</span>
+                <span x-show="player.buzzer_isActivated">🔘 Peut répondre</span>
+                <span x-show="player.buzzer_isTalking">🎤 A la main</span>
+                
+                
+                <button class="" @click="activate_buzzers([player])">Activer</button>
+                <button class="" @click="deactivate_buzzers([player])">Désactiver</button>
+
+                <div x-show="player.buzzer_isActivated && !player.buzzer_isTalking && !player.isQualifiedNPG">
+                    <button class="" @click="buzzer_ask_to_talk(player)">Demander la main</button>
+                </div>
+                
+                <br>
+                <div x-show="player.buzzer_isTalking">
+                    <button class="" @click="correct_answer(player)">Bonne réponse</button>
+                    <button class="" @click="deactivate_buzzers([player])">Mauvaise réponse</button>
+                </div>
+
+            </div>
+        </template>
+
+        <div x-data>
+            <h3 x-text="`Points de la question : ${$store.app.game.NPG_q_value}`"></h3>
+            <h3 x-text="`Mode de questions : ${$store.app.game.NPG_mode}`"></h3>
+            <h3 x-text="`Nombre de qualifiés : ${$store.app.game.NPG_qualified_count}`"></h3>
+
+            <template x-for="player_pid in $store.app.game.NPG_qualified_pids" :key="player_pid">
+                <p x-text="`Joueur qualifié : ${$store.app.game.players.find(p => p.pid === player_pid)?.name || 'Inconnu'}`"></p>
+            </template>
+
+            <template x-for="player_pid in $store.app.game.NPG_buzzed_wrong" :key="player_pid">
+                <p x-text="`Joueur désactivé : ${$store.app.game.players.find(p => p.pid === player_pid)?.name || 'Inconnu'}`"></p>
+            </template>
+
+
+            <button class="" @click="toggle_question_mode()">Changer de mode</button>
+        </div> 
+    
+    </div>
 </div>
