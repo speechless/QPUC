@@ -4,18 +4,114 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>QPUC — Affichage</title>
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+<body>
 
 <h1>Display</h1>
+<div id="app-view"></div>
 
-<div class="INIT">
-    <h2>Init</h2>
-    <p>
-        Jeu Question pour un Champion
-        <br>
-        Préparation de la partie
-    </p>
-</div>
+</body>
 
-</head>
+
+<script>
+    document.addEventListener('alpine:init', () => {
+        Alpine.store('app', {
+            game: null,
+            buzzers: [],
+            players: [
+                { name: '', buzzer_id: '' },
+                { name: '', buzzer_id: '' },
+                { name: '', buzzer_id: '' },
+                { name: '', buzzer_id: '' },
+            ],
+            themes: ['', '', '', ''],
+        });
+    });
+
+    // -------------------------
+
+    const CLIENT_ID_KEY = 'qpuc_display_client_id';
+    let clientId = localStorage.getItem(CLIENT_ID_KEY);
+    let ws = null;
+
+    const PHASE_SETUP = "Setup"
+    const PHASE_NPG = "9 point gagnants"
+    const PHASE_QALS = "4 à la suite"
+    const PHASE_TIEBREAK = "Tiebreak"
+    const PHASE_FAF = "Face à face"
+
+    const VIEW_PATH = "views/display/";
+
+    const VIEW_FILES = {
+        [PHASE_SETUP]:    VIEW_PATH + 'init.html',
+        [PHASE_NPG]:      VIEW_PATH + 'npg.html',
+        [PHASE_QALS]:     VIEW_PATH + 'qals.html',
+        [PHASE_FAF]:      VIEW_PATH + 'faf.html',
+        [PHASE_TIEBREAK]: VIEW_PATH + 'tiebreak.html',
+    };
+
+    // -------------------------
+
+    function send_ws(obj) {
+        if (ws && ws.readyState === 1) {
+            ws.send(JSON.stringify(obj));
+        }
+    }
+
+    function connect() {
+        ws = new WebSocket(`ws://${location.hostname}:8765/web`);
+        ws.onopen = () => {
+            localStorage.setItem(CLIENT_ID_KEY, clientId);
+            send_ws({ type: 'hello', client_session_id: clientId });
+        };
+        ws.onclose = () => setTimeout(connect, 3000);
+        ws.onmessage = e => {
+            console.log('ws.onmessage', e.data);
+            const d = JSON.parse(e.data);
+
+            if (d.type === 'state' && d.game && d.game.phase) {
+                Alpine.store('app').game = d.game;
+                for(const player of d.game.players) {
+                    if(!Alpine.store('app').players.some(p => p.name === player.name && p.buzzer_id === player.buzzer_id)) {
+                        Alpine.store('app').players.push({ name: player.name, buzzer_id: player.buzzer_id });
+                    }
+                }
+                render();
+            }
+            else if (d.type === "esp_list_rs") {
+                console.log("ESP list received:", d.buzzer_sessions);
+                Alpine.store('app').buzzers = d.buzzer_sessions || [];
+            }
+        };
+    }
+
+    connect();
+
+    // -------------------------
+
+    let currentPhase = null;
+    const container = document.getElementById('app-view');
+
+    async function loadView(phase) {
+        if (phase === currentPhase) return;   // évite de recharger la même vue
+        currentPhase = phase;
+
+        const file = VIEW_FILES[phase];
+        if (!file) return;
+
+        const html = await (await fetch(file)).text();
+
+        Alpine.destroyTree(container);   // détruit les watchers/listeners de l'ancienne vue
+        container.innerHTML = html;
+        Alpine.initTree(container);      // active Alpine sur le nouveau contenu injecté
+    }
+
+    function render() {
+        const G = Alpine.store('app').game;
+        if (!G) return;
+
+        loadView(G.phase);
+    }
+</script>
 </html>
-

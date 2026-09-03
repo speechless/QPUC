@@ -71,7 +71,6 @@ async def esp_handler(ws):
 async def handle_admin_cmd(data: dict):
     typeCmd = data.get("type")
     if typeCmd == "end_init":
-        #game = modele.GameState()
 
         for index, playerData in enumerate(data.get("players", [])):
             if not isinstance(playerData, dict):
@@ -96,7 +95,7 @@ async def handle_admin_cmd(data: dict):
                 continue
             initPhase.add_theme_game(game, theme, int(index))
 
-        game.phase = "PHASE_NPG"
+        game.phase = modele.PHASE_NPG
         log.info(game.to_dict())
         await wsd.sendUpdateGameState(game)
 

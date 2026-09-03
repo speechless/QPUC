@@ -13,7 +13,6 @@
 <div id="app-view"></div>
 
 </body>
-</html>
 
 <script>
     document.addEventListener('alpine:init', () => {
@@ -112,18 +111,7 @@
     function render() {
         const G = Alpine.store('app').game;
         if (!G) return;
-
         loadView(G.phase);
-        // const initView = document.getElementById('initView');
-        // if (initView) {
-        //     initView.style.display = (G.phase === PHASE_SETUP) ? 'block' : 'none';
-        // }
-
-        // if (G.phase === 'PHASE_NPG')     render9pts();
-        // if (G.phase === 'PHASE_QALS')   render4suite();
-        // if (G.phase === 'PHASE_FAF') renderFF();
-        // if (G.phase === 'PHASE_TIEBREAK')  renderEq();
-        // if (G.phase === 'PHASE_FIN')      renderFin();
     }
 
     // -------------------------
@@ -141,7 +129,7 @@
             index,
             theme: theme.trim()
         }));
-        
+        /*
         if(players.length != 4){
             errorMessage += "Il doit y avoir 4 joueurs afin de commencer la partie.\n";
             error = true;
@@ -168,7 +156,7 @@
             alert(errorMessage);
             console.error("send_close_init error:", errorMessage);
             return;
-        }
+        }*/
 
         const command = {
             type: "end_init",
@@ -191,5 +179,4 @@
         send_ws(command);
     }
 </script>
-</body>
 </html>
