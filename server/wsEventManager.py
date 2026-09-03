@@ -41,7 +41,7 @@ async def web_handler(ws):
                             initPhase.add_player_game(game, name, modele.Buzzer("NON-BUZZER_"+name, "NON-BUZZER_"+name, "", None))
                             log.warning(f"ESP non trouvé pour le buzzer_id : {buzzer_id}")
 
-                    npgPhase.update_deactivated_players(game)
+                    npgPhase.reset_players(game)
                     for themeData in data.get("themes", []):
                         if not isinstance(themeData, dict):
                             continue
@@ -133,6 +133,27 @@ async def web_handler(ws):
                 await wsd.sendUpdateGameState(game)
                 pass
 
+            elif typeCmd == "add_manual_points":
+                for player in game.players:
+                    if player.pid == data.get("player_id"):
+                        points = data.get("points", 0)
+                        new_score = max(0, min(player.scoreNPG + points, 9))  # Ensure score is between 0 and 9
+                        log.info(f"Points manuels : {player.name} (score: {player.scoreNPG} -> {new_score})")
+                        player.scoreNPG = new_score
+                        if player.scoreNPG >= 9:
+                            player.isQualifiedNPG = True
+                            player.isActivated = False
+                            log.info(f"Joueur qualifié : {player.name} (score: {player.scoreNPG})")
+                            if player.pid not in game.NPG_qualified_pids:
+                                game.NPG_qualified_pids.append(player.pid)
+                                game.NPG_qualified_count += 1
+                        else:
+                            if player.pid in game.NPG_qualified_pids:
+                                game.NPG_qualified_pids.remove(player.pid)
+                                player.isQualifiedNPG = False
+                                game.NPG_qualified_count -= 1
+                                log.info(f"Joueur disqualifié : {player.name} (score: {player.scoreNPG})")
+                await wsd.sendUpdateGameState(game)
             else:
                 log.warning(f"Commande inconnue : {typeCmd}")
 

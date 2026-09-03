@@ -2,10 +2,6 @@
 <div class="NPG" id="npgview">
     <h2>NPG</h2>
 
-    <!-- 
-    
-    
-    -->
     <div class="playersList" x-data>
         <template x-for="player in $store.app.game.players" :key="player.pid">
             <div class="playerCard">
@@ -28,6 +24,12 @@
                 <div x-show="player.buzzer_isTalking">
                     <button class="" @click="correct_answer(player)">Bonne réponse</button>
                     <button class="" @click="deactivate_buzzers([player])">Mauvaise réponse</button>
+                </div>
+                <br>
+                <div x-show="$store.app.game.NPG_mode === 'manual'" x-data="{ points: 1 }">
+                    <input type="number" x-model.number="points" min="1" max="9" />
+                    <button @click="add_manual_points(player, points)">Ajouter</button>
+                    <button @click="add_manual_points(player, -points)">Enlever</button>
                 </div>
 
             </div>

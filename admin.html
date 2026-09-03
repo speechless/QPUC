@@ -243,5 +243,16 @@
         send_ws(command);
     }
 
+    function add_manual_points(player, points) {
+        if (!player || !points) return;
+        const command = {
+            type: 'add_manual_points',
+            player_id: player.pid,
+            points: parseInt(points)
+        };
+
+        send_ws(command);
+    }
+
 </script>
 </html>

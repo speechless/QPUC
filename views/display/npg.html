@@ -8,4 +8,22 @@
     |A la main |
     |Ne peut plus prendre la main|
      -->
+
+
+     <div class="playersList" x-data>
+        <template x-for="player in $store.app.game.players" :key="player.pid">
+            <div class="playerCard">
+                <h3 x-text="player.name"></h3>
+                <p x-text="`Score: ${player.scoreNPG}`"></p>
+                <span x-show="player.isQualifiedNPG">✅ Qualifié<br></span>
+                <span x-show="player.buzzer_isConnected">📶 Buzzer connecté<br></span>
+                <span x-show="player.buzzer_isActivated && !player.buzzer_isTalking && !player.isQualifiedNPG">Peut répondre<br></span>
+                <span x-show="!player.buzzer_isActivated || player.isQualifiedNPG">Ne peut pas répondre<br></span>
+                <span x-show="player.buzzer_isTalking">🎤 A la main</span>
+            </div>
+        </template>
+        <br>
+        <h3 x-text="`Points de la question : ${$store.app.game.NPG_q_value}`"></h3>
+    </div>
+
 </div>
