@@ -232,24 +232,20 @@
         send_ws(command);
     }
 
-    function correct_answer(player) {
+    function modify_player_points(player, points) {
         if (!player) return;
 
         const command = {
-            type: 'correct_answer',
+            type: 'modify_player_points',
             player_id: player.pid
         };
 
-        send_ws(command);
-    }
-
-    function add_manual_points(player, points) {
-        if (!player || !points) return;
-        const command = {
-            type: 'add_manual_points',
-            player_id: player.pid,
-            points: parseInt(points)
-        };
+        // Si "points" est fourni, c'est un ajustement manuel
+        if (points !== undefined) {
+            if (!points) return; // garde le comportement de add_manual_points (0, NaN, undefined → annule)
+            command.points = parseInt(points);
+            command.is_manual = true;
+        }
 
         send_ws(command);
     }

@@ -118,42 +118,11 @@ async def web_handler(ws):
                 npgPhase.points_next_q_manuel(game)
                 await wsd.sendUpdateGameState(game)
 
-            elif typeCmd == "correct_answer":
-                for player in game.players:
-                    if player.pid == data.get("player_id"):
-                        log.info(f"Réponse correcte : {player.name} (score: {player.scoreNPG} -> {min(player.scoreNPG+game.NPG_q_value, 9)})")
-                        player.scoreNPG = min(player.scoreNPG+game.NPG_q_value, 9) #max 9 points
-                        if player.scoreNPG >= 9:
-                            player.isQualifiedNPG = True
-                            player.isActivated = False
-                            log.info(f"Joueur qualifié : {player.name} (score: {player.scoreNPG})")
-                            game.NPG_qualified_pids.append(player.pid)
-                            game.NPG_qualified_count += 1
-                npgPhase.next_question(game)
-                await wsd.sendUpdateGameState(game)
-                pass
-
-            elif typeCmd == "add_manual_points":
-                for player in game.players:
-                    if player.pid == data.get("player_id"):
-                        points = data.get("points", 0)
-                        new_score = max(0, min(player.scoreNPG + points, 9))  # Ensure score is between 0 and 9
-                        log.info(f"Points manuels : {player.name} (score: {player.scoreNPG} -> {new_score})")
-                        player.scoreNPG = new_score
-                        if player.scoreNPG >= 9:
-                            player.isQualifiedNPG = True
-                            player.isActivated = False
-                            log.info(f"Joueur qualifié : {player.name} (score: {player.scoreNPG})")
-                            if player.pid not in game.NPG_qualified_pids:
-                                game.NPG_qualified_pids.append(player.pid)
-                                game.NPG_qualified_count += 1
-                        else:
-                            if player.pid in game.NPG_qualified_pids:
-                                game.NPG_qualified_pids.remove(player.pid)
-                                player.isQualifiedNPG = False
-                                game.NPG_qualified_count -= 1
-                                log.info(f"Joueur disqualifié : {player.name} (score: {player.scoreNPG})")
-                await wsd.sendUpdateGameState(game)
+            elif typeCmd == "modify_player_points":
+                if data.get("player_id"):
+                    npgPhase.add_points_to_player(game, next((p for p in game.players if p.pid == data.get("player_id")), None), data.get("points",game.NPG_q_value), data.get("is_manual", False))   
+                    npgPhase.next_question(game)
+                    await wsd.sendUpdateGameState(game)
             else:
                 log.warning(f"Commande inconnue : {typeCmd}")
 
