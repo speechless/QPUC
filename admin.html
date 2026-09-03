@@ -44,7 +44,7 @@
     const VIEW_PATH = "views/admin/";
 
     const VIEW_FILES = {
-        [PHASE_SETUP]:    VIEW_PATH + 'init.html',
+        [PHASE_SETUP]:    VIEW_PATH + 'setup.html',
         [PHASE_NPG]:      VIEW_PATH + 'npg.html',
         [PHASE_QALS]:     VIEW_PATH + 'qals.html',
         [PHASE_FAF]:      VIEW_PATH + 'faf.html',
@@ -116,7 +116,7 @@
 
     // -------------------------
 
-    function send_close_init() {
+    function send_close_setup() {
         var error = false;
         var errorMessage = "";
 
@@ -154,7 +154,7 @@
 
         if (error) { 
             alert(errorMessage);
-            console.error("send_close_init error:", errorMessage);
+            console.error("send_close_setup error:", errorMessage);
             return;
         }*/
 

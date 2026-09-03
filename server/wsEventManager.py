@@ -26,7 +26,7 @@ async def web_handler(ws):
                 await wsd.sendUpdateGameState(game)
 
             elif typeCmd == "end_phase":
-                if game.phase == modele.PHASE_INIT:
+                if game.phase == modele.PHASE_SETUP:
                     for index, playerData in enumerate(data.get("players", [])):
                         if not isinstance(playerData, dict):
                             continue

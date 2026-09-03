@@ -1,22 +1,22 @@
-<div class="INIT" id="initView">
-    <h2>Init</h2>
-    <div class="step1_INIT">
+<div class="SETUP" id="setupView">
+    <h2>Setup</h2>
+    <div class="step1_SETUP">
 
-        <div class="playersInitPanel" x-data>
+        <div class="playersSetupPanel" x-data>
             <p>Nombre de joueurs : <span x-text="$store.app.players.length"></span></p>
 
             <template x-for="(player, index) in $store.app.players" :key="index">
-                <div class="playerInitTemplate">
+                <div class="playerSetupTemplate">
                     <span>
-                        <h4 class="playerInitTemplate_name" x-text="`Joueur ${index + 1}`"></h4>
-                        <input class="playerInitTemplate_nameInput"
+                        <h4 class="playerSetupTemplate_name" x-text="`Joueur ${index + 1}`"></h4>
+                        <input class="playerSetupTemplate_nameInput"
                                type="text"
                                :placeholder="`Nom du joueur ${index + 1}`"
                                x-model="player.name">
                     </span>
 
                     <span>
-                        <select class="playerInitTemplate_buzzerSelect" x-model="player.buzzer_id">
+                        <select class="playerSetupTemplate_buzzerSelect" x-model="player.buzzer_id">
                             <option value="">Choix du buzzer</option>
                             <template x-for="buzzer in $store.app.buzzers.filter(b =>
                                         b.bid === player.buzzer_id ||
@@ -39,7 +39,7 @@
         </div>
 
 
-        <span class="step2_INIT" x-data>
+        <span class="step2_SETUP" x-data>
             <h3>Choix des thèmes du 4 à la suite</h3>
             <div>
                 <template x-for="(theme, index) in $store.app.themes" :key="index">
@@ -53,11 +53,11 @@
 
         <div>
             <h3>Commencer la partie</h3>
-            <button class="endInitButton" onclick="send_close_init()">Commencer</button>
+            <button class="endSetupButton" onclick="send_close_setup()">Commencer</button>
         </div>
 
         <div>
-            <button class="endInitButton" onclick="send_esp_list_rq()">Get list esp</button>
+            <button class="endSetupButton" onclick="send_esp_list_rq()">Get list esp</button>
         </div>
 
     </div>
